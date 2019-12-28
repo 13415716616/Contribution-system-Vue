@@ -1,103 +1,32 @@
 <template>
   <div>
-    <a-form @submit="handleSubmit" :form="form">
-      <a-form-item label="标题" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
-        <a-input
-          v-decorator="['Manuscript_Title', { rules: [{ required: true, message: '请输入稿件标题' }] }]"
-          placeholder="在这里输入稿件标题"
-        />
-      </a-form-item>
+    <a-card class="card">
+      <div>
+        距离 ant-design-vue 发布差不多一年的时间了，具体什么时间我已经不记得了，也懒得去翻阅日志了，当然什么周年庆的事情就不存在了，继18年11月24日在 Vue Conf 亮相后，便很少在外界发声，一来是组件库很是稳定完善，没有大的改动，二来是团队成员包括我个人在运营这块的确不擅长，精力也很有限，我们把更多的时间用在研发组件上。
 
-      <a-form-item label="英文标题" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
-        <a-input
-          v-decorator="['Manuscript_Etitle', { rules: [{ required: true, message: '请输入稿件英文标题' }] }]"
-          placeholder="在这里输入稿件英文标题"
-        />
-      </a-form-item>
-
-      <a-form-item label="关键词" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
-        <a-input
-          v-decorator="['Manuscript_Keyword', { rules: [{ required: true, message: '请输入稿件关键词' }] }]"
-          placeholder="在这里输入稿件关键词"
-        />
-      </a-form-item>
-
-      <a-form-item label="摘要" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
-        <a-textarea
-          v-decorator="['Manuscript_Abstract', { rules: [{ required: true, message: '请输入稿件摘要' }] }]"
-          placeholder="在这里输入稿件摘要"
-          :autosize="{ minRows: 5, maxRows: 8 }"
-        />
-      </a-form-item>
-
-      <a-form-item label="参考文献" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
-        <a-textarea
-          v-decorator="['Manuscript_Reference', { rules: [{ required: true, message: '请输入参考文献' }] }]"
-          placeholder="在这里输入参考文献"
-          :autosize="{ minRows: 5, maxRows: 8 }"
-        />
-      </a-form-item>
-
-      <a-form-item label="正文" :label-col="{ span: 1 }">
-        <div id="editor" class="Feditor">
-        </div>
-      </a-form-item>
-
-      <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-        <a-button type="primary" html-type="submit">
-          Submit
-        </a-button>
-      </a-form-item>
-
-    </a-form>
+        不过这次我想有必要嘚瑟一下，不管是对我们，还是对我们的用户，都是一件值得庆祝的事情：ant-design-vue 正式成为蚂蚁金服 Ant Design 官方唯一推荐的 Vue 版 UI 组件库，为 ant-design-vue 的持续健康发展提供了强有力的平台基础和技术支持。
+      </div>
+    </a-card>
+    <a-steps :current="1" size="small" class="step">
+      <a-step title="查看协议" />
+      <a-step title="填写信息" />
+      <a-step title="上传资料" />
+      <a-step title="作者信息" />
+      <a-step title="完成" />
+    </a-steps>
   </div>
 </template>
 
-<script>
-import Editor from 'wangeditor'
-import { CreateManuscript } from '@/api/Contribute'
-
-export default {
-  data () {
-    return {
-      editor: '',
-      Manuscript: {
-        Manuscript_Title: '',
-        Manuscript_Etitle: '',
-        Manuscript_Keyword: '',
-        Manuscript_Abstract: '',
-        Manuscript_Reference: '',
-        Manuscript_Text: ''
-      },
-      form: this.$form.createForm(this)
-    }
-  },
-  mounted () {
-    this.editor = new Editor('#editor')
-    this.editor.create()
-  },
-  methods: {
-    handleSubmit (e) {
-      this.Manuscript = this.form
-      e.preventDefault()
-      this.Manuscript.validateFields((err, values) => {
-        if (!err) {
-          values.Manuscript_Text = this.editor.txt.html()
-          console.log('Received values of form: ', values)
-          CreateManuscript(values).then().catch()
-        }
-      })
-    }
-  }
-}
-</script>
 <style lang="less" scoped>
-  .Feditor{
-    margin-left: 4.3%;
-    margin-right: 6%;
+  .card{
+    margin-left: 20px;
+    height: 600px;
   }
-  .ParButton{
-    margin-left: 48%;
-    margin-top: 15px;
+  .step{
+    margin-right: 5%
+  }
+  .content{
+    width: 100px;
+    height: 500px;
   }
 </style>

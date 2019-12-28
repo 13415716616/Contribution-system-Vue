@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Ant Design Pro',
+      default: '在线投稿系统',
       required: false
     },
     showTitle: {
