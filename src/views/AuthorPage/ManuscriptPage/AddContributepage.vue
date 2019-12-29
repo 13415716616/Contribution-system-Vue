@@ -43,9 +43,9 @@
         </div>
       </a-form-item>
 
-      <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-        <a-button type="primary" html-type="submit">
-          Submit
+      <a-form-item :wrapper-col="{ span: 15, offset: 10 }">
+        <a-button type="primary" html-type="submit" >
+          下一步
         </a-button>
       </a-form-item>
 
@@ -58,6 +58,7 @@ import Editor from 'wangeditor'
 import { CreateManuscript } from '@/api/Contribute'
 
 export default {
+  name: 'AddContributepage',
   data () {
     return {
       editor: '',
@@ -84,7 +85,9 @@ export default {
         if (!err) {
           values.Manuscript_Text = this.editor.txt.html()
           console.log('Received values of form: ', values)
-          CreateManuscript(values).then().catch()
+          CreateManuscript(values).then(
+            this.$emit('nextStep')
+          ).catch()
         }
       })
     }
