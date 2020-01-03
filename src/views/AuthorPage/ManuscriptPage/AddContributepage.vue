@@ -1,28 +1,28 @@
 <template>
   <div>
-    <a-form @submit="handleSubmit" :form="form">
-      <a-form-item label="标题" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
+    <a-form @submit="handleSubmit" :form="form" >
+      <a-form-item label="标题" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
         <a-input
           v-decorator="['Manuscript_Title', { rules: [{ required: true, message: '请输入稿件标题' }] }]"
           placeholder="在这里输入稿件标题"
         />
       </a-form-item>
 
-      <a-form-item label="英文标题" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
+      <a-form-item label="英文标题" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
         <a-input
           v-decorator="['Manuscript_Etitle', { rules: [{ required: true, message: '请输入稿件英文标题' }] }]"
           placeholder="在这里输入稿件英文标题"
         />
       </a-form-item>
 
-      <a-form-item label="关键词" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
+      <a-form-item label="关键词" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
         <a-input
           v-decorator="['Manuscript_Keyword', { rules: [{ required: true, message: '请输入稿件关键词' }] }]"
           placeholder="在这里输入稿件关键词"
         />
       </a-form-item>
 
-      <a-form-item label="摘要" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
+      <a-form-item label="摘要" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
         <a-textarea
           v-decorator="['Manuscript_Abstract', { rules: [{ required: true, message: '请输入稿件摘要' }] }]"
           placeholder="在这里输入稿件摘要"
@@ -30,7 +30,7 @@
         />
       </a-form-item>
 
-      <a-form-item label="参考文献" :label-col="{ span: 1 }" :wrapper-col="{ span: 15 }">
+      <a-form-item label="参考文献" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
         <a-textarea
           v-decorator="['Manuscript_Reference', { rules: [{ required: true, message: '请输入参考文献' }] }]"
           placeholder="在这里输入参考文献"
@@ -70,6 +70,7 @@ export default {
         Manuscript_Reference: '',
         Manuscript_Text: ''
       },
+      id: 0,
       form: this.$form.createForm(this)
     }
   },
@@ -84,13 +85,20 @@ export default {
       this.Manuscript.validateFields((err, values) => {
         if (!err) {
           values.Manuscript_Text = this.editor.txt.html()
-          console.log('Received values of form: ', values)
           CreateManuscript(values).then(
-            this.$emit('nextStep')
+            res => {
+              console.log(res)
+              this.id = res
+              this.$store.commit('SET_MANUSCRIPT_ID', res)
+              this.$emit('nextStep')
+            }
           ).catch()
         }
       })
     }
+  },
+  destroyed () {
+    this.$bus.emit('Manuscript_ID', this.id)
   }
 }
 </script>

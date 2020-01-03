@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/'
 import { VueAxios } from './utils/request'
+import VueBus from 'vue-bus'
 
 // mock
 // WARNING: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.
@@ -22,10 +23,14 @@ Vue.config.productionTip = false
 
 // mount axios Vue.$http and this.$http
 Vue.use(VueAxios)
+Vue.use(VueBus)
 
 new Vue({
   router,
   store,
   created: bootstrap,
-  render: h => h(App)
+  render: h => h(App),
+  beforeCreate () {
+    Vue.prototype.bus = this
+  }
 }).$mount('#app')

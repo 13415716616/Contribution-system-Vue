@@ -30,6 +30,9 @@ const user = {
     },
     SET_INFO: (state, info) => {
       state.info = info
+    },
+    SET_TEST: (state, info) => {
+      state.aaaaa = info
     }
   },
 
@@ -42,6 +45,7 @@ const user = {
           console.log('Token:', result)
           Vue.ls.set(ACCESS_TOKEN, result, 7 * 24 * 60 * 60 * 1000)
           commit('SET_TOKEN', result)
+          commit('SET_TEST', '123123123123')
           resolve()
         }).catch(error => {
           reject(error)

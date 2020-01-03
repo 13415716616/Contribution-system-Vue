@@ -14,7 +14,7 @@ import { axios } from '@/utils/request'
  */
 export function login (parameter) {
   return axios({
-    url: 'https://localhost:5001/api/User/Login',
+    url: '/User/Login',
     method: 'post',
     data: parameter
   })
@@ -22,7 +22,7 @@ export function login (parameter) {
 
 export function Register (parameter) {
   return axios({
-    url: 'https://localhost:5001/api/User/Register',
+    url: '/User/Register',
     method: 'post',
     data: parameter
   })
@@ -31,7 +31,7 @@ export function Register (parameter) {
 export function CreatOrder (parameter) {
   console.log('12313131313131')
   return axios({
-    url: 'https://localhost:5001/api/TrueOrder/Add',
+    url: '/TrueOrder/Add',
     method: 'post',
     data: parameter
   })
@@ -47,7 +47,7 @@ export function getSmsCaptcha (parameter) {
 
 export function getInfo () {
   return axios({
-    url: 'https://localhost:5001/api/User/info',
+    url: '/User/info',
     method: 'get',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
@@ -57,7 +57,7 @@ export function getInfo () {
 
 export function getCurrentUserNav (token) {
   return axios({
-    url: 'https://localhost:5001/api/User',
+    url: '/User',
     method: 'get'
   })
 }
