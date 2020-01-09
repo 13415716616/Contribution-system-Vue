@@ -33,3 +33,10 @@ export function GetManuscript (parameter) {
     data: parameter
   })
 }
+
+export function GetManuscriptToDrafts () {
+  return axios({
+    url: '/Manuscript/ManuscriptToDrafts',
+    method: 'get'
+  })
+}

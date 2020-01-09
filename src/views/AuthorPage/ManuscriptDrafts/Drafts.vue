@@ -1,34 +1,48 @@
 <template>
-  <div>12312131
-    <a-table :columns="columns" :data="data">
-
-    </a-table>
+  <div id="components-table-demo-size">
+    <h4>Middle size table</h4>
+    <a-table :columns="columns" :dataSource="data" size="middle" />
   </div>
 </template>
 <script>
-const columns = [{
-  dataIndex: 'ID',
-  key: 'ID',
-  slots: { title: '论文编号' },
-  scopedSlots: { customRender: 'ID' }
-},
-{
-  dataIndex: 'Name',
-  key: 'Name',
-  slots: { title: '论文名称' },
-  scopedSlots: { customRender: 'Name' }
-}]
-const data = [
+import { GetManuscriptToDrafts } from '@/api/Contribute'
+const columns = [
   {
-    ID: '1',
-    Name: 'John Brown'
-  }]
+    title: '论文标题',
+    dataIndex: 'manuscript_Title'
+  },
+  {
+    title: '作者',
+    dataIndex: 'author_name'
+  },
+  {
+    title: '操作',
+    dataIndex: 'address'
+  },
+  {
+    title: '当前状态',
+    dataIndex: 'state'
+  }
+]
+
 export default {
+  created () {
+    GetManuscriptToDrafts().then(res => {
+      this.data = res
+      console.log(res)
+    }).catch()
+  },
   data () {
     return {
-      columns,
-      data
+      data: {},
+      columns
     }
   }
 }
 </script>
+<style>
+  #components-table-demo-size h4 {
+    margin-bottom: 16px;
+    margin-left: 30px
+  }
+</style>

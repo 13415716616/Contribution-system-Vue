@@ -56,7 +56,10 @@ const constantRouterComponents = {
   'TestWork': () => import(/* webpackChunkName: "TestWork" */ '@/views/dashboard/TestWork'),
 
   'ContributePage': () => import('@/views/AuthorPage/ManuscriptPage/ContributePage'),
-  'ManuscriptDrafts': () => import('@/views/AuthorPage/ManuscriptDrafts/Drafts')
+  'ManuscriptSubmitted': () => import('@/views/AuthorPage/ManuscriptSubmitted/ManuscriptSubmitted'),
+  'ManuscriptDrafts': () => import('@/views/AuthorPage/ManuscriptDrafts/Drafts'),
+  'ManuscriptReview': () => import('@/views/EditorManuscript/ManuscriptReview'),
+  'ManuscriptEnquiry': () => import('@/views/EditorManuscript/ManuscriptEnquiry')
 }
 
 // 前端未找到页面路由（固定不用改）
