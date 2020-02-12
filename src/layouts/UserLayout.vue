@@ -61,6 +61,7 @@ export default {
       width: 100%;
       min-height: 100%;
       background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
+      // filter: blur(10px);
       background-size: 100%;
       padding: 110px 0 144px;
       position: relative;

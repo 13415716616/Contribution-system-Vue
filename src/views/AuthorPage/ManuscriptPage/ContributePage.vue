@@ -35,6 +35,10 @@ export default {
       currentTab: 0
     }
   },
+  created () {
+    var num = this.$route.params.num
+    if (num != null) { this.currentTab = num }
+  },
   methods: {
     nextStep () {
       if (this.currentTab <= 4) {

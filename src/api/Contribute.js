@@ -40,3 +40,10 @@ export function GetManuscriptToDrafts () {
     method: 'get'
   })
 }
+
+export function DeleteMansuscriptDrafts (parameter) {
+  return axios({
+    url: '/Manuscript/DeleteMansuscriptDrafts?id=' + parameter,
+    method: 'get'
+  })
+}

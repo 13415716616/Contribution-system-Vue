@@ -1,16 +1,16 @@
 <template>
   <div>
-    <a-table :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscriptReview_ID">
+    <a-table :dataSource="data" :columns="columns" size="middle" :rowKey="row=>row.manuscriptReview_ID">
       <span slot="action" slot-scope="text, record">
         <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
         <a-divider type="vertical" />
-        <a>查询编辑留言</a>
+        <a>稿件留言</a>
       </span>
     </a-table>
   </div>
 </template>
 <script>
-import { GetAllManuscriptReviews } from '@/api/ManuscriptReview'
+import { GetSecondSelectManuscript } from '@/api/SelectManuscript'
 
 const columns = [
   {
@@ -19,7 +19,12 @@ const columns = [
     width: '38%'
   },
   {
-    title: '作者',
+    title: '投稿用户',
+    dataIndex: 'author_ID',
+    width: '15%'
+  },
+  {
+    title: '论文作者',
     dataIndex: 'author_name',
     width: '15%'
   },
@@ -36,19 +41,20 @@ const columns = [
 ]
 
 export default {
-  created () {
-    GetAllManuscriptReviews().then(res => { console.log(res); this.data = res }).catch()
-  },
   data () {
     return {
       columns,
       data: []
     }
   },
+  created () {
+    GetSecondSelectManuscript().then(res => { this.data = res; console.log(res) }).catch()
+  },
   methods: {
     Show (mid) {
-      this.$router.push({ name: 'ShowManscript', params: { id: 1 } })
+      this.$router.push({ name: 'ShowEditManuscript', params: { id: 1 } })
     }
   }
+
 }
 </script>
