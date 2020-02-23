@@ -55,7 +55,9 @@ export default {
     height: 600px;
   }
   .step{
-    margin-right: 5%
+    width: 90%;
+    margin-right: 100px;
+    margin-left: 5%
   }
   .content{
     width: 100px;

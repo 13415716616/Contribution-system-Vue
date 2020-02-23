@@ -6,8 +6,7 @@
     :description="description">
 
     <template slot="action">
-      <a-button size="large" type="primary">查看邮箱</a-button>
-      <a-button size="large" style="margin-left: 8px" @click="goHomeHandle">返回首页</a-button>
+      <a-button size="large" type="primary" @click="goHomeHandle">立即登录</a-button>
     </template>
 
   </result>
@@ -29,8 +28,7 @@ export default {
   },
   computed: {
     email () {
-      const v = this.form && this.form.email || 'xxx'
-      const title = `你的账户：${v} 注册成功`
+      const title = `你的账户注册成功`
       return title
     }
   },

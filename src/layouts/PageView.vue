@@ -1,5 +1,5 @@
-<template>
-  <div :style="!$route.meta.hiddenHeaderContent ? 'margin: -24px -24px 0px;' : null">
+<template >
+  <div :style="!$route.meta.hiddenHeaderContent ? 'margin: -24px -24px 0px;' : null" >
     <!-- pageHeader , route meta :true on hide -->
     <page-header v-if="!$route.meta.hiddenHeaderContent" :title="pageTitle" :logo="logo" :avatar="avatar">
       <slot slot="action" name="action"></slot>

@@ -67,7 +67,23 @@ const constantRouterComponents = {
 
   'CommentManuscript': () => import('@/views/EditorPage/CorrectingManuscripts/CommentManuscript'),
 
-  'SelectManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/SelectManuscript')
+  'SelectManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/SelectManuscript'),
+
+  'ShowEditorInfo': () => import('@/views/AuthorPage/ShowManscript/ShowEditorInfo'),
+
+  'FirstComplete': () => import('@/views/EditorPage/CorrectingManuscripts/FirstComplete'),
+
+  'ShowChiefManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/ShowChiefManuscript'),
+
+  'CommentChiefManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/CommentChiefManuscript'),
+
+  'CompleteManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/CompleteManuscript'),
+
+  'ShowCompleteManuscript': () => import('@/views/Manuscript/ShowCompleteManuscript'),
+
+  'AuthorCompleteManuscript': () => import('@/views/AuthorPage/CompleteManuscript/AuthorCompleteManuscript'),
+
+  'ShowAuthorCompleteManuscript': () => import('@/views/AuthorPage/CompleteManuscript/ShowAuthorCompleteManuscript')
 }
 
 // 前端未找到页面路由（固定不用改）

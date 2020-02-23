@@ -13,3 +13,12 @@ export function GetShowManuscriptReviews (parameter) {
     method: 'get'
   })
 }
+
+export function GetFile (parameter) {
+  console.log('File')
+  return axios({
+    url: 'Manuscript/GetFile?id=' + parameter,
+    method: 'get',
+    responseType: 'blob'
+  })
+}

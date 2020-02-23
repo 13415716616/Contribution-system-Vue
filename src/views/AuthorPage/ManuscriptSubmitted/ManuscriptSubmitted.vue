@@ -1,12 +1,14 @@
 <template>
   <div>
-    <a-table :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscriptReview_ID">
-      <span slot="action" slot-scope="text, record">
-        <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
-        <a-divider type="vertical" />
-        <a>查询编辑留言</a>
-      </span>
-    </a-table>
+    <a-card>
+      <a-table :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscriptReview_ID">
+        <span slot="action" slot-scope="text, record">
+          <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
+          <a-divider type="vertical" />
+          <a @click="ShowComment(record.manuscriptReview_ID)">查询编辑留言</a>
+        </span>
+      </a-table>
+    </a-card>
   </div>
 </template>
 <script>
@@ -47,8 +49,12 @@ export default {
   },
   methods: {
     Show (mid) {
-      this.$router.push({ name: 'ShowManscript', params: { id: 1 } })
+      this.$router.push({ name: 'ShowManscript', params: { id: mid } })
+    },
+    ShowComment (id) {
+      this.$router.push({ name: 'ShowEditorInfo', params: { id: id } })
     }
+
   }
 }
 </script>

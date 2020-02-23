@@ -68,8 +68,8 @@ export default {
 </script>
 <style lang="less" scoped>
   .card{
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: 25%;
+    margin-right: 25%;
     height: 500px;
   }
 </style>

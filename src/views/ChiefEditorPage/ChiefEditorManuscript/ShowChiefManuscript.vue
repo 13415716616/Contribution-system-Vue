@@ -34,26 +34,26 @@ export default {
   },
   methods: {
     Returnselect () {
-      this.$router.push({ name: 'ManuscriptEnquiry' })
+      this.$router.push({ name: 'SelectManuscript' })
     },
     CommentMansucript () {
       var mid = this.$route.params.id
       console.log('id:' + mid)
-      this.$router.push({ name: 'CommentManuscript', params: { id: mid } })
+      this.$router.push({ name: 'CommentChiefManuscript', params: { id: mid } })
     }
   }
 }
 </script>
 
 <style lang="less">
-    .divmain{
-        text-align: center
-    }
-    .content{
-        text-align:left;
-        margin-left: 5%;
-        margin-right: 5%
-    }
+  .divmain{
+    text-align: center
+  }
+  .content{
+    text-align:left;
+    margin-left: 5%;
+    margin-right: 5%
+  }
   .btn{
     margin-right: 30px;
   }

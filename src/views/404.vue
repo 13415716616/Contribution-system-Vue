@@ -8,7 +8,7 @@
 export default {
   name: '404'
 }
-</script>
+</script> 
 
 <style scoped>
 

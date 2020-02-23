@@ -4,9 +4,9 @@
       <result type="success" :title="title">
         <a-row>
           <div class="info">
-            <p>稿件名称：{{ info.manuscript_Title }}</p>
+            <p>稿件名称：{{ info.manuscriptReview_Title }}</p>
             <p>稿件作者：{{ info.author_name }}</p>
-            <p>稿件状态：等待审查</p>
+            <p>稿件状态：等待主编审查</p>
           </div>
         </a-row>
         <a-row>
@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { GetManuscript } from '@/api/Contribute'
 import { Result } from '@/components'
+import { EditShowManusript } from '@/api/EditManuscript'
 export default {
   name: 'ManuscriptComplete',
   components: {
@@ -30,14 +30,15 @@ export default {
   },
   data () {
     return {
-      id: this.$store.getters.manuscriptID,
+      manuscriptReview_Title: '',
       info: {},
-      title: '稿件投稿完成',
+      title: '稿件审查通过',
       description: '描述'
     }
   },
   created () {
-    GetManuscript(this.id).then(res => { this.info = res }).catch()
+    console.log(this.$route.params.id)
+    EditShowManusript(this.$route.params.id).then(res => { console.log(res); this.info = res }).catch()
   },
   methods: {
     returnpage () {
@@ -48,21 +49,21 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-    .card{
-      margin-left: 28%;
-      margin-right: 28%;
-      height: 500px;
-      margin-top: 35px
-    }
-    .col1{
-        margin-top: 50px
-    }
-    .info{
-        text-align:left;
-        margin-left: 30px;
-        margin-top: 30px;
-    }
-    .btn{
-        margin-left: 5%
-    }
+  .card{
+    margin-left: 28%;
+    margin-right: 28%;
+    height: 500px;
+    margin-top: 35px
+  }
+  .col1{
+    margin-top: 50px
+  }
+  .info{
+    text-align:left;
+    margin-left: 30px;
+    margin-top: 30px;
+  }
+  .btn{
+    margin-left: 5%
+  }
 </style>

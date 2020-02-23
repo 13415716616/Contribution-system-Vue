@@ -3,14 +3,14 @@
     <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xxl: 3, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }">
       <a-list-item slot="renderItem" slot-scope="item">
         <a-card class="ant-pro-pages-account-projects-card" hoverable>
-          <img slot="cover" :src="item.cover" :alt="item.title" />
-          <a-card-meta :title="item.title">
+          <img slot="cover" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3050287689,1376650793&fm=26&gp=0.jpg" style="height: 300px;" :alt="item.title" />
+          <a-card-meta :title="item.manuscript_Title">
             <template slot="description">
-              <ellipsis :length="50">{{ item.description }}</ellipsis>
+              <ellipsis :length="50">{{ item.manuscript_Abstract }}</ellipsis>
             </template>
           </a-card-meta>
           <div class="cardItemContent">
-            <span>{{ item.updatedAt | fromNow }}</span>
+            <span>{{ item.complete_Time | fromNow }}</span>
             <div class="avatarList">
               <avatar-list size="mini">
                 <avatar-list-item
@@ -31,6 +31,7 @@
 <script>
 import moment from 'moment'
 import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
+import { GetCompleteManuscript } from '@/api/Personal'
 const TagSelectOption = TagSelect.Option
 const AvatarListItem = AvatarList.AvatarItem
 
@@ -64,9 +65,9 @@ export default {
       console.log(`selected ${value}`)
     },
     getList () {
-      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
+      GetCompleteManuscript().then(res => {
         console.log('res', res)
-        this.data = res.result
+        this.data = res
         this.loading = false
       })
     }

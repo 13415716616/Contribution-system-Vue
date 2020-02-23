@@ -4,13 +4,13 @@
       <div class="top">
         <div class="header">
           <a href="/">
-            <img src="~@/assets/logo.svg" class="logo" alt="logo">
+            <img src="~@/assets/bookicon.png" class="logo" alt="logo">
             <span class="title">在线投稿和稿件管理系统</span>
           </a>
         </div>
-        <div class="desc">
+        <!-- <div class="desc">
           一个在线的投稿系统
-        </div>
+        </div> -->
       </div>
 
       <route-view></route-view>
@@ -59,10 +59,10 @@ export default {
 
     .container {
       width: 100%;
+      height: 100%;
       min-height: 100%;
-      background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
-      // filter: blur(10px);
-      background-size: 100%;
+      background: #f0f2f5 url(~@/assets/background.jpg) no-repeat 50%;
+      background-size: 100% 100%;
       padding: 110px 0 144px;
       position: relative;
 
@@ -88,9 +88,9 @@ export default {
           }
 
           .logo {
-            height: 44px;
+            height: 55px;
             vertical-align: top;
-            margin-right: 16px;
+            margin-right: 3px;
             border-style: none;
           }
 

@@ -9,7 +9,7 @@ export function GetAllWaitManuscript () {
 
 export function EditShowManusript (parmer) {
   return axios({
-    url: '/api/EditorManscript/Show?id=' + parmer,
+    url: 'EditorManscript/Show?id=' + parmer,
     method: 'get'
   })
 }
@@ -26,6 +26,20 @@ export function GetfirstComments (parmer) {
   console.log('this')
   return axios({
     url: 'EditorManscript/GetManuscriptComment?id=' + parmer,
+    method: 'get'
+  })
+}
+
+export function CompleteManuscript (id) {
+  return axios({
+    url: 'EditorManscript/Complete?id=' + id,
+    method: 'get'
+  })
+}
+
+export function GetEdiotrManuscript () {
+  return axios({
+    url: 'EditorManscript/GetEdiotrManuscript',
     method: 'get'
   })
 }

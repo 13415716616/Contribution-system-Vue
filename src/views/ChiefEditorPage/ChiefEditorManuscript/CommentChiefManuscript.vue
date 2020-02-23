@@ -33,7 +33,8 @@
   </div>
 </template>>
 <script>
-import { SentComment, GetfirstComments, CompleteManuscript } from '@/api/EditManuscript'
+import { SentComment, GetfirstComments } from '@/api/EditManuscript'
+import { AdoptionManuscript } from '@/api/SelectManuscript'
 
 export default {
   data () {
@@ -74,7 +75,7 @@ export default {
     },
     CompleteToManuscript () {
       console.log('123')
-      CompleteManuscript(this.$route.params.id).then(
+      AdoptionManuscript(this.$route.params.id).then(
         this.$router.push({ name: 'FirstComplete', params: { id: this.$route.params.id } })
       ).catch()
     }

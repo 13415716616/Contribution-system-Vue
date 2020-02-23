@@ -1,116 +1,116 @@
 <template>
-  <div class="main user-layout-register">
-    <h1><span>注册</span></h1>
-    <a-form ref="formRegister" :form="form" id="formRegister">
-
-      <!-- 用户账号 -->
-      <a-form-item>
-        <a-input
-          size="large"
-          type="text"
-          placeholder="用户账号"
-          v-decorator="['Author_ID', {rules: [{ required: true, message: '请输入用户账号',}], validateTrigger: ['change', 'blur']}]"
-        ></a-input>
-      </a-form-item>
-
-      <!-- 用户名 -->
-      <a-form-item>
-        <a-input
-          size="large"
-          type="text"
-          placeholder="用户名"
-          v-decorator="['Author_Name', {rules: [{ required: true, message: '请输入用户名' }], validateTrigger: ['change', 'blur']}]"
-        ></a-input>
-      </a-form-item>
-
-      <!-- 邮箱 -->
-      <a-form-item>
-        <a-input
-          size="large"
-          type="text"
-          placeholder="邮箱"
-          v-decorator="['Author_Email', {rules: [{ required: true, type: 'email', message: '请输入邮箱地址' }], validateTrigger: ['change', 'blur']}]"
-        ></a-input>
-      </a-form-item>
-
-      <a-popover
-        placement="rightTop"
-        :trigger="['focus']"
-        :getPopupContainer="(trigger) => trigger.parentElement"
-        v-model="state.passwordLevelChecked">
-        <template slot="content">
-          <div :style="{ width: '240px' }" >
-            <div :class="['user-register', passwordLevelClass]">强度：<span>{{ passwordLevelName }}</span></div>
-            <a-progress :percent="state.percent" :showInfo="false" :strokeColor=" passwordLevelColor " />
-            <div style="margin-top: 10px;">
-              <span>请至少输入 6 个字符。请不要使用容易被猜到的密码。</span>
-            </div>
-          </div>
-        </template>
-        <a-form-item>
-          <a-input
-            size="large"
-            type="password"
-            @click="handlePasswordInputClick"
-            autocomplete="false"
-            placeholder="至少6位密码，区分大小写"
-            v-decorator="['Author_Password', {rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}]"
-          ></a-input>
-        </a-form-item>
-      </a-popover>
-
-      <a-form-item>
-        <a-input
-          size="large"
-          type="password"
-          autocomplete="false"
-          placeholder="确认密码"
-          v-decorator="['Author_Password2', {rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}]"
-        ></a-input>
-      </a-form-item>
-
-      <!-- 手机号 -->
-      <a-form-item>
-        <a-input size="large" placeholder="11 位手机号" v-decorator="['Author_Phone', {rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]">
-          <a-select slot="addonBefore" size="large" defaultValue="+86">
-            <a-select-option value="+86">+86</a-select-option>
-            <a-select-option value="+87">+87</a-select-option>
-          </a-select>
-        </a-input>
-      </a-form-item>
-
-      <a-row :gutter="16">
-        <a-col class="gutter-row" :span="16">
+  <div class="main user-layout-register" style="margin-top: 3%;">
+    <a-tabs defaultActiveKey="1" :tabBarStyle="{ textAlign: 'center',Align:'center' }">
+      <a-tab-pane style="align-self: center" key="1" tab="账号密码登录">
+        <a-form ref="formRegister" :form="form" id="formRegister">
+          <!-- 用户账号 -->
           <a-form-item>
-            <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
-              <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+            <a-input
+              size="large"
+              type="text"
+              placeholder="用户账号"
+              v-decorator="['Author_ID', {rules: [{ required: true, message: '请输入用户账号',}], validateTrigger: ['change', 'blur']}]"
+            ></a-input>
+          </a-form-item>
+
+          <!-- 用户名 -->
+          <a-form-item>
+            <a-input
+              size="large"
+              type="text"
+              placeholder="用户名"
+              v-decorator="['Author_Name', {rules: [{ required: true, message: '请输入用户名' }], validateTrigger: ['change', 'blur']}]"
+            ></a-input>
+          </a-form-item>
+
+          <!-- 邮箱 -->
+          <a-form-item>
+            <a-input
+              size="large"
+              type="text"
+              placeholder="邮箱"
+              v-decorator="['Author_Email', {rules: [{ required: true, type: 'email', message: '请输入邮箱地址' }], validateTrigger: ['change', 'blur']}]"
+            ></a-input>
+          </a-form-item>
+
+          <a-popover
+            placement="rightTop"
+            :trigger="['focus']"
+            :getPopupContainer="(trigger) => trigger.parentElement"
+            v-model="state.passwordLevelChecked">
+            <template slot="content">
+              <div :style="{ width: '240px' }" >
+                <div :class="['user-register', passwordLevelClass]">强度：<span>{{ passwordLevelName }}</span></div>
+                <a-progress :percent="state.percent" :showInfo="false" :strokeColor=" passwordLevelColor " />
+                <div style="margin-top: 10px;">
+                  <span>请至少输入 6 个字符。请不要使用容易被猜到的密码。</span>
+                </div>
+              </div>
+            </template>
+            <a-form-item>
+              <a-input
+                size="large"
+                type="password"
+                @click="handlePasswordInputClick"
+                autocomplete="false"
+                placeholder="至少6位密码，区分大小写"
+                v-decorator="['Author_Password', {rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}]"
+              ></a-input>
+            </a-form-item>
+          </a-popover>
+
+          <a-form-item>
+            <a-input
+              size="large"
+              type="password"
+              autocomplete="false"
+              placeholder="确认密码"
+              v-decorator="['Author_Password2', {rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}]"
+            ></a-input>
+          </a-form-item>
+
+          <!-- 手机号 -->
+          <a-form-item>
+            <a-input size="large" placeholder="11 位手机号" v-decorator="['Author_Phone', {rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]">
+              <a-select slot="addonBefore" size="large" defaultValue="+86">
+                <a-select-option value="+86">+86</a-select-option>
+                <a-select-option value="+87">+87</a-select-option>
+              </a-select>
             </a-input>
           </a-form-item>
-        </a-col>
-        <a-col class="gutter-row" :span="8">
-          <a-button
-            class="getCaptcha"
-            size="large"
-            :disabled="state.smsSendBtn"
-            @click.stop.prevent="getCaptcha"
-            v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"></a-button>
-        </a-col>
-      </a-row>
 
-      <a-form-item>
-        <a-button
-          size="large"
-          type="primary"
-          htmlType="submit"
-          class="register-button"
-          :loading="registerBtn"
-          @click.stop.prevent="handleSubmit"
-          :disabled="registerBtn">注册
-        </a-button>
-        <router-link class="login" :to="{ name: 'login' }">使用已有账户登录</router-link>
-      </a-form-item>
+          <a-row :gutter="16">
+            <a-col class="gutter-row" :span="16">
+              <a-form-item>
+                <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
+                  <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+                </a-input>
+              </a-form-item>
+            </a-col>
+            <a-col class="gutter-row" :span="8">
+              <a-button
+                class="getCaptcha"
+                size="large"
+                :disabled="state.smsSendBtn"
+                @click.stop.prevent="getCaptcha"
+                v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"></a-button>
+            </a-col>
+          </a-row>
 
-    </a-form>
+          <a-form-item>
+            <a-button
+              size="large"
+              type="primary"
+              htmlType="submit"
+              class="register-button"
+              :loading="registerBtn"
+              @click.stop.prevent="handleSubmit"
+              :disabled="registerBtn">注册
+            </a-button>
+            <router-link class="login" :to="{ name: 'login' }">使用已有账户登录</router-link>
+          </a-form-item>
+        </a-form>
+      </a-tab-pane></a-tabs>
   </div>
 </template>
 
@@ -233,7 +233,6 @@ export default {
       const { form: { validateFields }, state, $router } = this
       validateFields({ force: true }, (err, values) => {
         if (!err) {
-          // const register = { ...values }
           console.log(values)
           Register(values).then().catch()
           state.passwordLevelChecked = false

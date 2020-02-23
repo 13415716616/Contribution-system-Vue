@@ -1,8 +1,8 @@
 <template>
   <div style=" text-align:center">
-    <a-card class="card" title="用户须知">
+    <a-card class="card" title="投稿须知">
       <div class="content">
-        <h3 style=" text-align:center">投稿须知</h3>
+        <h3 style=" text-align:center">用户公告</h3>
         <p> 一、来稿应反映目前国内外计算机科技的先进理论、应用研究、技术成果和发展趋势。<br>
           二、要求电子稿图文清晰，附图、表应为黑白格式，全文字数控制在6000字符以内，其中包括图表和空格所占的版面。<br>
           三、Email投稿：smcaa@sjtu.edu.cn。要求来稿使用Word文档格式，不得携带病毒。<br>
@@ -27,7 +27,7 @@
           5、文不对图，图不对文。文章中插图应与说明文字一一对应。
           6、自创英文缩写符号未作定义或说明。作者应该想到刊登的科技论文面向广大读者，非常用缩写符号应交代清楚。如果编辑或评审专家看不明白，此文可能中断处理。</p>
       </div>
-      <a-checkbox @change="onChange" style="text-align:center;margin-top:50px">我已阅读以上内容</a-checkbox><br>
+      <a-checkbox @change="onChange" style="text-align:center;margin-top:30px">我已阅读以上内容</a-checkbox><br>
       <p v-show="showalter" class="alert">请勾选已阅读以上内容</p>
       <a-button type="primary" @click="nextStep">下一步</a-button>
     </a-card>
@@ -59,6 +59,7 @@ export default {
     margin-left: 28%;
     margin-right: 28%;
     height: 500px;
+    margin-top: 35px
   }
   .step{
     margin-right: 5%;
@@ -68,7 +69,7 @@ export default {
     height: 400px;
     margin-left: 38px;
     overflow: auto;
-    text-align: left
+    text-align: left;
   }
   .alert{
     margin-top: 15px;

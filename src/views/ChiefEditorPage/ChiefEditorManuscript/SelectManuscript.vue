@@ -52,9 +52,8 @@ export default {
   },
   methods: {
     Show (mid) {
-      this.$router.push({ name: 'ShowEditManuscript', params: { id: 1 } })
+      this.$router.push({ name: 'ShowChiefManuscript', params: { id: mid } })
     }
   }
-
 }
 </script>

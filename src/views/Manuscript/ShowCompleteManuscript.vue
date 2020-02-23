@@ -10,12 +10,12 @@
   </div>
 </template>
 <script>
-import { GetEdiotrManuscript } from '@/api/EditManuscript'
+import { GetCompleteManuscrit } from '@/api/SelectManuscript'
 
 const columns = [
   {
     title: '论文标题',
-    dataIndex: 'manuscriptReview_Title',
+    dataIndex: 'manuscript_Title',
     width: '38%'
   },
   {
@@ -30,7 +30,7 @@ const columns = [
   },
   {
     title: '当前状态',
-    dataIndex: 'manuscriptReview_Status',
+    dataIndex: 'manuscript_Status',
     width: '20%'
   },
   {
@@ -48,13 +48,12 @@ export default {
     }
   },
   created () {
-    GetEdiotrManuscript().then(res => { this.data = res; console.log(res) }).catch()
+    GetCompleteManuscrit().then(res => { this.data = res; console.log(res) }).catch()
   },
   methods: {
     Show (mid) {
-      this.$router.push({ name: 'ShowEditManuscript', params: { id: mid } })
+      this.$router.push({ name: 'ShowChiefManuscript', params: { id: mid } })
     }
   }
-
 }
 </script>
