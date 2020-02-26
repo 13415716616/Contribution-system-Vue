@@ -1,18 +1,33 @@
-
 <template>
   <div>
-    <a-card style="margin-top: 24px" :bordered="false" >
-      {{manuscript.manuscript_Title}}111111
-      <a-card type="inner" title="多层信息组">
-        <detail-list title="组名称" size="small">
-          <detail-list-item term="负责人">林东东</detail-list-item>
-          <detail-list-item term="角色码">1234567</detail-list-item>
-          <detail-list-item term="所属部门">XX公司-YY部</detail-list-item>
-          <detail-list-item term="过期时间">2018-08-08</detail-list-item>
-          <detail-list-item term="描述">这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...</detail-list-item>
-        </detail-list>
-      </a-card>
 
+    <a-card style="margin-top: 24px" :bordered="false" >
+      <div style="text-align: center">
+        <h1>{{ data.manuscript_Title }}</h1>
+        <h4>{{ data.manuscript_Etitle }}</h4>
+      </div>
+      <div style="margin-left: 3%">
+        <h3>关键词：{{ data.manuscript_Keyword }}</h3><br>
+        <h3>摘要：{{ data.manuscript_Abstract }}</h3><br>
+      </div>
+      <div v-html="this.content" style="font-size:15px"></div><br>
+    </a-card>
+
+    <a-card type="inner" title="作者信息">
+      <detail-list size="small">
+        <detail-list-item term="作者姓名">{{ data.author_name }}</detail-list-item>
+        <detail-list-item term="作者性别">{{ data.author_sex }}</detail-list-item>
+        <detail-list-item term="电话">{{ data.author_Phone }}</detail-list-item>
+        <detail-list-item term="地址">2{{ data.author_Address }}</detail-list-item>
+        <detail-list-item term="简介">{{ data.author_dec }}</detail-list-item>
+      </detail-list>
+    </a-card><br>
+
+    <a-card type="inner" title="稿件下载">
+      <detail-list size="small">
+        <detail-list-item term="主要稿件下载：">下载</detail-list-item>
+        <detail-list-item term="次要稿件下载：">下载</detail-list-item>
+      </detail-list>
     </a-card>
   </div>
 </template>
@@ -31,11 +46,12 @@ export default {
   },
   data () {
     return {
-      manuscript: []
+      data: [],
+      content: ''
     }
   },
   mounted () {
-    GetCompleteManuscript().then(res => { console.log(res); this.manuscript = res }).catch()
+    GetCompleteManuscript().then(res => { this.data = res[0]; this.content = res[0].manuscript_Text; console.log(this.data) }).catch()
   }
 }
 </script>

@@ -1,21 +1,36 @@
 <template>
   <div class="divmain">
-    <h1 >{{ data.manuscriptReview_Title }}</h1>
-    <h2>{{ data.manuscriptReview_Etitle }}</h2>
-    <div class="content">
-      <h4><b>关键词：</b>{{ data.manuscriptReview_Keyword }}<br><br></h4>
-      <h4> <b>摘要:</b>{{ data.manuscriptReview_Abstract }}<br><br></h4>
-      <div v-html="this.content" style="size=+3"></div><br>
-    </div>
-    <div class="content">
-      你的主要稿件：<a @click="GetMainfile(1)">111</a><br>
-      你的次要稿件:<br>
-    </div></div>
+    <a-card style="margin-top: 24px" :bordered="false" >
+      <h1 >{{ data.manuscriptReview_Title }}</h1>
+      <h4>{{ data.manuscriptReview_Etitle }}</h4>
+      <div class="content">
+        <h3><b>关键词： </b>{{ data.manuscriptReview_Keyword }}<br><br></h3>
+        <h3> <b>摘要:  </b>{{ data.manuscriptReview_Abstract }}<br><br></h3>
+        <div v-html="this.content" style="font-size:15px">></div><br>
+      </div>
+      <a-card type="inner" title="稿件下载" class="content">
+        <detail-list size="small">
+          <detail-list-item term="主要稿件下载：">下载</detail-list-item>
+          <detail-list-item term="次要稿件下载：">下载</detail-list-item>
+        </detail-list>
+      </a-card><br>
+      <div>
+        <a-button class="btn" type="primary" @click="Returnselect">返回选择</a-button>
+        <a-button class="btn" type="primary" @click="CommentMansucript">查看评论</a-button>
+      </div>
+    </a-card>
+  </div>
 </template>
 <script>
 import { GetShowManuscriptReviews, GetFile } from '@/api/ManuscriptReview'
+import DetailList from '@/components/tools/DetailList'
+const DetailListItem = DetailList.Item
 
 export default {
+  components: {
+    DetailList,
+    DetailListItem
+  },
   data () {
     return {
       data: [],
@@ -44,6 +59,13 @@ export default {
           navigator.msSaveBlob(blob, fileName)
         }
       }).catch()
+    },
+    Returnselect () {
+      this.$router.push({ name: 'ShowEditorInfo' })
+    },
+    CommentMansucript () {
+      var id = this.$route.params.id
+      this.$router.push({ name: 'ShowEditorInfo', params: { id: id } })
     }
   }
 
@@ -58,5 +80,8 @@ export default {
         text-align:left;
         margin-left: 5%;
         margin-right: 5%
+    }
+    .btn{
+      margin-right: 30px
     }
 </style>

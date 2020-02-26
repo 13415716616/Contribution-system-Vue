@@ -2,18 +2,18 @@
   <page-view :avatar="avatar" :title="false">
     <div slot="headerContent">
       <div class="title">{{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome }}</span></div>
-      <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+      <div>一位作者｜其实吧｜这里只是拿来好看的</div>
     </div>
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="8">
-          <head-info title="项目" content="56" :center="false" :bordered="false"/>
+          <head-info title="草稿箱" content="56" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="团队排名" content="8/24" :center="false" :bordered="false"/>
+          <head-info title="审核稿件" content="8" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="项目数" content="2,223" :center="false" />
+          <head-info title="通过稿件" content="2,223" :center="false" />
         </a-col>
       </a-row>
     </div>
@@ -30,38 +30,35 @@
             :body-style="{ padding: 0 }">
             <a slot="extra">全部项目</a>
             <div>
-              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in projects">
+              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in manuscripts">
                 <a-card :bordered="false" :body-style="{ padding: 0 }">
                   <a-card-meta>
-                    <div slot="title" class="card-title">
-                      <a-avatar size="small" :src="item.cover"/>
-                      <a>{{ item.title }}</a>
+                    <div slot="title" class="card-title" >
+                      <!-- <a-avatar size="small" :src="item.cover"/> -->
+                      <a>{{ item.manuscriptReview_Title }}</a>
                     </div>
                     <div slot="description" class="card-description">
-                      {{ item.description }}
+                      &nbsp;&nbsp;&nbsp;{{ item.manuscriptReview_Keyword }}
                     </div>
                   </a-card-meta>
                   <div class="project-item">
-                    <a href="/#/">科学搬砖组</a>
-                    <span class="datetime">9小时前</span>
+                    <a href="/#/">{{ item.manuscriptReview_Time }}</a>
+                    <!-- <span class="datetime">9小时前</span> -->
                   </div>
                 </a-card>
               </a-card-grid>
             </div>
           </a-card>
 
-          <a-card :loading="loading" title="动态" :bordered="false">
+          <a-card :loading="loading" title="采用稿件" :bordered="false">
             <a-list>
-              <a-list-item :key="index" v-for="(item, index) in activities">
+              <a-list-item :key="index" v-for="(item, index) in complete">
                 <a-list-item-meta>
-                  <a-avatar slot="avatar" :src="item.user.avatar" />
+                  <!-- <a-avatar slot="avatar" :src="item.user.avatar" /> -->
                   <div slot="title">
-                    <span>{{ item.user.nickname }}</span>&nbsp;
-                    在&nbsp;<a href="#">{{ item.project.name }}</a>&nbsp;
-                    <span>{{ item.project.action }}</span>&nbsp;
-                    <a href="#">{{ item.project.event }}</a>
+                    <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
-                  <div slot="description">{{ item.time }}</div>
+                  <div slot="description">{{ item.complete_Time }}</div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
@@ -74,33 +71,8 @@
           :md="24"
           :sm="24"
           :xs="24">
-          <a-card title="快速开始 / 便捷导航" style="margin-bottom: 24px" :bordered="false" :body-style="{padding: 0}">
-            <div class="item-group">
-              <a>操作一</a>
-              <a>操作二</a>
-              <a>操作三</a>
-              <a>操作四</a>
-              <a>操作五</a>
-              <a>操作六</a>
-              <a-button size="small" type="primary" ghost icon="plus">添加</a-button>
-            </div>
-          </a-card>
-          <a-card title="XX 指数" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
+          <a-card title="留空白" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
             <div style="min-height: 400px;">
-              <!-- :scale="scale" :axis1Opts="axis1Opts" :axis2Opts="axis2Opts"  -->
-              <radar :data="radarData" />
-            </div>
-          </a-card>
-          <a-card :loading="loading" title="团队" :bordered="false">
-            <div class="members">
-              <a-row>
-                <a-col :span="12" v-for="(item, index) in teams" :key="index">
-                  <a>
-                    <a-avatar size="small" :src="item.avatar" />
-                    <span class="member">{{ item.name }}</span>
-                  </a>
-                </a-col>
-              </a-row>
             </div>
           </a-card>
         </a-col>
@@ -112,6 +84,8 @@
 <script>
 import { timeFix } from '@/utils/util'
 import { mapState } from 'vuex'
+import { GetAllManuscriptReviews } from '@/api/ManuscriptReview'
+import { GetCompleteManuscript } from '@/api/Personal'
 
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
@@ -130,6 +104,8 @@ export default {
   },
   data () {
     return {
+      manuscripts: [],
+      complete: [],
       timeFix: timeFix(),
       avatar: '',
       user: {},
@@ -191,7 +167,8 @@ export default {
   created () {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-
+    GetAllManuscriptReviews().then(res => { this.manuscripts = res; console.log(this.manuscripts) }).catch()
+    GetCompleteManuscript().then(res => { this.complete = res; console.log(this.complete) }).catch()
     getRoleList().then(res => {
       // console.log('workplace -> call getRoleList()', res)
     })
