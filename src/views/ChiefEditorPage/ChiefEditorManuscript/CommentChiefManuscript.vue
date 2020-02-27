@@ -6,7 +6,9 @@
           <a-list-item-meta>
             <a-avatar slot="avatar" :src="item.avatar" class="avtor"/>
             <div slot="title">
-              <span>{{ item.name }}</span>&nbsp;&nbsp;&nbsp;<a-tag color="#2db7f5" v-if="item.role=='Editor'">编辑</a-tag> &nbsp;
+              <span>{{ item.name }}</span>&nbsp;&nbsp;&nbsp;
+              <a-tag color="#2db7f5" v-if="item.role=='Editor'">编辑</a-tag>
+              <a-tag color="#2db7f5" v-if="item.role=='ChiefEditor'">主编</a-tag> &nbsp;
               <br>
               {{ item.comment }}
             </div>

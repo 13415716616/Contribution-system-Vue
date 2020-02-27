@@ -22,3 +22,10 @@ export function GetFile (parameter) {
     responseType: 'blob'
   })
 }
+
+export function GetChiefReviewManuscript () {
+  return axios({
+    url: 'ChiefEditor/GetReviewManuscript',
+    method: 'get'
+  })
+}

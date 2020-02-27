@@ -83,7 +83,9 @@ const constantRouterComponents = {
 
   'AuthorCompleteManuscript': () => import('@/views/AuthorPage/CompleteManuscript/AuthorCompleteManuscript'),
 
-  'ShowAuthorCompleteManuscript': () => import('@/views/AuthorPage/CompleteManuscript/ShowAuthorCompleteManuscript')
+  'ShowAuthorCompleteManuscript': () => import('@/views/AuthorPage/CompleteManuscript/ShowAuthorCompleteManuscript'),
+
+  'MyReviewManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/MyReviewManuscript')
 }
 
 // 前端未找到页面路由（固定不用改）

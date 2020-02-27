@@ -1,7 +1,7 @@
 <template>
   <page-view :avatar="avatar" :title="false">
     <div slot="headerContent">
-      <div class="title">{{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome }}</span></div>
+      <div class="title">{{ timeFix }}{{ user.name }}<span class="welcome-text">，{{ welcome }}</span></div>
       <div>一位作者｜其实吧｜这里只是拿来好看的</div>
     </div>
     <div slot="extra">
@@ -82,7 +82,6 @@
 </template>
 
 <script>
-import { timeFix } from '@/utils/util'
 import { mapState } from 'vuex'
 import { GetAllManuscriptReviews } from '@/api/ManuscriptReview'
 import { GetCompleteManuscript } from '@/api/Personal'
@@ -90,10 +89,6 @@ import { GetCompleteManuscript } from '@/api/Personal'
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
-
-import { getRoleList, getServiceList } from '@/api/manage'
-
-const DataSet = require('@antv/data-set')
 
 export default {
   name: 'Workplace',
@@ -106,53 +101,9 @@ export default {
     return {
       manuscripts: [],
       complete: [],
-      timeFix: timeFix(),
-      avatar: '',
-      user: {},
 
-      projects: [],
-      loading: true,
-      radarLoading: true,
-      activities: [],
-      teams: [],
-
-      // data
-      axis1Opts: {
-        dataKey: 'item',
-        line: null,
-        tickLine: null,
-        grid: {
-          lineStyle: {
-            lineDash: null
-          },
-          hideFirstLine: false
-        }
-      },
-      axis2Opts: {
-        dataKey: 'score',
-        line: null,
-        tickLine: null,
-        grid: {
-          type: 'polygon',
-          lineStyle: {
-            lineDash: null
-          }
-        }
-      },
-      scale: [{
-        dataKey: 'score',
-        min: 0,
-        max: 80
-      }],
-      axisData: [
-        { item: '引用', a: 70, b: 30, c: 40 },
-        { item: '口碑', a: 60, b: 70, c: 40 },
-        { item: '产量', a: 50, b: 60, c: 40 },
-        { item: '贡献', a: 40, b: 50, c: 40 },
-        { item: '热度', a: 60, b: 70, c: 40 },
-        { item: '引用', a: 70, b: 50, c: 40 }
-      ],
-      radarData: []
+      loading: false,
+      radarLoading: true
     }
   },
   computed: {
@@ -169,57 +120,6 @@ export default {
     this.avatar = this.userInfo.avatar
     GetAllManuscriptReviews().then(res => { this.manuscripts = res; console.log(this.manuscripts) }).catch()
     GetCompleteManuscript().then(res => { this.complete = res; console.log(this.complete) }).catch()
-    getRoleList().then(res => {
-      // console.log('workplace -> call getRoleList()', res)
-    })
-
-    getServiceList().then(res => {
-      // console.log('workplace -> call getServiceList()', res)
-    })
-  },
-  mounted () {
-    this.getProjects()
-    this.getActivity()
-    this.getTeams()
-    this.initRadar()
-  },
-  methods: {
-    getProjects () {
-      this.$http.get('/list/search/projects')
-        .then(res => {
-          this.projects = res.result && res.result.data
-          this.loading = false
-        })
-    },
-    getActivity () {
-      this.$http.get('/workplace/activity')
-        .then(res => {
-          this.activities = res.result
-        })
-    },
-    getTeams () {
-      this.$http.get('/workplace/teams')
-        .then(res => {
-          this.teams = res.result
-        })
-    },
-    initRadar () {
-      this.radarLoading = true
-
-      this.$http.get('/workplace/radar')
-        .then(res => {
-          const dv = new DataSet.View().source(res.result)
-          dv.transform({
-            type: 'fold',
-            fields: ['个人', '团队', '部门'],
-            key: 'user',
-            value: 'score'
-          })
-
-          this.radarData = dv.rows
-          this.radarLoading = false
-        })
-    }
   }
 }
 </script>
@@ -232,7 +132,6 @@ export default {
 
       a {
         color: rgba(0, 0, 0, 0.85);
-        margin-left: 12px;
         line-height: 24px;
         height: 24px;
         display: inline-block;

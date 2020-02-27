@@ -39,7 +39,7 @@ export default {
       commentinfo: {
         name: this.$store.getters.nickname,
         role: '',
-        manscriptid: 2,
+        manscriptid: this.$route.params.id,
         avtor: this.$store.getters.avatar,
         comment: '',
         time: ''
@@ -60,9 +60,8 @@ export default {
   },
   methods: {
     sentComment () {
-      console.log('11111' + this.$store.getters.avatar)
-      console.log(this.commentinfo)
       SentComment(this.commentinfo).then().catch()
+      GetfirstComments(this.$route.params.id).then(res => { console.log(res); this.commentdata = res }).catch(a => console.log(a))
     }
   }
 }

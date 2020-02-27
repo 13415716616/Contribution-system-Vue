@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { GetEdiotrManuscript } from '@/api/EditManuscript'
+import { GetChiefReviewManuscript } from '@/api/ManuscriptReview'
 
 const columns = [
   {
@@ -50,13 +50,12 @@ export default {
     }
   },
   created () {
-    GetEdiotrManuscript().then(res => { this.data = res; console.log(res) }).catch()
+    GetChiefReviewManuscript().then(res => { this.data = res; console.log(res) }).catch()
   },
   methods: {
     Show (mid) {
-      this.$router.push({ name: 'ShowEditManuscript', params: { id: mid } })
+      this.$router.push({ name: 'ShowChiefManuscript', params: { id: mid } })
     }
   }
-
 }
 </script>
