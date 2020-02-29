@@ -40,8 +40,11 @@ export default {
     GetManuscript(this.id).then(res => { this.info = res }).catch()
   },
   methods: {
+    show () {
+      this.$router.push({ name: 'ShowManscript' })
+    },
     returnpage () {
-      this.$router.push({ name: 'dashboard/workplace' })
+      this.$router.push({ name: 'workplace' })
     }
   }
 

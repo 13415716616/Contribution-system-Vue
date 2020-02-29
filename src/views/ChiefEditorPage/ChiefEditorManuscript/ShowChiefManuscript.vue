@@ -52,9 +52,9 @@ export default {
     getfile () {
       GetFile(this.$route.params.id).then(res => {
         console.log(res)
-        // const blob = new Blob([res], { type: res.type })
-        // const objectUrl = URL.createObjectURL(blob)
-        // window.location.href = objectUrl
+        const blob = new Blob([res], { type: res.type })
+        const objectUrl = URL.createObjectURL(blob)
+        window.location.href = objectUrl
       }).catch()
     }
   }

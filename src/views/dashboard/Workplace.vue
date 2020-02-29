@@ -2,18 +2,18 @@
   <page-view :avatar="avatar" :title="false">
     <div slot="headerContent">
       <div class="title">{{ timeFix }}{{ user.name }}<span class="welcome-text">，{{ welcome }}</span></div>
-      <div>一位作者｜其实吧｜这里只是拿来好看的</div>
+      <div>一位作者｜这里是个人简介预留</div>
     </div>
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="8">
-          <head-info title="草稿箱" content="56" :center="false" :bordered="false"/>
+          <head-info title="草稿箱" content="3" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="审核稿件" content="8" :center="false" :bordered="false"/>
+          <head-info title="审核稿件" content="3" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="通过稿件" content="2,223" :center="false" />
+          <head-info title="通过稿件" content="3" :center="false" />
         </a-col>
       </a-row>
     </div>

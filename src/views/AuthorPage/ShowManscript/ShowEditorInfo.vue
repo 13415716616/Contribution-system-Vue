@@ -9,6 +9,7 @@
               <span>{{ item.name }}</span>&nbsp;&nbsp;&nbsp;
               <a-tag color="#2db7f5" v-if="item.role=='Editor'">编辑</a-tag>
               <a-tag color="green" v-if="item.role=='Author'">作者</a-tag>
+              <a-tag color="yellow" v-if="item.role=='ChiefEditor'"></a-tag>
               &nbsp;
               <br>
               {{ item.comment }}

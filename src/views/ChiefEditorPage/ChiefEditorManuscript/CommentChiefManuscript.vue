@@ -79,7 +79,7 @@ export default {
     CompleteToManuscript () {
       console.log('123')
       AdoptionManuscript(this.$route.params.id).then(
-        this.$router.push({ name: 'FirstComplete', params: { id: this.$route.params.id } })
+        this.$router.push({ name: 'CompleteManuscript', params: { id: this.$route.params.id } })
       ).catch()
     }
 

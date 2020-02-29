@@ -13,7 +13,7 @@
     </div>
     <div>
       <a-button class="btn" type="primary" @click="Returnselect">返回选择</a-button>
-      <a-button class="btn" type="primary" @click="CommentMansucript">评论稿件</a-button>
+      <a-button class="btn" type="primary" @click="CommentMansucript">稿件留言</a-button>
       <a-button type="primary">通过稿件</a-button>
     </div>
   </div>

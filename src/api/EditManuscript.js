@@ -43,3 +43,10 @@ export function GetEdiotrManuscript () {
     method: 'get'
   })
 }
+
+export function CompleteDratfs () {
+  return axios({
+    url: 'Manuscript/CompleteDratfs',
+    method: 'get'
+  })
+}
