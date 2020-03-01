@@ -8,15 +8,15 @@
 
       <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, pageSize: 5, total: 50}">
         <a-list-item :key="index" v-for="(item, index) in data" style="height: 80px">
-          <diV class="line-limit-length">
-            <a-list-item-meta :description="item.manuscript_Abstract">
-              <a-avatar slot="avatar" size="large" shape="square" src="https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png"/>
+          <diV class="line-limit-length" >
+            <a-list-item-meta :description="item.manuscript_Keyword">
+              <a-avatar slot="avatar" size="large" shape="square" src="http://img3.redocn.com/20120503/Redocn_2012050311042241.jpg"/>
               <a slot="title">{{ item.manuscript_Title }}</a>
             </a-list-item-meta></diV>
           <div slot="actions">
             <a>查看稿件</a>
           </div>
-          <div class="list-content">
+          <div class="list-content" style="marign-left:50%">
             <div class="list-content-item">
               <span>作者</span>
               <p>{{ item.author_name }}</p>

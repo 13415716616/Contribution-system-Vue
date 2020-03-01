@@ -45,7 +45,14 @@ export default {
         comment: '',
         time: ''
       },
-      commentdata: []
+      commentdata: {
+        name: '',
+        role: '',
+        manscriptid: '',
+        avtor: '',
+        comment: '',
+        time: ''
+      }
     }
   },
 
@@ -61,8 +68,10 @@ export default {
   },
   methods: {
     sentComment () {
-      SentComment(this.commentinfo).then().catch()
-      GetfirstComments(this.$route.params.id).then(res => { console.log(res); this.commentdata = res }).catch(a => console.log(a))
+      if (this.commentdata === null) { this.commentdata = this.commentinfo }
+      SentComment(this.commentinfo).then(
+        this.commentdata.push(this.commentinfo)
+      ).catch()
     }
   }
 }

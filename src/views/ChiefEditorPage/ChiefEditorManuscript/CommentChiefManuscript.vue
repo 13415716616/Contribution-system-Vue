@@ -68,7 +68,7 @@ export default {
     sentComment () {
       console.log('11111' + this.$route.params.id)
       console.log(this.commentinfo)
-      SentComment(this.commentinfo).then(GetfirstComments(this.$route.params.id).then(res => { console.log(res); this.commentdata = res; this.commentinfo.manscriptid = this.$route.params.id }).catch(a => console.log(a))).catch()
+      SentComment(this.commentinfo).then(this.commentdata.push(this.commentinfo)).catch()
     },
     ReturnMansucript () {
       this.$router.push({ name: 'ShowEditManuscript', params: { id: this.$route.params.id } })

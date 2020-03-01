@@ -5,7 +5,7 @@
         <span slot="action" slot-scope="text, record">
           <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
           <a-divider type="vertical" />
-          <a>稿件留言</a>
+          <a @click="CommentMansucript(record.manuscriptReview_ID)">稿件留言</a>
         </span>
       </a-table>
     </a-card>
@@ -55,6 +55,10 @@ export default {
   methods: {
     Show (mid) {
       this.$router.push({ name: 'ShowEditManuscript', params: { id: mid } })
+    },
+    CommentMansucript (mid) {
+      console.log('id:' + mid)
+      this.$router.push({ name: 'CommentManuscript', params: { id: mid } })
     }
   }
 

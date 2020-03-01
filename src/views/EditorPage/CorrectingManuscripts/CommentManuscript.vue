@@ -6,7 +6,9 @@
           <a-list-item-meta>
             <a-avatar slot="avatar" :src="item.avatar" class="avtor"/>
             <div slot="title">
-              <span>{{ item.name }}</span>&nbsp;&nbsp;&nbsp;<a-tag color="#2db7f5" v-if="item.role=='Editor'">编辑</a-tag> &nbsp;
+              <span>{{ item.name }}</span>&nbsp;&nbsp;&nbsp;<a-tag color="#2db7f5" v-if="item.role=='Editor'">编辑</a-tag>
+              <a-tag color="yellow" v-if="item.role=='ChiefEditor'">主编</a-tag>
+              <a-tag color="green" v-if="item.role=='Author'">作者</a-tag>&nbsp;
               <br>
               {{ item.comment }}
             </div>
@@ -62,7 +64,7 @@ export default {
   },
   methods: {
     sentComment () {
-      SentComment(this.commentinfo).then(GetfirstComments(this.$route.params.id).then(res => { console.log(res); this.commentdata = res; this.commentinfo.manscriptid = this.$route.params.id }).catch(a => console.log(a))).catch()
+      SentComment(this.commentinfo).then(this.commentdata.push(this.commentinfo)).catch(a => console.log(a)).catch()
     },
     ReturnMansucript () {
       this.$router.push({ name: 'ShowEditManuscript', params: { id: this.$route.params.id } })

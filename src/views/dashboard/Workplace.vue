@@ -1,7 +1,7 @@
 <template>
   <page-view :avatar="avatar" :title="false">
     <div slot="headerContent">
-      <div class="title">{{ timeFix }}{{ user.name }}<span class="welcome-text">，{{ welcome }}</span></div>
+      <div class="title">{{ timeFix }}{{ user.name }}<span class="welcome-text">，欢迎回来</span></div>
       <div>一位作者｜这里是个人简介预留</div>
     </div>
     <div slot="extra">

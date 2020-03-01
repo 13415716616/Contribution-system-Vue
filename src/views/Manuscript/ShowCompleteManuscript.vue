@@ -31,11 +31,6 @@ const columns = [
     width: '15%'
   },
   {
-    title: '当前状态',
-    dataIndex: 'manuscript_Status',
-    width: '20%'
-  },
-  {
     title: '操作',
     key: 'action',
     scopedSlots: { customRender: 'action' }
