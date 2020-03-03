@@ -1,19 +1,19 @@
 <template>
   <page-view :avatar="avatar" :title="false">
     <div slot="headerContent">
-      <div class="title">{{ timeFix }}{{ user.name }}<span class="welcome-text">，欢迎回来</span></div>
-      <div>一位作者｜这里是个人简介预留</div>
+      <div class="title">{{ user.name }}<span class="welcome-text">，欢迎回来</span></div>
+      <div>{{ dec }}</div>
     </div>
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="8">
-          <head-info title="草稿箱" content="3" :center="false" :bordered="false"/>
+          <head-info title="草稿箱" :content="num.darftManuscript" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="审核稿件" content="3" :center="false" :bordered="false"/>
+          <head-info title="审核稿件" :content="num.reviewsManusript" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="通过稿件" content="3" :center="false" />
+          <head-info title="通过稿件" :content="num.completeManuscript" :center="false" />
         </a-col>
       </a-row>
     </div>
@@ -26,7 +26,7 @@
             :loading="loading"
             style="margin-bottom: 24px;"
             :bordered="false"
-            title="进行中的项目"
+            title="审核中的项目"
             :body-style="{ padding: 0 }">
             <a slot="extra">全部项目</a>
             <div>
@@ -54,7 +54,7 @@
             <a-list>
               <a-list-item :key="index" v-for="(item, index) in complete">
                 <a-list-item-meta>
-                  <!-- <a-avatar slot="avatar" :src="item.user.avatar" /> -->
+                  <a-avatar slot="avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583210275615&di=ba5f3ab3eb5bea8f9cccc67d35c404fb&imgtype=0&src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201808%2F26%2F20180826155700_bgftl.thumb.400_0.jpg" />
                   <div slot="title">
                     <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
@@ -85,7 +85,7 @@
 import { mapState } from 'vuex'
 import { GetAllManuscriptReviews } from '@/api/ManuscriptReview'
 import { GetCompleteManuscript } from '@/api/Personal'
-
+import { GetAuthorManuscriptNum, GetAuthorPersonalInfo } from '@/api/AuthorPersonalApi'
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
@@ -101,7 +101,12 @@ export default {
     return {
       manuscripts: [],
       complete: [],
-
+      num: {
+        darftManuscript: '',
+        reviewsManusript: '',
+        completeManuscript: ''
+      },
+      dec: '',
       loading: false,
       radarLoading: true
     }
@@ -118,8 +123,14 @@ export default {
   created () {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-    GetAllManuscriptReviews().then(res => { this.manuscripts = res; console.log(this.manuscripts) }).catch()
-    GetCompleteManuscript().then(res => { this.complete = res; console.log(this.complete) }).catch()
+    GetAllManuscriptReviews().then(res => { this.manuscripts = res }).catch()
+    GetCompleteManuscript().then(res => { this.complete = res }).catch()
+    GetAuthorManuscriptNum().then(res => {
+      this.num.darftManuscript = res.darftManuscript.toString()
+      this.num.reviewsManusript = res.reviewsManusript.toString()
+      this.num.completeManuscript = res.completeManuscript.toString()
+    }).catch()
+    GetAuthorPersonalInfo().then(res => { this.dec = res.author_Dec }).catch()
   }
 }
 </script>

@@ -21,7 +21,7 @@
               <i class="address"></i>
               {{ data.author_Address }}
             </p>
-          </div><br>
+          </div>
           <a-divider/>
 
           <div class="account-center-tags">
@@ -59,6 +59,22 @@
             </div>
           </div>
           <a-divider :dashed="true"/>
+
+          <!-- <div class="account-center-team">
+            <div class="teamTitle">团队</div>
+            <a-spin :spinning="teamSpinning">
+              <div class="members">
+                <a-row>
+                  <a-col :span="12" v-for="(item, index) in teams" :key="index">
+                    <a>
+                      <a-avatar size="small" :src="item.avatar"/>
+                      <span class="member">{{ item.name }}</span>
+                    </a>
+                  </a-col>
+                </a-row>
+              </div>
+            </a-spin>
+          </div> -->
         </a-card>
       </a-col>
       <a-col :md="24" :lg="17">
@@ -81,8 +97,7 @@
 <script>
 import { PageView, RouteView } from '@/layouts'
 import { AppPage, ArticlePage, ProjectPage } from './page'
-import { GetAuthorPersonalInfo, AddAuthorTags } from '@/api/Personal'
-import { GetAuthorManuscriptNum } from '@/api/AuthorPersonalApi'
+import { AddAuthorTags } from '@/api/Personal'
 
 import { mapGetters } from 'vuex'
 
@@ -107,22 +122,23 @@ export default {
       tabListNoTitle: [
         {
           key: 'article',
-          tab: '已投稿件'
+          tab: '已投稿件(8)'
         },
         {
           key: 'project',
-          tab: '通过稿件'
+          tab: '通过稿件(8)'
         }
       ],
-      noTitleKey: 'article'
+      noTitleKey: 'app'
     }
   },
   mounted () {
     this.getTeams()
   },
   created () {
-    GetAuthorPersonalInfo().then(res => { this.data = res; console.log(res); this.tags = JSON.parse(res.author_tags) }).catch()
-    GetAuthorManuscriptNum().then(res => { console.log('Num:' + res) }).catch(console.log('error'))
+    console.log(this.tags)
+    // GetAuthorPersonalInfo().then(res => { this.data = res; console.log(res); this.tags = JSON.parse(res.author_tags) }).catch()
+    console.log(this.tags)
   },
   methods: {
     ...mapGetters(['nickname', 'avatar']),
@@ -156,14 +172,8 @@ export default {
 
     handleTagInputConfirm () {
       const inputValue = this.tagInputValue
-      console.log('123' + inputValue)
       let tags = this.tags
-      if (tags != null) {
-        if (inputValue && !tags.includes(inputValue)) {
-          tags = [...tags, inputValue]
-          AddAuthorTags(inputValue).then().catch()
-        }
-      } else {
+      if (inputValue && !tags.includes(inputValue)) {
         tags = [...tags, inputValue]
         AddAuthorTags(inputValue).then().catch()
       }
@@ -179,102 +189,102 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.page-header-wrapper-grid-content-main {
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
-  transition: 0.3s;
+  .page-header-wrapper-grid-content-main {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    transition: 0.3s;
 
-  .account-center-avatarHolder {
-    text-align: center;
-    margin-bottom: 24px;
+    .account-center-avatarHolder {
+      text-align: center;
+      margin-bottom: 24px;
 
-    & > .avatar {
-      margin: 0 auto;
-      width: 104px;
-      height: 104px;
-      margin-bottom: 20px;
-      border-radius: 50%;
-      overflow: hidden;
-      img {
-        height: 100%;
-        width: 100%;
+      & > .avatar {
+        margin: 0 auto;
+        width: 104px;
+        height: 104px;
+        margin-bottom: 20px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .username {
+        color: rgba(0, 0, 0, 0.85);
+        font-size: 20px;
+        line-height: 28px;
+        font-weight: 500;
+        margin-bottom: 4px;
       }
     }
 
-    .username {
-      color: rgba(0, 0, 0, 0.85);
-      font-size: 20px;
-      line-height: 28px;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-  }
+    .account-center-detail {
+      p {
+        margin-bottom: 8px;
+        padding-left: 26px;
+        position: relative;
+      }
 
-  .account-center-detail {
-    p {
-      margin-bottom: 8px;
-      padding-left: 26px;
-      position: relative;
+      i {
+        position: absolute;
+        height: 14px;
+        width: 14px;
+        left: 0;
+        top: 4px;
+        background: url(https://gw.alipayobjects.com/zos/rmsportal/pBjWzVAHnOOtAUvZmZfy.svg);
+      }
+
+      .title {
+        background-position: 0 0;
+      }
+      .group {
+        background-position: 0 -22px;
+      }
+      .address {
+        background-position: 0 -44px;
+      }
     }
 
-    i {
-      position: absolute;
-      height: 14px;
-      width: 14px;
-      left: 0;
-      top: 4px;
-      background: url(https://gw.alipayobjects.com/zos/rmsportal/pBjWzVAHnOOtAUvZmZfy.svg);
+    .account-center-tags {
+      .ant-tag {
+        margin-bottom: 8px;
+      }
     }
 
-    .title {
-      background-position: 0 0;
-    }
-    .group {
-      background-position: 0 -22px;
-    }
-    .address {
-      background-position: 0 -44px;
-    }
-  }
-
-  .account-center-tags {
-    .ant-tag {
-      margin-bottom: 8px;
-    }
-  }
-
-  .account-center-team {
-    .members {
-      a {
-        display: block;
-        margin: 12px 0;
-        line-height: 24px;
-        height: 24px;
-        .member {
-          font-size: 14px;
-          color: rgba(0, 0, 0, 0.65);
+    .account-center-team {
+      .members {
+        a {
+          display: block;
+          margin: 12px 0;
           line-height: 24px;
-          max-width: 100px;
-          vertical-align: top;
-          margin-left: 12px;
-          transition: all 0.3s;
-          display: inline-block;
-        }
-        &:hover {
-          span {
-            color: #1890ff;
+          height: 24px;
+          .member {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.65);
+            line-height: 24px;
+            max-width: 100px;
+            vertical-align: top;
+            margin-left: 12px;
+            transition: all 0.3s;
+            display: inline-block;
+          }
+          &:hover {
+            span {
+              color: #1890ff;
+            }
           }
         }
       }
     }
-  }
 
-  .tagsTitle,
-  .teamTitle {
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.85);
-    margin-bottom: 12px;
+    .tagsTitle,
+    .teamTitle {
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.85);
+      margin-bottom: 12px;
+    }
   }
-}
 </style>

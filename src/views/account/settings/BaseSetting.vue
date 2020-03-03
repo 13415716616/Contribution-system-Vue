@@ -1,51 +1,42 @@
 <template>
   <div class="account-settings-info-view">
-    <a-row :gutter="16">
+    <a-roFw :gutter="16">
       <a-col :md="24" :lg="16">
 
-        <a-form layout="vertical">
+        <a-form layout="vertical" :form="author" >
           <a-form-item
             label="昵称"
           >
-            <a-input placeholder="给自己起个名字" />
+            <a-input placeholder="给自己起个名字" v-model="author.author_Name" />
           </a-form-item>
           <a-form-item
-            label="Bio"
+            label="个人简介"
           >
-            <a-textarea rows="4" placeholder="You are not alone."/>
+            <a-textarea rows="4" placeholder="请输入你的个人简介" v-model="author.author_Dec"/>
           </a-form-item>
 
           <a-form-item
             label="电子邮件"
             :required="false"
           >
-            <a-input placeholder="exp@admin.com"/>
+            <a-input placeholder="exp@admin.com" v-model="author.author_Email"/>
           </a-form-item>
           <a-form-item
-            label="加密方式"
+            label="电话号码"
             :required="false"
           >
-            <a-select defaultValue="aes-256-cfb">
-              <a-select-option value="aes-256-cfb">aes-256-cfb</a-select-option>
-              <a-select-option value="aes-128-cfb">aes-128-cfb</a-select-option>
-              <a-select-option value="chacha20">chacha20</a-select-option>
-            </a-select>
+            <a-input placeholder="请输入电话号码" v-model="author.author_Phone"/>
           </a-form-item>
+
           <a-form-item
-            label="连接密码"
+            label="个人地址"
             :required="false"
           >
-            <a-input placeholder="h3gSbecd"/>
-          </a-form-item>
-          <a-form-item
-            label="登录密码"
-            :required="false"
-          >
-            <a-input placeholder="密码"/>
+            <a-input placeholder="请输入个人地址" v-model="author.author_Address"/>
           </a-form-item>
 
           <a-form-item>
-            <a-button type="primary">提交</a-button>
+            <a-button type="primary" @click="sub()">提交</a-button>
             <a-button style="margin-left: 8px">保存</a-button>
           </a-form-item>
         </a-form>
@@ -61,7 +52,7 @@
         </div>
       </a-col>
 
-    </a-row>
+    </a-roFw>
 
     <avatar-modal ref="modal" @ok="setavatar"/>
 
@@ -70,6 +61,7 @@
 
 <script>
 import AvatarModal from './AvatarModal'
+import { GetAuthorPersonalInfo, UpdateAuthorPersonalInfo } from '@/api/AuthorPersonalApi'
 
 export default {
   components: {
@@ -77,6 +69,7 @@ export default {
   },
   data () {
     return {
+      author: {},
       // cropper
       preview: {},
       option: {
@@ -96,9 +89,16 @@ export default {
       }
     }
   },
+  created () {
+    GetAuthorPersonalInfo().then(res => { console.log(res); this.author = res }).catch()
+  },
   methods: {
     setavatar (url) {
       this.option.img = url
+    },
+    sub () {
+      console.log(this.author)
+      UpdateAuthorPersonalInfo(this.author).then().catch()
     }
   }
 }
