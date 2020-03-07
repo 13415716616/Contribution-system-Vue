@@ -1,6 +1,6 @@
 <template>
   <div class="account-settings-info-view">
-    <a-roFw :gutter="16">
+    <a-row :gutter="16">
       <a-col :md="24" :lg="16">
 
         <a-form layout="vertical" :form="author" >
@@ -44,34 +44,44 @@
       </a-col>
       <a-col :md="24" :lg="8" :style="{ minHeight: '180px' }">
         <div class="ant-upload-preview" @click="$refs.modal.edit(1)" >
-          <a-icon type="cloud-upload-o" class="upload-icon"/>
-          <div class="mask">
-            <a-icon type="plus" />
-          </div>
           <img :src="option.img"/>
-        </div>
+        </div><br>
+        <div style="position: relative;margin: 0 auto;width: 100%;max-width: 180px;text-align: center">
+          <a-upload
+            name="file"
+            :multiple="true"
+            :action="imageURL"
+            :headers="headers"
+          >
+            <a-button> <a-icon type="upload" /> 上传头像 </a-button>
+          </a-upload></div>
       </a-col>
 
-    </a-roFw>
+    </a-row>
 
-    <avatar-modal ref="modal" @ok="setavatar"/>
+    <!--        <avatar-modal ref="modal" @ok="setavatar"/>-->
 
   </div>
 </template>
 
 <script>
-import AvatarModal from './AvatarModal'
+// import AvatarModal from './AvatarModal'
 import { GetAuthorPersonalInfo, UpdateAuthorPersonalInfo } from '@/api/AuthorPersonalApi'
+import Vue from 'vue'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 export default {
-  components: {
-    AvatarModal
-  },
+  // components: {
+  //   AvatarModal
+  // },
   data () {
     return {
       author: {},
       // cropper
       preview: {},
+      headers: {
+        Authorization: 'Bearer ' + Vue.ls.get(ACCESS_TOKEN)
+      },
       option: {
         img: '/avatar2.jpg',
         info: true,
@@ -86,11 +96,13 @@ export default {
         // 开启宽度和高度比例
         fixed: true,
         fixedNumber: [1, 1]
-      }
+      },
+      imageURL: process.env.VUE_APP_API_BASE_URL + '/Personal/UpdateAuthorInfo'
     }
   },
   created () {
     GetAuthorPersonalInfo().then(res => { console.log(res); this.author = res }).catch()
+    console.log('111' + process.env.VUE_APP_API_BASE_URL)
   },
   methods: {
     setavatar (url) {

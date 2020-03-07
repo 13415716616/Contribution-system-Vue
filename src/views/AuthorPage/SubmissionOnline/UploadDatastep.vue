@@ -23,7 +23,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import { Uploaddata } from '@/api/Contribute'
+import { Uploaddata } from '@/api/AuthorManuscriptApi'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 // import VueBus from 'vue-bus'
 export default {

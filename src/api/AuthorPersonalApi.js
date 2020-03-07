@@ -24,3 +24,12 @@ export function UpdateAuthorPersonalInfo (parmer) {
     data: parmer
   })
 }
+
+// 更新个人的头像
+export function UpdateImg (parmer) {
+  return axios({
+    url: 'Personal/UpdateAuthorInfo',
+    method: 'post',
+    data: parmer
+  })
+}

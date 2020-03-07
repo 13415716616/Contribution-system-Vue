@@ -54,8 +54,6 @@ const constantRouterComponents = {
   'NotificationSettings': () => import('@/views/account/settings/Notification'),
 
   'TestWork': () => import(/* webpackChunkName: "TestWork" */ '@/views/dashboard/TestWork'),
-
-  'ContributePage': () => import('@/views/AuthorPage/ManuscriptPage/ContributePage'),
   'ManuscriptSubmitted': () => import('@/views/AuthorPage/ManuscriptSubmitted/ManuscriptSubmitted'),
   'ManuscriptDrafts': () => import('@/views/AuthorPage/ManuscriptDrafts/Drafts'),
   'ManuscriptReview': () => import('@/views/EditorPage/EditorManuscript/ManuscriptReview'),
@@ -87,8 +85,10 @@ const constantRouterComponents = {
 
   'MyReviewManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/MyReviewManuscript'),
 
-  // AuthorPage
-  'AuthorHomeInfoPage': () => import('@/views/AuthorPage/HomePage/HomeInfoPage')
+  // 作者界面的路由组件
+  'AuthorHomeInfoPage': () => import('@/views/AuthorPage/HomePage/HomeInfoPage'),
+  'ContributePage': () => import('@/views/AuthorPage/SubmissionOnline/ContributePage'),
+  'ModifyDraftManuscript': () => import('@/views/AuthorPage/ModifyManuscript/ModifyDraftManuscript')
 }
 
 // 前端未找到页面路由（固定不用改）

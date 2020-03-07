@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-import { AddAthorinfo } from '@/api/Contribute'
+import { AddAthorinfo } from '@/api/AuthorManuscriptApi'
 
 export default {
   name: 'AddAuthor',

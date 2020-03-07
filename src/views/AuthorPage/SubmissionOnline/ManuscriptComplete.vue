@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { GetManuscript } from '@/api/Contribute'
+import { GetManuscript } from '@/api/AuthorManuscriptApi'
 import { Result } from '@/components'
 export default {
   name: 'ManuscriptComplete',

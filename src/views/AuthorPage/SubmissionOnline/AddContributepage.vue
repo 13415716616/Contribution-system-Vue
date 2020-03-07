@@ -57,7 +57,7 @@
 
 <script>
 import Editor from 'wangeditor'
-import { CreateManuscript } from '@/api/Contribute'
+import { CreateManuscript } from '@/api/AuthorManuscriptApi'
 
 export default {
   name: 'AddContributepage',

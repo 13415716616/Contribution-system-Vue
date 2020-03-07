@@ -3,7 +3,7 @@
     <a-form @submit="handleSubmit" :form="form">
       <a-form-item
         label="标题"
-        :labelCol="{lg: {span: 7}, sm: {span: 7}}"
+        :labelCol="{lg: {span: 2}, sm: {span: 2}}"
         :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
         <a-input
           v-decorator="[

@@ -1,18 +1,18 @@
 <template>
   <div id="components-table-demo-size">
     <a-card>
-      <a-table :loading="loading" :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscript_ID">
+      <a-table :loading="loading" :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.draftManuscript_ID">
         <span slot="Status" slot-scope="text, record">
-          <p v-if="record.manuscript_Status==1">填写稿件信息完成</p>
-          <p v-if="record.manuscript_Status==2">上传稿件信息完成</p>
-          <p v-if="record.manuscript_Status==3">投稿完成</p>
+          <p v-if="record.draftManuscript_Status==1">填写稿件信息完成</p>
+          <p v-if="record.draftManuscript_Status==2">上传稿件信息完成</p>
+          <p v-if="record.draftManuscript_Status==3">投稿完成</p>
         </span>
         <span slot="action" slot-scope="text, record">
-          <a @click="Edit(record.manuscript_ID,record.manuscript_Status)">编辑</a>
+          <a @click="Edit(record.draftManuscript_ID)">编辑</a>
           <a-divider type="vertical" />
           <a-popconfirm
             title="你确定要删除这个稿件吗?"
-            @confirm="Delete(record.manuscript_ID)"
+            @confirm="Delete(record.draftManuscript_ID)"
             okText="是"
             cancelText="否"
           >
@@ -20,11 +20,11 @@
           <a-divider type="vertical" />
           <a-popconfirm
             title="你确定要提交这个稿件吗?"
-            @confirm="CompleteDartfs(record.manuscript_ID)"
+            @confirm="CompleteDartfs(record.draftManuscript_ID)"
             okText="是"
             cancelText="否"
           >
-            <a @click="CompleteDartfs(record.manuscript_ID)">提交</a>
+            <a @click="CompleteDartfs(record.draftManuscript_ID)">提交</a>
           </a-popconfirm>
         </span>
       </a-table>
@@ -32,12 +32,12 @@
   </div>
 </template>
 <script>
-import { GetManuscriptToDrafts, DeleteMansuscriptDrafts } from '@/api/Contribute'
+import { GetManuscriptToDrafts, DeleteMansuscriptDrafts } from '@/api/AuthorManuscriptApi'
 import { CompleteDratfs } from '@/api/EditManuscript'
 const columns = [
   {
     title: '论文标题',
-    dataIndex: 'manuscript_Title',
+    dataIndex: 'draftManuscript_Title',
     width: '38%'
   },
   {
@@ -48,7 +48,7 @@ const columns = [
   },
   {
     title: '编辑时间',
-    dataIndex: 'editor_Time',
+    dataIndex: 'edit_Time',
     width: '18%'
   },
   {
@@ -78,9 +78,8 @@ export default {
       this.data = this.data.filter(items => items.manuscript_ID !== id)
       DeleteMansuscriptDrafts(id).then().catch()
     },
-    Edit (id, num) {
-      this.$store.commit('SET_MANUSCRIPT_ID', id)
-      this.$router.push({ name: 'ContributePage', params: { id: num - 1, num: num + 1 } })
+    Edit (mid) {
+      this.$router.push({ name: 'ModifyDraftManuscript', params: { id: mid } })
     },
     CompleteDartfs (id) {
       CompleteDratfs(id).then(GetManuscriptToDrafts().then(res => {
