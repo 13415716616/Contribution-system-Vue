@@ -9,7 +9,6 @@ export function CreateManuscript (parameter) {
 }
 
 export function Uploaddata (parameter) {
-  console.log('12313zhekandfiuoahfda')
   return axios({
     url: 'AuthorManuscript/uploadmain',
     method: 'post',
@@ -19,19 +18,33 @@ export function Uploaddata (parameter) {
 
 export function AddAthorinfo (parameter) {
   return axios({
-    url: 'Manuscript/AddAuthor',
+    url: 'AuthorManuscript/AddManuscriptAuthor',
     method: 'post',
     data: parameter
   })
 }
 
-// 获取单个的草稿箱稿件信息
-export function GetManuscript (parameter) {
-  console.log(parameter)
+export function CompleteManuscript (parameter) {
   return axios({
-    url: 'AuthorManuscript?id=' + parameter,
-    method: 'get',
+    url: 'AuthorManuscript/CompleteManuscript',
+    method: 'post',
     data: parameter
+  })
+}
+
+// 获取栏目信息
+export function GetManuscriptColoum () {
+  return axios({
+    url: 'AuthorManuscript/GetManuscriptColumn',
+    method: 'get'
+  })
+}
+
+// 获取稿件信息
+export function GetManuscript (parameter) {
+  return axios({
+    url: 'AuthorManuscript/GetManuscript?id=' + parameter,
+    method: 'get'
   })
 }
 

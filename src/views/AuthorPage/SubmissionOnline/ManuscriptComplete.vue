@@ -6,7 +6,7 @@
           <div class="info">
             <p>稿件名称：{{ info.manuscript_Title }}</p>
             <!-- <p>稿件作者：{{ info.author_name }}</p> -->
-            <p>稿件状态：等待审查</p>
+            <p>稿件状态：等待编辑审查</p>
           </div>
         </a-row>
         <a-row>

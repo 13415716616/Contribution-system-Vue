@@ -50,3 +50,53 @@ export function CompleteDratfs () {
     method: 'get'
   })
 }
+
+export function GetManuscript (parameter) {
+  return axios({
+    url: 'AuthorManuscript/GetManuscript?id=' + parameter,
+    method: 'get'
+  })
+}
+
+export function CompleteFirstContribution (info) {
+  return axios({
+    url: 'EditorManscript/CompleteFirstContribution',
+    data: info,
+    method: 'post'
+  })
+}
+
+export function GetSecondEdiotrManuscript () {
+  return axios({
+    url: 'EditorManscript/GetSecondEdiotrManuscript',
+    method: 'get'
+  })
+}
+
+export function CompleteSecondEdiotrManuscript (id) {
+  return axios({
+    url: 'EditorManscript/CompleteSecondEdiotrManuscript?id=' + id,
+    method: 'get'
+  })
+}
+
+export function GetManuscriptAuthor (id) {
+  return axios({
+    url: 'EditorManscript/GetManuscriptAuthor?id=' + id,
+    method: 'get'
+  })
+}
+
+export function GetEndManuscript () {
+  return axios({
+    url: 'EditorManscript/GetEndManuscript',
+    method: 'get'
+  })
+}
+
+export function ReviewFirstManuscript (id) {
+  return axios({
+    url: 'EditorManscript/ReviewFirstManuscript?id=' + id,
+    method: 'get'
+  })
+}

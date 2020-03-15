@@ -3,7 +3,7 @@
     <a-card title="上传文件" class="card" style=" text-align:left">
       <a-card-grid style="width:90%;margin-left: 5%">
         上传稿件原件  <a-upload
-          action="https://localhost:5001/api/Manuscript/uploadmain"
+          action="https://localhost:5001/api/AuthorManuscript/uploadmain"
           name="file"
           :multiple="true"
           :headers="headers"
@@ -11,7 +11,7 @@
         </a-upload></a-card-grid>
       <a-card-grid style="width:90%;margin-left: 5%">
         上传其他资料  <a-upload
-          action="https://localhost:5001/api/Manuscript/uploadother"
+          action="https://localhost:5001/api/AuthorManuscript/uploadother"
           name="file"
           :multiple="true"
           :headers="headers"
@@ -33,7 +33,6 @@ export default {
   },
   data () {
     return {
-      ManuscriptHead: 24,
       headers: {
         ManuscriptID: this.$store.getters.manuscriptID,
         Authorization: 'Bearer ' + Vue.ls.get(ACCESS_TOKEN)

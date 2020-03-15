@@ -19,11 +19,6 @@ const constantRouterComponents = {
   'Workplace': () => import('@/views/dashboard/Workplace'),
   'Analysis': () => import('@/views/dashboard/Analysis'),
 
-  // form
-  'BasicForm': () => import('@/views/form/BasicForm'),
-  'StepForm': () => import('@/views/form/stepForm/StepForm'),
-  'AdvanceForm': () => import('@/views/form/advancedForm/AdvancedForm'),
-
   // list
   'TableList': () => import('@/views/list/TableList'),
   'StandardList': () => import('@/views/list/StandardList'),
@@ -88,7 +83,19 @@ const constantRouterComponents = {
   // 作者界面的路由组件
   'AuthorHomeInfoPage': () => import('@/views/AuthorPage/HomePage/HomeInfoPage'),
   'ContributePage': () => import('@/views/AuthorPage/SubmissionOnline/ContributePage'),
-  'ModifyDraftManuscript': () => import('@/views/AuthorPage/ModifyManuscript/ModifyDraftManuscript')
+  'ModifyDraftManuscript': () => import('@/views/AuthorPage/ModifyManuscript/ModifyDraftManuscript'),
+  'ReviewFirstManuscript': () => import('@/views/EditorPage/CorrectingManuscripts/ReviewFirstManuscript'),
+
+  // 专家界面
+  'ExpertReviewManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ExpertReviewManuscript'),
+  'ReviewManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ReviewManuscript'),
+
+  'ReviewSecondManuscript': () => import('@/views/EditorPage/SecondReview/ReviewSecondManuscript'),
+  'GetEndManuscript': () => import('@/views/EditorPage/GetEndManuscript/GetEndManuscript'),
+
+  'EditorAccountCenter': () => import('@/views/EditorPage/account/center/page/index'),
+  'EditorAccountSettings': () => import('@/views/EditorPage/account/settings/Index'),
+  'EditorBaseSettings': () => import('@/views/EditorPage/account/settings/BaseSetting')
 }
 
 // 前端未找到页面路由（固定不用改）

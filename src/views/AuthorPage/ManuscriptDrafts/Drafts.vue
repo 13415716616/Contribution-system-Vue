@@ -1,18 +1,13 @@
 <template>
   <div id="components-table-demo-size">
     <a-card>
-      <a-table :loading="loading" :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.draftManuscript_ID">
-        <span slot="Status" slot-scope="text, record">
-          <p v-if="record.draftManuscript_Status==1">填写稿件信息完成</p>
-          <p v-if="record.draftManuscript_Status==2">上传稿件信息完成</p>
-          <p v-if="record.draftManuscript_Status==3">投稿完成</p>
-        </span>
+      <a-table :loading="loading" :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscript_ID">
         <span slot="action" slot-scope="text, record">
-          <a @click="Edit(record.draftManuscript_ID)">编辑</a>
+          <a @click="Edit(record.manuscript_ID)">编辑</a>
           <a-divider type="vertical" />
           <a-popconfirm
             title="你确定要删除这个稿件吗?"
-            @confirm="Delete(record.draftManuscript_ID)"
+            @confirm="Delete(record.manuscript_ID)"
             okText="是"
             cancelText="否"
           >
@@ -20,11 +15,11 @@
           <a-divider type="vertical" />
           <a-popconfirm
             title="你确定要提交这个稿件吗?"
-            @confirm="CompleteDartfs(record.draftManuscript_ID)"
+            @confirm="CompleteDartfs(record.manuscript_ID)"
             okText="是"
             cancelText="否"
           >
-            <a @click="CompleteDartfs(record.draftManuscript_ID)">提交</a>
+            <a @click="CompleteDartfs(record.manuscript_ID)">提交</a>
           </a-popconfirm>
         </span>
       </a-table>
@@ -37,18 +32,17 @@ import { CompleteDratfs } from '@/api/EditManuscript'
 const columns = [
   {
     title: '论文标题',
-    dataIndex: 'draftManuscript_Title',
+    dataIndex: 'manuscript_Title',
     width: '38%'
   },
   {
     title: '当前状态',
-    key: 'Status',
-    scopedSlots: { customRender: 'Status' },
+    dataIndex: 'manuscript_Status',
     width: '18%'
   },
   {
     title: '编辑时间',
-    dataIndex: 'edit_Time',
+    dataIndex: 'time',
     width: '18%'
   },
   {

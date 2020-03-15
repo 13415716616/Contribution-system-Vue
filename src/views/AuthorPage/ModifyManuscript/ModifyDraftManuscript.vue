@@ -6,28 +6,42 @@
           label="稿件标题"
           :labelCol="{lg: {span: 2}, sm: {span: 2}}"
           :wrapperCol="{lg: {span: 18}, sm: {span: 17} }">
-          <a-input v-model="info.draftManuscript_Title"></a-input>
+          <a-input v-model="info.manuscript_Title"></a-input>
         </a-form-item>
 
         <a-form-item
           label="稿件英文标题"
           :labelCol="{lg: {span: 2}, sm: {span: 2}}"
           :wrapperCol="{lg: {span: 18}, sm: {span: 17} }">
-          <a-input v-model="info.draftManuscript_Etitle"></a-input>
+          <a-input v-model="info.manuscript_Etitle"></a-input>
         </a-form-item>
 
         <a-form-item
           label="关键词"
           :labelCol="{lg: {span: 2}, sm: {span: 2}}"
           :wrapperCol="{lg: {span: 18}, sm: {span: 17} }">
-          <a-input v-model="info.draftManuscript_Keyword"></a-input>
+          <a-input v-model="info.manuscript_Keyword"></a-input>
+        </a-form-item>
+
+        <a-form-item
+          label="英文关键词"
+          :labelCol="{lg: {span: 2}, sm: {span: 2}}"
+          :wrapperCol="{lg: {span: 18}, sm: {span: 17} }">
+          <a-input v-model="info.manuscript_EKeyword"></a-input>
         </a-form-item>
 
         <a-form-item
           label="摘要"
           :labelCol="{lg: {span: 2}, sm: {span: 2}}"
           :wrapperCol="{lg: {span: 18}, sm: {span: 17} }">
-          <a-textarea :autosize="{ minRows: 5, maxRows: 8 }" v-model="info.draftManuscript_Abstract"></a-textarea>
+          <a-textarea :autosize="{ minRows: 5, maxRows: 8 }" v-model="info.manuscript_Abstract"></a-textarea>
+        </a-form-item>
+
+        <a-form-item
+          label="英文摘要"
+          :labelCol="{lg: {span: 2}, sm: {span: 2}}"
+          :wrapperCol="{lg: {span: 18}, sm: {span: 17} }">
+          <a-textarea :autosize="{ minRows: 5, maxRows: 8 }" v-model="info.manuscript_EAbstract"></a-textarea>
         </a-form-item>
 
         <a-form-item label="正文" :label-col="{ span: 2 }">
@@ -113,17 +127,17 @@ export default {
     this.editor.create()
   },
   created () {
-    GetManuscript(this.$route.params.id).then(
+    GetManuscript(2).then(
       result => {
         console.log(result)
         this.info = result
-        this.editor.txt.html(result.draftManuscript_Text)
+        this.editor.txt.html(result.manuscript_Content)
       }
     ).catch(console.log('err'))
   },
   methods: {
     UpdateInfo () {
-      this.info.draftManuscript_Text = this.editor.txt.html()
+      this.info.manuscript_Content = this.editor.txt.html()
       console.log(this.info)
       // GetManuscriptToDrafts(this.info).then(console.log('ok')).catch(console.log('err'))
       UpdateMansuscriptDrafts(this.info).then().catch()

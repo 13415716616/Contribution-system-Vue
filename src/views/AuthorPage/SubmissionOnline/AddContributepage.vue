@@ -2,6 +2,12 @@
   <div>
     <a-card class="card" title="稿件信息填写">
       <a-form @submit="handleSubmit" :form="form" >
+        <a-form-item label="投稿栏目" :label-col="{ span: 2 }" :wrapper-col="{ span: 5 }">
+          <a-select v-decorator="['ManuscriptColumn_ID', { rules: [{ required: true, message: '请选择稿件栏目' }] }]">
+            <a-select-option v-for="item in select" :key="item.manuscriptColumn_ID" :value="item.manuscriptColumn_ID">{{ item.manuscriptColumn_Name }}</a-select-option>
+          </a-select>
+        </a-form-item>
+
         <a-form-item label="稿件标题" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
           <a-input
             v-decorator="['Manuscript_Title', { rules: [{ required: true, message: '请输入稿件标题' }] }]"
@@ -16,16 +22,31 @@
           />
         </a-form-item>
 
-        <a-form-item label="关键词" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
+        <a-form-item label="中文关键词" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
           <a-input
             v-decorator="['Manuscript_Keyword', { rules: [{ required: true, message: '请输入稿件关键词' }] }]"
             placeholder="在这里输入稿件关键词"
           />
         </a-form-item>
 
-        <a-form-item label="稿件摘要摘要" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
+        <a-form-item label="英文关键词" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
+          <a-input
+            v-decorator="['Manuscript_EKeyword', { rules: [{ required: true, message: '请输入稿件关键词' }] }]"
+            placeholder="在这里输入稿件关键词"
+          />
+        </a-form-item>
+
+        <a-form-item label="稿件中文摘要" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
           <a-textarea
             v-decorator="['Manuscript_Abstract', { rules: [{ required: true, message: '请输入稿件摘要' }] }]"
+            placeholder="在这里输入稿件摘要"
+            :autosize="{ minRows: 5, maxRows: 8 }"
+          />
+        </a-form-item>
+
+        <a-form-item label="稿件英文摘要" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }">
+          <a-textarea
+            v-decorator="['Manuscript_EAbstract', { rules: [{ required: true, message: '请输入稿件摘要' }] }]"
             placeholder="在这里输入稿件摘要"
             :autosize="{ minRows: 5, maxRows: 8 }"
           />
@@ -57,21 +78,15 @@
 
 <script>
 import Editor from 'wangeditor'
-import { CreateManuscript } from '@/api/AuthorManuscriptApi'
+import { CreateManuscript, GetManuscriptColoum } from '@/api/AuthorManuscriptApi'
 
 export default {
   name: 'AddContributepage',
   data () {
     return {
       editor: '',
-      Manuscript: {
-        Manuscript_Title: '',
-        Manuscript_Etitle: '',
-        Manuscript_Keyword: '',
-        Manuscript_Abstract: '',
-        Manuscript_Reference: '',
-        Manuscript_Text: ''
-      },
+      select: {},
+      Manuscript: {},
       id: 0,
       form: this.$form.createForm(this)
     }
@@ -80,13 +95,16 @@ export default {
     this.editor = new Editor('#editor')
     this.editor.create()
   },
+  created () {
+    GetManuscriptColoum().then(result => { console.log(result); this.select = result }).catch()
+  },
   methods: {
     handleSubmit (e) {
       this.Manuscript = this.form
       e.preventDefault()
       this.Manuscript.validateFields((err, values) => {
         if (!err) {
-          values.Manuscript_Text = this.editor.txt.html()
+          values.Manuscript_Content = this.editor.txt.html()
           CreateManuscript(values).then(
             res => {
               console.log(res)

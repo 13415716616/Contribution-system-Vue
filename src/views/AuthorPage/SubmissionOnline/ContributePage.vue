@@ -5,6 +5,7 @@
       <a-step title="填写信息" />
       <a-step title="上传资料" />
       <a-step title="作者信息" />
+      <a-step title="检查信息" />
       <a-step title="完成" />
     </a-steps>
     <Instructions v-if="currentTab === 0" @nextStep="nextStep"></Instructions>
@@ -35,7 +36,7 @@ export default {
   },
   data () {
     return {
-      currentTab: 4
+      currentTab: 0
     }
   },
   created () {

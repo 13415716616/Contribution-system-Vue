@@ -1,29 +1,31 @@
 <template>
-  <div class="divmain">
-    <a-card style="margin-top: 24px" :bordered="false" >
-      <h1 >{{ data.manuscriptReview_Title }}</h1>
-      <h4>{{ data.manuscriptReview_Etitle }}</h4>
-      <div class="content">
-        <h3><b>关键词： </b>{{ data.manuscriptReview_Keyword }}<br><br></h3>
-        <h3> <b>摘要:  </b>{{ data.manuscriptReview_Abstract }}<br><br></h3>
-        <div v-html="this.content" style="font-size:15px">></div><br>
-      </div>
-      <a-card type="inner" title="稿件下载" class="content">
-        <detail-list size="small">
-          <detail-list-item term="主要稿件下载：">下载</detail-list-item>
-          <detail-list-item term="次要稿件下载：">下载</detail-list-item>
-        </detail-list>
-      </a-card><br>
-      <div>
-        <a-button class="btn" type="primary" @click="Returnselect">返回选择</a-button>
-        <a-button class="btn" type="primary" @click="CommentMansucript">查看评论</a-button>
-      </div>
-    </a-card>
+  <div>
+    <div class="divmain">
+      <a-card style="margin-top: 24px" :bordered="false" >
+        <h1 >{{ data.manuscript_Title }}</h1>
+        <h4>{{ data.manuscript_Etitle }}</h4>
+        <div class="content">
+          <h3><b>关键词： </b>{{ data.manuscript_Keyword }}<br><br></h3>
+          <h3><b>英文关键词： </b>{{ data.manuscript_EKeyword }}<br><br></h3>
+          <h3> <b>摘要:  </b>{{ data.manuscript_Abstract }}<br><br></h3>
+          <h3> <b>英文摘要:  </b>{{ data.manuscript_EAbstract }}<br><br></h3>
+          <div v-html="this.content" style="font-size:16px">></div><br>
+          <br><br>
+          <h3> <b>稿件引用:  </b>{{ data.manuscript_Reference }}<br><br></h3>
+        </div>
+      </a-card>
+    </div>
+    <div>
+      <a-button class="btn" type="primary" @click="Returnselect">投递稿件</a-button>
+      <a-button class="btn" type="primary" @click="CompleteMansucript">保存稿件</a-button>
+    </div>
   </div>
 </template>
 <script>
-import { GetShowManuscriptReviews, GetFile } from '@/api/ManuscriptReview'
+import { GetFile } from '@/api/ManuscriptReview'
 import DetailList from '@/components/tools/DetailList'
+import { GetManuscript, CompleteManuscript } from '@/api/AuthorManuscriptApi'
+import { GetManuscriptAuthor } from '@/api/EditManuscript'
 const DetailListItem = DetailList.Item
 
 export default {
@@ -35,12 +37,14 @@ export default {
   data () {
     return {
       data: [],
-      content: ' '
+      content: ' ',
+      author: []
     }
   },
   created () {
     console.log('123123213123+++++' + this.$route.params.id)
-    GetShowManuscriptReviews(this.$route.params.id).then(res => { console.log(res); this.data = res; this.content = res.manuscriptReview_Text }).catch()
+    GetManuscript(this.$store.getters.manuscriptID).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content }).catch()
+    GetManuscriptAuthor(this.$store.getters.manuscriptID).then(res => { console.log(res); this.author = res }).catch()
   },
   methods: {
     GetMainfile (id) {
@@ -64,9 +68,9 @@ export default {
     Returnselect () {
       this.$router.push({ name: 'ShowEditorInfo' })
     },
-    CommentMansucript () {
-      var id = this.$route.params.id
-      this.$router.push({ name: 'ShowEditorInfo', params: { id: id } })
+    CompleteMansucript () {
+      CompleteManuscript(this.data).then().catch()
+      this.$emit('nextStep')
     }
   }
 
@@ -84,5 +88,8 @@ export default {
   }
   .btn{
     margin-right: 30px
+  }，
+  .divother{
+    text-align: left;
   }
 </style>
