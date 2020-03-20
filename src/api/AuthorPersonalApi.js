@@ -56,3 +56,11 @@ export function UpdateEditorImg (parmer) {
     data: parmer
   })
 }
+
+export function UpdateAuthorImg (parmer) {
+  return axios({
+    url: 'AuthorPersonal/UpdateAuthorImg',
+    method: 'post',
+    data: parmer
+  })
+}

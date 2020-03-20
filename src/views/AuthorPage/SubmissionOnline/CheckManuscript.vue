@@ -14,10 +14,10 @@
           <h3> <b>稿件引用:  </b>{{ data.manuscript_Reference }}<br><br></h3>
         </div>
       </a-card>
-    </div>
-    <div>
-      <a-button class="btn" type="primary" @click="Returnselect">投递稿件</a-button>
-      <a-button class="btn" type="primary" @click="CompleteMansucript">保存稿件</a-button>
+    </div><br>
+    <div style=" text-align:center">
+      <a-button class="btn" type="primary" @click="Returnselect">保存稿件</a-button>
+      <a-button class="btn" type="primary" @click="CompleteMansucript">投递稿件</a-button>
     </div>
   </div>
 </template>

@@ -6,14 +6,11 @@
     </div>
     <div slot="extra">
       <a-row class="more-info">
-        <a-col :span="8">
-          <head-info title="草稿箱" :content="num.darftManuscript" :center="false" :bordered="false"/>
+        <a-col :span="12">
+          <head-info title="待审核稿件" content="1" :center="false" :bordered="false"/>
         </a-col>
-        <a-col :span="8">
-          <head-info title="审核稿件" :content="num.reviewsManusript" :center="false" :bordered="false"/>
-        </a-col>
-        <a-col :span="8">
-          <head-info title="通过稿件" :content="num.completeManuscript" :center="false" />
+        <a-col :span="12">
+          <head-info title="已采纳稿件" content="1" :center="false" :bordered="false"/>
         </a-col>
       </a-row>
     </div>
@@ -58,7 +55,7 @@
                   <div slot="title">
                     <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
-                  <div slot="description">{{ item.complete_Time }}</div>
+                  <div slot="description">{{ item.time }}</div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
@@ -83,10 +80,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import { GetCompleteManuscript } from '@/api/Personal'
-import { GetAuthorPersonalInfo } from '@/api/AuthorPersonalApi'
+import { GetChiefEditorManuscript, GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
 import { PageView } from '@/layouts'
-import { GetManuscriptToDrafts } from '@/api/AuthorManuscriptApi'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
 
@@ -123,14 +118,8 @@ export default {
   created () {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-    GetManuscriptToDrafts().then(res => { this.manuscripts = res; console.log(res) }).catch()
+    GetChiefEditorManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
     GetCompleteManuscript().then(res => { this.complete = res }).catch()
-    // GetManuscriptToDrafts().then(res => {
-    //   this.num.darftManuscript = res.darftManuscript.toString()
-    //   this.num.reviewsManusript = res.reviewsManusript.toString()
-    //   this.num.completeManuscript = res.completeManuscript.toString()
-    // }).catch()
-    GetAuthorPersonalInfo().then(res => { this.dec = res.author_Dec }).catch()
   }
 }
 </script>

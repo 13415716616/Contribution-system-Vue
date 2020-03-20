@@ -72,3 +72,17 @@ export function UpdateMansuscriptDrafts (parameter) {
     data: parameter
   })
 }
+
+export function CompleteMansuscriptDrafts (id) {
+  return axios({
+    url: 'AuthorManuscript/CompleteManuscriptID?id=' + id,
+    method: 'get'
+  })
+}
+
+export function GetReviewManuscript (id) {
+  return axios({
+    url: 'AuthorManuscript/GetReviewManuscript',
+    method: 'get'
+  })
+}

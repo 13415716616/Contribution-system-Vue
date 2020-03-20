@@ -14,7 +14,7 @@
         <a-button class="btn" type="primary" @click="Returnselect">返回选择</a-button>
         <!-- <a-button class="btn" type="primary" @click="CommentMansucript">退回稿件</a-button>
         <a-button type="primary" @click="showConfirm">通过稿件</a-button> -->
-        <a-button class="btn" type="primary" @click="Reviews">审查稿件</a-button>
+        <a-button class="btn" type="primary" >审查稿件</a-button>
       </div>
     </a-card>
   </div>
@@ -43,13 +43,10 @@ export default {
     Returnselect () {
       this.$router.push({ name: 'SelectManuscript' })
     },
-    // CommentMansucript () {
-    //   var mid = this.$route.params.id
-    //   console.log('id:' + mid)
-    //   this.$router.push({ name: 'CommentChiefManuscript', params: { id: mid } })
-    // },
-    Reviews () {
-      this.$router.push({ name: 'ReviewsChiefManuscript', params: { id: this.$route.params.id } })
+    CommentMansucript () {
+      var mid = this.$route.params.id
+      console.log('id:' + mid)
+      this.$router.push({ name: 'CommentChiefManuscript', params: { id: mid } })
     }
     // getfile () {
     //   GetFile(this.$route.params.id).then(res => {

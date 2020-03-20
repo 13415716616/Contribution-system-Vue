@@ -12,9 +12,14 @@
   </div>
 </template>
 <script>
-import { GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
+import { ShowCompleteManuscript } from '@/api/ExpertManuscript'
 
 const columns = [
+  {
+    title: '审核编号',
+    dataIndex: 'editorReview_ID',
+    width: '8%'
+  },
   {
     title: '论文标题',
     dataIndex: 'manuscript_Title',
@@ -26,8 +31,8 @@ const columns = [
     width: '15%'
   },
   {
-    title: '论文作者',
-    dataIndex: 'author_name',
+    title: '审核时间',
+    dataIndex: 'review_Time',
     width: '15%'
   },
   {
@@ -45,7 +50,7 @@ export default {
     }
   },
   created () {
-    GetCompleteManuscript().then(res => { this.data = res; console.log(res) }).catch()
+    ShowCompleteManuscript().then(res => { this.data = res; console.log(res) }).catch()
   },
   methods: {
     Show (mid) {

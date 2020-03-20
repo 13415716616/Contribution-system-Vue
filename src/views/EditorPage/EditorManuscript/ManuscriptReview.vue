@@ -16,6 +16,11 @@ import { GetAllWaitManuscript } from '@/api/EditManuscript'
 
 const columns = [
   {
+    title: '稿件编号',
+    dataIndex: 'manuscript_ID',
+    width: '8%'
+  },
+  {
     title: '论文标题',
     dataIndex: 'manuscript_Title',
     width: '25%'

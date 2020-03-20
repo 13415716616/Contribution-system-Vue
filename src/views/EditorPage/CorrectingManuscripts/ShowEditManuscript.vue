@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     Returnselect () {
-      this.$router.push({ name: 'ManuscriptEnquiry' })
+      this.$router.push({ name: 'ManuscriptReview' })
     },
     CommentMansucript () {
       var mid = this.$route.params.id

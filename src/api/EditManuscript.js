@@ -44,10 +44,11 @@ export function GetEdiotrManuscript () {
   })
 }
 
-export function CompleteDratfs () {
+export function CompleteDratfs (parmer) {
   return axios({
-    url: 'Manuscript/CompleteDratfs',
-    method: 'get'
+    url: 'AuthorManuscript/CompleteManuscript',
+    method: 'post',
+    data: parmer
   })
 }
 

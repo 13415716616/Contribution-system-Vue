@@ -1,11 +1,11 @@
 <template>
   <div>
     <a-card>
-      <a-table :dataSource="data" :columns="columns" size="middle" :rowKey="row=>row.manuscriptReview_ID">
+      <a-table :dataSource="data" :columns="columns" size="middle" :rowKey="row=>row.manuscript_ID">
         <span slot="action" slot-scope="text, record">
-          <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
+          <a @click="Show(record.manuscript_ID)">查看稿件</a>
           <a-divider type="vertical" />
-          <a @click="CommentMansucript(record.manuscriptReview_ID)">稿件留言</a>
+          <a @click="Reviews(record.manuscript_ID)">审查稿件</a>
         </span>
       </a-table>
     </a-card>
@@ -16,9 +16,19 @@ import { GetReviewManuscript } from '@/api/ExpertManuscript'
 
 const columns = [
   {
-    title: '论文标题',
+    title: '稿件编号',
+    dataIndex: 'manuscript_ID',
+    width: '8%'
+  },
+  {
+    title: '稿件标题',
     dataIndex: 'manuscript_Title',
-    width: '38%'
+    width: '25%'
+  },
+  {
+    title: '关键词',
+    dataIndex: 'manuscript_Keyword',
+    width: '20%'
   },
   {
     title: '投稿用户',
@@ -28,7 +38,7 @@ const columns = [
   {
     title: '当前状态',
     dataIndex: 'manuscript_Status',
-    width: '20%'
+    width: '15%'
   },
   {
     title: '操作',
@@ -49,7 +59,12 @@ export default {
   },
   methods: {
     Show (mid) {
-      this.$router.push({ name: 'ShowChiefManuscript', params: { id: mid } })
+      console.log(mid)
+      this.$router.push({ name: 'ShowExpertManuscript', params: { id: mid } })
+    },
+    Reviews (mid) {
+      console.log(mid)
+      this.$router.push({ name: 'ReviewManuscript', params: { id: mid } })
     },
     CommentMansucript () {
       var mid = this.$route.params.id

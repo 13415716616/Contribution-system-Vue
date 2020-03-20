@@ -6,10 +6,19 @@
           <h3>稿件名称：{{ info.manuscript_Title }}</h3>
         </a-col>
         <a-col>
-          <h3>稿件操作：<a>在线阅读</a></h3>
+          <h3>所属栏目：{{ info.manuscriptColumn_ID }}</h3>
         </a-col>
         <a-col>
-          <h3>稿件下载：<a>下载</a></h3>
+          <h3>投稿用户：{{ info.author_ID }}</h3>
+        </a-col>
+        <a-col>
+          <h3>投稿时间：{{ info.time }}</h3>
+        </a-col>
+        <a-col>
+          <h3>稿件操作：<a >在线阅读</a></h3>
+        </a-col>
+        <a-col>
+          <h3>稿件附件：<a>下载</a></h3>
         </a-col>
       </a-row>
     </a-card>
@@ -107,9 +116,9 @@
             </a-form-item>
           </a-col>
           <a-col :span="24" style="text-align: center">
-            <a-button type="primary" :size="size" style="margin-right: 30px">返回选择</a-button>
-            <a-button type="primary" :size="size" style="margin-right: 30px">暂存审核</a-button>
-            <a-button type="primary" :size="size" @click="complete">提交审核</a-button>
+            <a-button type="primary" style="margin-right: 30px">返回选择</a-button>
+            <a-button type="primary" style="margin-right: 30px">暂存审核</a-button>
+            <a-button type="primary" @click="complete">提交审核</a-button>
           </a-col>
         </a-row>
       </a-form>
@@ -129,7 +138,6 @@ export default {
         selectedTopic: '',
         methon: '',
         Content: '',
-        data: '',
         Value: '',
         Other: '',
         Comment: '',
@@ -139,7 +147,7 @@ export default {
     }
   },
   created () {
-    GetReviewManuscriptID(2).then(result => { this.info = result; console.log(result) }).catch()
+    GetReviewManuscriptID(this.$route.params.id).then(result => { this.info = result; console.log(result) }).catch()
   },
   methods: {
     complete () {

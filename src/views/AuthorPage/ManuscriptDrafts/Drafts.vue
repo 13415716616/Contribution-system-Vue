@@ -1,6 +1,6 @@
 <template>
   <div id="components-table-demo-size">
-    <a-card>
+    <a-card title="编辑中稿件">
       <a-table :loading="loading" :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscript_ID">
         <span slot="action" slot-scope="text, record">
           <a @click="Edit(record.manuscript_ID)">编辑</a>
@@ -27,23 +27,32 @@
   </div>
 </template>
 <script>
-import { GetManuscriptToDrafts, DeleteMansuscriptDrafts } from '@/api/AuthorManuscriptApi'
-import { CompleteDratfs } from '@/api/EditManuscript'
+import { GetManuscriptToDrafts, DeleteMansuscriptDrafts, CompleteMansuscriptDrafts } from '@/api/AuthorManuscriptApi'
 const columns = [
+  {
+    title: '论文编号',
+    dataIndex: 'manuscript_ID',
+    width: '10%'
+  },
   {
     title: '论文标题',
     dataIndex: 'manuscript_Title',
-    width: '38%'
+    width: '25%'
+  },
+  {
+    title: '关键词',
+    dataIndex: 'manuscript_Keyword',
+    width: '18%'
   },
   {
     title: '当前状态',
     dataIndex: 'manuscript_Status',
-    width: '18%'
+    width: '15%'
   },
   {
     title: '编辑时间',
     dataIndex: 'time',
-    width: '18%'
+    width: '15%'
   },
   {
     title: '操作',
@@ -53,6 +62,12 @@ const columns = [
 ]
 
 export default {
+  provide () {
+    return {
+      reload: this.reload
+    }
+  },
+  inject: ['reload'],
   created () {
     GetManuscriptToDrafts().then(res => {
       console.log(res)
@@ -76,10 +91,10 @@ export default {
       this.$router.push({ name: 'ModifyDraftManuscript', params: { id: mid } })
     },
     CompleteDartfs (id) {
-      CompleteDratfs(id).then(GetManuscriptToDrafts().then(res => {
+      CompleteMansuscriptDrafts(id).then(GetManuscriptToDrafts().then(res => {
         console.log(res)
-        this.data = res
-        this.loading = false
+        this.$message.success('稿件投递成功')
+        this.reload()
       }).catch()).catch()
     }
   }
@@ -88,7 +103,5 @@ export default {
 <style>
   #components-table-demo-size {
     margin-bottom: 16px;
-    margin-left: 3%;
-    margin-right: 3%;
   }
 </style>

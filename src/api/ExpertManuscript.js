@@ -21,3 +21,17 @@ export function ReviewManuscript (parmer) {
     data: parmer
   })
 }
+
+export function ShowCompleteManuscript () {
+  return axios({
+    url: 'ExpertManuscript/ShowCompleteManuscript',
+    method: 'get'
+  })
+}
+
+export function GetExpertInfo () {
+  return axios({
+    url: 'ExpertPersonal/GetExpertInfo',
+    method: 'get'
+  })
+}

@@ -14,9 +14,14 @@ import { GetEndManuscript } from '@/api/EditManuscript'
 
 const columns = [
   {
+    title: '投稿编号',
+    dataIndex: 'manuscript_ID',
+    width: '8%'
+  },
+  {
     title: '论文标题',
     dataIndex: 'manuscript_Title',
-    width: '38%'
+    width: '30%'
   },
   {
     title: '投稿用户',

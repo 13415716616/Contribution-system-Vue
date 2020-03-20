@@ -1,34 +1,42 @@
 <template>
   <div>
     <a-card>
-      <a-table :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscriptReview_ID">
+      <a-table :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscript_ID">
         <span slot="action" slot-scope="text, record">
-          <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
-          <a-divider type="vertical" />
-          <a @click="ShowComment(record.manuscriptReview_ID)">查询编辑留言</a>
+          <a @click="ShowComment(record.manuscript_ID)">查看进度</a>
         </span>
       </a-table>
     </a-card>
   </div>
 </template>
 <script>
-import { GetAllManuscriptReviews } from '@/api/ManuscriptReview'
+import { GetReviewManuscript } from '@/api/AuthorManuscriptApi'
 
 const columns = [
   {
-    title: '论文标题',
-    dataIndex: 'manuscriptReview_Title',
-    width: '38%'
+    title: '论文编号',
+    dataIndex: 'manuscript_ID',
+    width: '8%'
   },
   {
-    title: '作者',
-    dataIndex: 'author_name',
-    width: '15%'
+    title: '论文标题',
+    dataIndex: 'manuscript_Title',
+    width: '25%'
+  },
+  {
+    title: '关键词',
+    dataIndex: 'manuscript_Keyword',
+    width: '20%'
   },
   {
     title: '当前状态',
-    dataIndex: 'manuscriptReview_Status',
-    width: '20%'
+    dataIndex: 'manuscript_Status',
+    width: '15%'
+  },
+  {
+    title: '投稿时间',
+    dataIndex: 'time',
+    width: '15%'
   },
   {
     title: '操作',
@@ -39,7 +47,7 @@ const columns = [
 
 export default {
   created () {
-    GetAllManuscriptReviews().then(res => { console.log(res); this.data = res }).catch()
+    GetReviewManuscript().then(res => { console.log(res); this.data = res }).catch()
   },
   data () {
     return {
@@ -52,7 +60,7 @@ export default {
       this.$router.push({ name: 'ShowManscript', params: { id: mid } })
     },
     ShowComment (id) {
-      this.$router.push({ name: 'ShowEditorInfo', params: { id: id } })
+      this.$router.push({ name: 'ShowProgress', params: { id: id } })
     }
 
   }

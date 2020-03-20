@@ -85,17 +85,34 @@ const constantRouterComponents = {
   'ContributePage': () => import('@/views/AuthorPage/SubmissionOnline/ContributePage'),
   'ModifyDraftManuscript': () => import('@/views/AuthorPage/ModifyManuscript/ModifyDraftManuscript'),
   'ReviewFirstManuscript': () => import('@/views/EditorPage/CorrectingManuscripts/ReviewFirstManuscript'),
+  'ShowProgress': () => import('@/views/AuthorPage/ManuscriptSubmitted/ShowProgress'),
+  'AuthorAccountCenter': () => import('@/views/AuthorPage/account/center/page/index'),
+  'AuthorAccountSettings': () => import('@/views/AuthorPage/account/settings/Index'),
+  'AuthorBaseSettings': () => import('@/views/AuthorPage/account/settings/BaseSetting'),
 
   // 专家界面
   'ExpertReviewManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ExpertReviewManuscript'),
   'ReviewManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ReviewManuscript'),
+  'ShowExpertManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ShowExpertManuscript'),
+  'ShowExpertComplete': () => import('@/views/ExpertPage/ShowComplete/ShowExpertComplete'),
+  'ExpertAccountCenter': () => import('@/views/ExpertPage/account/center/page/index'),
+  'ExpertAccountSettings': () => import('@/views/ExpertPage/account/settings/Index'),
+  'ExpertBaseSettings': () => import('@/views/ExpertPage/account/settings/BaseSetting'),
+  'ExpertWorkplace': () => import('@/views/ExpertPage/dashboard/ExpertWorkplace'),
 
   'ReviewSecondManuscript': () => import('@/views/EditorPage/SecondReview/ReviewSecondManuscript'),
   'GetEndManuscript': () => import('@/views/EditorPage/GetEndManuscript/GetEndManuscript'),
 
   'EditorAccountCenter': () => import('@/views/EditorPage/account/center/page/index'),
   'EditorAccountSettings': () => import('@/views/EditorPage/account/settings/Index'),
-  'EditorBaseSettings': () => import('@/views/EditorPage/account/settings/BaseSetting')
+  'EditorBaseSettings': () => import('@/views/EditorPage/account/settings/BaseSetting'),
+
+  // 主编界面
+  'ChiefEditorWorkplace': () => import('@/views/ChiefEditorPage/dashboard/ChiefEditorWorkplace'),
+  'ReviewsChiefManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/ReviewsChiefManuscript'),
+  'ChiefEditorAccountCenter': () => import('@/views/ChiefEditorPage/account/center/page/index'),
+  'ChiefEditorAccountSettings': () => import('@/views/ChiefEditorPage/account/settings/Index'),
+  'ChiefEditorBaseSettings': () => import('@/views/ChiefEditorPage/account/settings/BaseSetting')
 }
 
 // 前端未找到页面路由（固定不用改）
