@@ -51,9 +51,9 @@
             <a-list>
               <a-list-item :key="index" v-for="(item, index) in complete">
                 <a-list-item-meta>
-                  <a-avatar slot="avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583210275615&di=ba5f3ab3eb5bea8f9cccc67d35c404fb&imgtype=0&src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201808%2F26%2F20180826155700_bgftl.thumb.400_0.jpg" />
+                  <a-avatar slot="avatar" :src="'https://localhost:5001'+item.avtor" />
                   <div slot="title">
-                    <a href="#">{{ item.manuscript_Title }}</a>
+                    <a href="#">{{ item.tiTle }}</a>
                   </div>
                   <div slot="description">{{ item.time }}</div>
                 </a-list-item-meta>
@@ -80,7 +80,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { GetChiefEditorManuscript, GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
+import { GetChiefEditorManuscript, GetAllCompleteInfo } from '@/api/ChiefEditorManuscriptApi'
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
@@ -119,7 +119,7 @@ export default {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
     GetChiefEditorManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
-    GetCompleteManuscript().then(res => { this.complete = res }).catch()
+    GetAllCompleteInfo().then(res => { this.complete = res; console.log(res) }).catch()
   }
 }
 </script>

@@ -43,3 +43,10 @@ export function GetCompleteManuscript () {
     method: 'get'
   })
 }
+
+export function GetAllCompleteInfo () {
+  return axios({
+    url: 'ChiefEditor/GetAllCompleteInfo',
+    method: 'get'
+  })
+}

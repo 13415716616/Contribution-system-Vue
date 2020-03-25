@@ -1,5 +1,5 @@
 <template>
-  <page-view :avatar="avatar" :title="false">
+  <page-view :avatar="'https://localhost:5001'+avatar" :title="false">
     <div slot="headerContent">
       <div class="title">{{ user.name }}<span class="welcome-text">，欢迎回来</span></div>
       <div>{{ dec }}</div>
@@ -7,10 +7,10 @@
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="12">
-          <head-info title="待审核稿件" content="1" :center="false" :bordered="false"/>
+          <head-info title="待审核稿件" :content="1" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="12">
-          <head-info title="已采纳稿件" content="1" :center="false" :bordered="false"/>
+          <head-info title="已审核稿件" content="1" :center="false" :bordered="false"/>
         </a-col>
       </a-row>
     </div>
@@ -23,11 +23,11 @@
             :loading="loading"
             style="margin-bottom: 24px;"
             :bordered="false"
-            title="审核中的项目"
+            title="已审核稿件"
             :body-style="{ padding: 0 }">
             <a slot="extra">全部项目</a>
             <div>
-              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in manuscripts">
+              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in complete.slice(0, 6)">
                 <a-card :bordered="false" :body-style="{ padding: 0 }">
                   <a-card-meta>
                     <div slot="title" class="card-title" >
@@ -39,7 +39,7 @@
                     </div>
                   </a-card-meta>
                   <div class="project-item">
-                    <a href="/#/">{{ item.time }}</a>
+                    <a href="/#/">{{ item.review_Time }}</a>
                     <!-- <span class="datetime">9小时前</span> -->
                   </div>
                 </a-card>
@@ -49,13 +49,13 @@
 
           <a-card :loading="loading" title="采用稿件" :bordered="false">
             <a-list>
-              <a-list-item :key="index" v-for="(item, index) in complete">
+              <a-list-item :key="index" v-for="(item, index) in complete.slice(0, 6)" >
                 <a-list-item-meta>
-                  <a-avatar slot="avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583210275615&di=ba5f3ab3eb5bea8f9cccc67d35c404fb&imgtype=0&src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201808%2F26%2F20180826155700_bgftl.thumb.400_0.jpg" />
+                  <a-avatar slot="avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584763258451&di=bb18e851063cfcbdf72da59ba9116830&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201705%2F13%2F20170513103720_34k2y.jpeg" />
                   <div slot="title">
                     <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
-                  <div slot="description">{{ item.time }}</div>
+                  <div slot="description">{{ item.review_Time }}</div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
@@ -80,10 +80,10 @@
 
 <script>
 import { mapState } from 'vuex'
-import { GetChiefEditorManuscript, GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
+import { GetReviewManuscript, ShowCompleteManuscript } from '@/api/ExpertManuscript'
 
 export default {
   name: 'Workplace',
@@ -103,7 +103,8 @@ export default {
       },
       dec: '',
       loading: false,
-      radarLoading: true
+      radarLoading: true,
+      completedata: {}
     }
   },
   computed: {
@@ -116,10 +117,11 @@ export default {
     }
   },
   created () {
+    console.log(this.userInfo)
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-    GetChiefEditorManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
-    GetCompleteManuscript().then(res => { this.complete = res }).catch()
+    ShowCompleteManuscript().then(res => { this.complete = res; this.num.darftManuscript = res.leng; console.log(res) }).catch()
+    GetReviewManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
   }
 }
 </script>

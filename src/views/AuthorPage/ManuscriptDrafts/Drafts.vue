@@ -1,6 +1,29 @@
 <template>
   <div id="components-table-demo-size">
     <a-card title="编辑中稿件">
+      <div class="table-page-search-wrapper">
+        <a-form layout="inline">
+          <a-row :gutter="48">
+            <a-col :md="8" :sm="24">
+              <a-form-item label="稿件标题">
+                <a-input v-model="queryParam.id" placeholder=""/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="24">
+              <a-form-item label="稿件状态">
+                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
+                  <a-select-option value="0">全部</a-select-option>
+                  <a-select-option value="1">关闭</a-select-option>
+                  <a-select-option value="2">运行中</a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="24">
+              <a-button >查询</a-button>
+            </a-col>
+          </a-row>
+        </a-form>
+      </div>
       <a-table :loading="loading" :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscript_ID">
         <span slot="action" slot-scope="text, record">
           <a @click="Edit(record.manuscript_ID)">编辑</a>
@@ -62,12 +85,6 @@ const columns = [
 ]
 
 export default {
-  provide () {
-    return {
-      reload: this.reload
-    }
-  },
-  inject: ['reload'],
   created () {
     GetManuscriptToDrafts().then(res => {
       console.log(res)
@@ -79,7 +96,8 @@ export default {
     return {
       data: [],
       columns,
-      loading: true
+      loading: true,
+      queryParam: {}
     }
   },
   methods: {
@@ -94,7 +112,7 @@ export default {
       CompleteMansuscriptDrafts(id).then(GetManuscriptToDrafts().then(res => {
         console.log(res)
         this.$message.success('稿件投递成功')
-        this.reload()
+        this.data = this.data.filter(items => items.manuscript_ID !== id)
       }).catch()).catch()
     }
   }

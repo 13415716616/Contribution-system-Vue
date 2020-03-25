@@ -12,7 +12,7 @@
         <a-row>
           <a-col :span="23">
             <div style=" text-align:center">
-              <a-button type="primary" style="margin-top:30px" >查看稿件</a-button>
+              <a-button type="primary" style="margin-top:30px" @click="show">查看稿件</a-button>
               <a-button type="primary" style="margin-top:30px" class="btn" @click="returnpage">返回首页</a-button></div>
           </a-col>
         </a-row>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     show () {
-      this.$router.push({ name: 'ShowManscript' })
+      this.$router.push({ name: 'ShowManscript', params: { id: this.id } })
     },
     returnpage () {
       this.$router.push({ name: 'workplace' })

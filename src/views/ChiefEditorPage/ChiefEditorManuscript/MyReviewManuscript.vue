@@ -1,13 +1,33 @@
 <template>
   <div>
     <a-card>
-      <a-table :dataSource="data" :columns="columns" size="middle" :rowKey="row=>row.manuscriptReview_ID">
-        <span slot="action" slot-scope="text, record">
-          <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
-          <a-divider type="vertical" />
-          <a>稿件留言</a>
-        </span>
-      </a-table>
+      <div class="ant-pro-pages-list-projects-cardList">
+        <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }">
+          <a-list-item slot="renderItem" slot-scope="item">
+            <a-card class="ant-pro-pages-list-projects-card" hoverable>
+              <img slot="cover" :src="item.cover" :alt="item.title" />
+              <a-card-meta :title="item.title">
+                <template slot="description">
+                  <ellipsis :length="50">{{ item.description }}</ellipsis>
+                </template>
+              </a-card-meta>
+              <div class="cardItemContent">
+                <span>{{ item.updatedAt | fromNow }}</span>
+                <div class="avatarList">
+                  <avatar-list size="mini">
+                    <avatar-list-item
+                      v-for="(member, i) in item.members"
+                      :key="`${item.id}-avatar-${i}`"
+                      :src="member.avatar"
+                      :tips="member.name"
+                    />
+                  </avatar-list>
+                </div>
+              </div>
+            </a-card>
+          </a-list-item>
+        </a-list>
+      </div>
     </a-card>
   </div>
 </template>

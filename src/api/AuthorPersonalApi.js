@@ -64,3 +64,33 @@ export function UpdateAuthorImg (parmer) {
     data: parmer
   })
 }
+
+export function GetAuthorInfo () {
+  return axios({
+    url: 'AuthorPersonal/GetAuthorInfo',
+    method: 'get'
+  })
+}
+
+export function UpdateAuthorInfo (parmer) {
+  return axios({
+    url: 'AuthorPersonal/UpdateAuthorInfo',
+    method: 'post',
+    data: parmer
+  })
+}
+
+export function SentMessage (parmer) {
+  return axios({
+    url: 'AuthorPersonal/SentMessage',
+    method: 'post',
+    data: parmer
+  })
+}
+
+export function GetAllMessage () {
+  return axios({
+    url: 'AuthorPersonal/GetAllMessage',
+    method: 'get'
+  })
+}

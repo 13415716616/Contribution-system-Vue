@@ -134,7 +134,7 @@ export default {
     return {
       info: {},
       review: {
-        Manuscript_ID: 2,
+        Manuscript_ID: this.$route.params.id,
         selectedTopic: '',
         methon: '',
         Content: '',
@@ -152,7 +152,7 @@ export default {
   methods: {
     complete () {
       console.log(this.review)
-      ReviewManuscript(this.review).then().catch()
+      ReviewManuscript(this.review).then(this.$message.success('稿件审稿完成')).catch()
     },
     ChangeSelectedTopic (e) {
       console.log(e.target.value)

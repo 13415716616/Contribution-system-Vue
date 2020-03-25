@@ -1,19 +1,16 @@
 <template>
-  <page-view :avatar="avatar" :title="false">
+  <page-view :avatar="'https://localhost:5001'+avatar" :title="false">
     <div slot="headerContent">
       <div class="title">{{ user.name }}<span class="welcome-text">，欢迎回来</span></div>
       <div>{{ dec }}</div>
     </div>
     <div slot="extra">
       <a-row class="more-info">
-        <!-- <a-col :span="8">
-          <head-info title="草稿箱" :content="manuscripts.length" :center="false" :bordered="false"/>
-        </a-col> -->
-        <a-col :span="8">
-          <head-info title="审核稿件" :content="manuscripts.length" :center="false" :bordered="false"/>
+        <a-col :span="12">
+          <head-info title="待审核稿件" content="1" :center="false" :bordered="false"/>
         </a-col>
-        <a-col :span="8">
-          <head-info title="通过稿件" :center="false" />
+        <a-col :span="12">
+          <head-info title="已采纳稿件" content="1" :center="false" :bordered="false"/>
         </a-col>
       </a-row>
     </div>
@@ -30,7 +27,7 @@
             :body-style="{ padding: 0 }">
             <a slot="extra">全部项目</a>
             <div>
-              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in manuscripts.slice(0, 6)">
+              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in manuscripts">
                 <a-card :bordered="false" :body-style="{ padding: 0 }">
                   <a-card-meta>
                     <div slot="title" class="card-title" >
@@ -54,9 +51,9 @@
             <a-list>
               <a-list-item :key="index" v-for="(item, index) in complete">
                 <a-list-item-meta>
-                  <a-avatar slot="avatar" :src="'https://localhost:5001'+item.avtor" />
+                  <a-avatar slot="avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583210275615&di=ba5f3ab3eb5bea8f9cccc67d35c404fb&imgtype=0&src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201808%2F26%2F20180826155700_bgftl.thumb.400_0.jpg" />
                   <div slot="title">
-                    <a href="#">{{ item.titile }}</a>
+                    <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
                   <div slot="description">{{ item.time }}</div>
                 </a-list-item-meta>
@@ -71,11 +68,8 @@
           :md="24"
           :sm="24"
           :xs="24">
-          <a-card title="我的消息" style="margin-bottom: 24px" :bordered="false" :body-style="{ padding: 0 }">
+          <a-card title="留空白" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
             <div style="min-height: 400px;">
-              <a-list size="large" bordered :dataSource="message">
-                <a-list-item slot="renderItem" slot-scope="item">{{ item.message_Title }}</a-list-item>
-              </a-list>
             </div>
           </a-card>
         </a-col>
@@ -86,19 +80,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import { GetAuthorPersonalInfo, GetAllMessage } from '@/api/AuthorPersonalApi'
+import { GetChiefEditorManuscript, GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
-import { GetReviewManuscript, GetCompleteManuscrit } from '@/api/AuthorManuscriptApi'
-
-const datae = [
-  'Racing car sprays burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.',
-  'Man charged over missing wedding girl.',
-  'Los Angeles battles huge wildfires.'
-]
+import { GetEndManuscript } from '@/api/EditManuscript'
 
 export default {
   name: 'Workplace',
@@ -109,7 +95,6 @@ export default {
   },
   data () {
     return {
-      datae,
       manuscripts: [],
       complete: [],
       num: {
@@ -120,7 +105,7 @@ export default {
       dec: '',
       loading: false,
       radarLoading: true,
-      message: {}
+      completedata: {}
     }
   },
   computed: {
@@ -134,16 +119,11 @@ export default {
   },
   created () {
     this.user = this.userInfo
-    this.avatar = 'https://localhost:5001' + this.userInfo.avatar
-    GetReviewManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
-    GetCompleteManuscrit().then(res => { this.complete = res; console.log(res) }).catch()
-    GetAllMessage().then(res => { this.message = res.slice(0, 6); console.log(res) }).catch()
-    // GetManuscriptToDrafts().then(res => {
-    //   this.num.darftManuscript = res.darftManuscript.toString()
-    //   this.num.reviewsManusript = res.reviewsManusript.toString()
-    //   this.num.completeManuscript = res.completeManuscript.toString()
-    // }).catch()
-    GetAuthorPersonalInfo().then(res => { this.dec = res.author_Dec }).catch()
+    this.avatar = this.userInfo.avatar
+    GetEndManuscript().then(res => { this.completedata = res; console.log(res) }).catch()
+    GetChiefEditorManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
+    GetCompleteManuscript().then(res => { this.complete = res }).catch()
+    console.log(this.userInfo)
   }
 }
 </script>

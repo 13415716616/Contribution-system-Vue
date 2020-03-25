@@ -1,24 +1,26 @@
 <template>
   <div>
-    <div class="divmain">
-      <a-card style="margin-top: 24px" :bordered="false" >
-        <h1 >{{ data.manuscript_Title }}</h1>
-        <h4>{{ data.manuscript_Etitle }}</h4>
-        <div class="content">
-          <h3><b>关键词： </b>{{ data.manuscript_Keyword }}<br><br></h3>
-          <h3><b>英文关键词： </b>{{ data.manuscript_EKeyword }}<br><br></h3>
-          <h3> <b>摘要:  </b>{{ data.manuscript_Abstract }}<br><br></h3>
-          <h3> <b>英文摘要:  </b>{{ data.manuscript_EAbstract }}<br><br></h3>
-          <div v-html="this.content" style="font-size:16px">></div><br>
-          <br><br>
-          <h3> <b>稿件引用:  </b>{{ data.manuscript_Reference }}<br><br></h3>
-        </div>
-      </a-card>
-    </div><br>
-    <div style=" text-align:center">
-      <a-button class="btn" type="primary" @click="Returnselect">保存稿件</a-button>
-      <a-button class="btn" type="primary" @click="CompleteMansucript">投递稿件</a-button>
-    </div>
+    <a-spin :spinning="spinning">
+      <div class="divmain">
+        <a-card style="margin-top: 24px" :bordered="false" >
+          <h1 >{{ data.manuscript_Title }}</h1>
+          <h4>{{ data.manuscript_Etitle }}</h4>
+          <div class="content">
+            <h3><b>关键词： </b>{{ data.manuscript_Keyword }}<br><br></h3>
+            <h3><b>英文关键词： </b>{{ data.manuscript_EKeyword }}<br><br></h3>
+            <h3> <b>摘要:  </b>{{ data.manuscript_Abstract }}<br><br></h3>
+            <h3> <b>英文摘要:  </b>{{ data.manuscript_EAbstract }}<br><br></h3>
+            <div v-html="this.content" style="font-size:16px">></div><br>
+            <br><br>
+            <h3> <b>稿件引用:  </b>{{ data.manuscript_Reference }}<br><br></h3>
+          </div>
+        </a-card>
+      </div><br>
+      <div style=" text-align:center">
+        <a-button class="btn" type="primary" @click="Returnselect">保存稿件</a-button>
+        <a-button class="btn" type="primary" @click="CompleteMansucript">投递稿件</a-button>
+      </div>
+    </a-spin>
   </div>
 </template>
 <script>
@@ -38,12 +40,13 @@ export default {
     return {
       data: [],
       content: ' ',
-      author: []
+      author: [],
+      spinning: true
     }
   },
   created () {
     console.log('123123213123+++++' + this.$route.params.id)
-    GetManuscript(this.$store.getters.manuscriptID).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content }).catch()
+    GetManuscript(this.$store.getters.manuscriptID).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content; this.spinning = false }).catch()
     GetManuscriptAuthor(this.$store.getters.manuscriptID).then(res => { console.log(res); this.author = res }).catch()
   },
   methods: {
@@ -66,11 +69,10 @@ export default {
       }).catch()
     },
     Returnselect () {
-      this.$router.push({ name: 'ShowEditorInfo' })
+      this.$router.push({ name: 'Drafts' })
     },
     CompleteMansucript () {
-      CompleteManuscript(this.data).then().catch()
-      this.$emit('nextStep')
+      CompleteManuscript(this.data).then(this.$emit('nextStep')).catch()
     }
   }
 

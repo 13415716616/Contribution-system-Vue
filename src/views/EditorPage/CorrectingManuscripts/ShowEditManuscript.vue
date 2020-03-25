@@ -12,14 +12,14 @@
       </div>
       <div>
         <a-button class="btn" type="primary" @click="Returnselect">返回选择</a-button>
-        <a-button class="btn" type="primary" @click="CommentMansucript">退回稿件</a-button>
-        <a-button type="primary" @click="showConfirm">通过稿件</a-button>
+        <!-- <a-button class="btn" type="primary" @click="CommentMansucript">退回稿件</a-button> -->
+        <a-button type="primary" @click="CommentMansucript">审查稿件</a-button>
       </div>
     </a-card>
   </div>
 </template>
 <script>
-import { GetManuscript, CompleteFirstContribution } from '@/api/EditManuscript'
+import { GetManuscript } from '@/api/EditManuscript'
 
 export default {
   data () {
@@ -40,23 +40,23 @@ export default {
     CommentMansucript () {
       var mid = this.$route.params.id
       console.log('id:' + mid)
-      this.$router.push({ name: 'CommentManuscript', params: { id: mid } })
-    },
-    showConfirm () {
-      this.$confirm({
-        title: '你确定通过该稿件吗?',
-        content: h => <div style="color:red;">初审通过将移交专家复审</div>,
-        onOk: () => {
-          console.log('OK')
-          CompleteFirstContribution(this.data).then().catch()
-          this.$message.success('稿件初审通过')
-        },
-        onCancel () {
-          console.log('Cancel')
-        },
-        class: 'test'
-      })
+      this.$router.push({ name: 'ReviewFirstManuscript', params: { id: mid } })
     }
+    // showConfirm () {
+    //   this.$confirm({
+    //     title: '你确定通过该稿件吗?',
+    //     content: h => <div style="color:red;">初审通过将移交专家复审</div>,
+    //     onOk: () => {
+    //       console.log('OK')
+    //       CompleteFirstContribution(this.data).then().catch()
+    //       this.$message.success('稿件初审通过')
+    //     },
+    //     onCancel () {
+    //       console.log('Cancel')
+    //     },
+    //     class: 'test'
+    //   })
+    // }
   }
 }
 </script>

@@ -53,7 +53,7 @@
           <a-upload
             name="file"
             :multiple="true"
-            action="https://localhost:5001/api/Personal/UpdateEditorImg"
+            action="https://localhost:5001/api/EditorPersonal/UpdateEditorImg"
             :headers="headers"
             @change="setavatar"
           >
@@ -70,8 +70,9 @@
 
 <script>
 // import AvatarModal from './AvatarModal'
-import { GetEditorPersonalInfo, UpdateEditorInfo } from '@/api/AuthorPersonalApi'
+import { UpdateEditorInfo } from '@/api/AuthorPersonalApi'
 import Vue from 'vue'
+import { GetEditorPersonalInfo } from '@/api/EditorPersonalApi'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 export default {

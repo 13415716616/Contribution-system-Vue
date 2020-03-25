@@ -24,34 +24,24 @@
         </a-row>
         <a-steps :current="tab" :direction="isMobile() && directionType.vertical || directionType.horizontal" progressDot>
           <a-step >
-            <span style="font-size: 14px" slot="title">稿件投递</span>
-            <template slot="description">
-              <div style="fontSize: 12px; color: rgba(0, 0, 0, 0.45); position: relative; left: 42px;text-align: left;" slot="description" >
-                <div style="margin: 8px 0 4px">
-                  曲丽丽
-                  <a-icon style="margin-left: 8px" type="dingding-o" />
-                </div>
-                <div>2016-12-12 12:32</div>
-              </div>
-            </template>
-          </a-step>
-          <a-step title="编辑初审">
             <span style="font-size: 14px" slot="title">编辑初审</span>
             <template slot="description">
               <div style="fontSize: 12px; color: rgba(0, 0, 0, 0.45); position: relative; left: 42px;text-align: left;" slot="description" >
                 <div style="margin: 8px 0 4px">
-                  周毛毛
-                  <a-icon style="margin-left: 8px; color: #00A0E9" type="dingding-o" />
+                  <a-icon style="margin-left: 8px" type="dingding-o" />
                 </div>
-                <div><a href="">催一下</a></div>
+                <div></div>
               </div>
             </template>
           </a-step>
           <a-step title="专家评审">
             <span style="font-size: 14px" slot="title">专家评审</span>
           </a-step>
-          <a-step title="编辑复审" >
+          <a-step title="编辑复审">
             <span style="font-size: 14px" slot="title">编辑复审</span>
+          </a-step>
+          <a-step title="主编综审" >
+            <span style="font-size: 14px" slot="title">主编综审</span>
           </a-step>
         </a-steps>
       </div>
@@ -66,8 +56,7 @@ import { GetManuscript } from '@/api/AuthorManuscriptApi'
 
 const directionType = {
   horizontal: 'horizontal',
-  vertical: 'vertical',
-  tab: 1
+  vertical: 'vertical'
 }
 
 export default {
@@ -77,19 +66,20 @@ export default {
   },
   mixins: [mixinDevice],
   created () {
-    GetManuscript(this.$route.params.id).then(res => { console.log(res); this.info = res }).catch()
+    GetManuscript(this.$route.params.id).then(res => { console.log(res); this.info = res; this.gettable() }).catch()
   },
   data () {
     return {
       directionType,
-      info: {}
+      info: {},
+      tab: 0
     }
   },
   methods: {
     gettable () {
-      if (this.info.manuscript_Status === '等待编辑审核') { this.tab = 2 }
-      if (this.info.manuscript_Status === '等待专家审核') { this.tab = 3 }
-      if (this.info.manuscript_Status === '等待主编审核') { this.tab = 4 }
+      if (this.info.manuscript_Status === '等待编辑审查') { this.tab = 0 }
+      if (this.info.manuscript_Status === '等待专家审查') { this.tab = 1 }
+      if (this.info.manuscript_Status === '等待主编审查') { this.tab = 2 }
     }
   }
 }

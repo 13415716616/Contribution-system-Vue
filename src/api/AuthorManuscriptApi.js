@@ -86,3 +86,10 @@ export function GetReviewManuscript (id) {
     method: 'get'
   })
 }
+
+export function GetCompleteManuscrit (id) {
+  return axios({
+    url: 'AuthorManuscript/GetCompleteManuscrit',
+    method: 'get'
+  })
+}

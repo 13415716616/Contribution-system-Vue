@@ -74,10 +74,11 @@ export function GetSecondEdiotrManuscript () {
   })
 }
 
-export function CompleteSecondEdiotrManuscript (id) {
+export function CompleteSecondEdiotrManuscript (parmer) {
   return axios({
-    url: 'EditorManscript/CompleteSecondEdiotrManuscript?id=' + id,
-    method: 'get'
+    url: 'EditorManscript/CompleteSecondEdiotrManuscript',
+    data: parmer,
+    method: 'post'
   })
 }
 

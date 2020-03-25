@@ -1,6 +1,30 @@
 <template>
   <div>
-    <a-card>
+    <a-card title="已投稿件">
+      <div class="table-page-search-wrapper">
+        <a-form layout="inline">
+          <a-row :gutter="48">
+            <a-col :md="8" :sm="24">
+              <a-form-item label="稿件标题">
+                <a-input v-model="queryParam.id" placeholder=""/>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="24">
+              <a-form-item label="稿件状态">
+                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
+                  <a-select-option value="0">全部</a-select-option>
+                  <a-select-option value="1">关闭</a-select-option>
+                  <a-select-option value="2">运行中</a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="24">
+              <a-button >查询</a-button>
+            </a-col>
+          </a-row>
+        </a-form>
+        <a-divider />
+      </div>
       <a-table :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscript_ID">
         <span slot="action" slot-scope="text, record">
           <a @click="ShowComment(record.manuscript_ID)">查看进度</a>
@@ -52,7 +76,8 @@ export default {
   data () {
     return {
       columns,
-      data: []
+      data: [],
+      queryParam: {}
     }
   },
   methods: {

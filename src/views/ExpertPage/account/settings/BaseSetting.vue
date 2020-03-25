@@ -5,18 +5,18 @@
 
         <a-form layout="vertical">
           <a-form-item label="姓名" >
-            <a-input placeholder="请输入你的姓名" v-model="editor.Expert_Name" />
+            <a-input placeholder="请输入你的姓名" v-model="editor.expert_Name" />
           </a-form-item>
 
           <a-form-item label="性别">
-            <a-select style="width: 120px" v-model="editor.Expert_Sex">
+            <a-select style="width: 120px" v-model="editor.expert_Sex">
               <a-select-option value="男">男</a-select-option>
               <a-select-option value="女">女</a-select-option>
             </a-select>
           </a-form-item>
 
           <a-form-item label="学历">
-            <a-select style="width: 120px" v-model="editor.Expert_Education">
+            <a-select style="width: 120px" v-model="editor.expert_Education">
               <a-select-option value="本科">本科</a-select-option>
               <a-select-option value="硕士">硕士</a-select-option>
               <a-select-option value="博士">博士</a-select-option>
@@ -24,30 +24,30 @@
           </a-form-item>
 
           <a-form-item label="职业" :required="false" >
-            <a-input placeholder="exp@admin.com" v-model="editor.Expert_Occupation"/>
+            <a-input placeholder="exp@admin.com" v-model="editor.expert_Occupation"/>
           </a-form-item>
 
           <a-form-item label="电子邮件" :required="false" >
-            <a-input placeholder="exp@admin.com" v-model="editor.Expert_Email"/>
+            <a-input placeholder="exp@admin.com" v-model="editor.expert_Email"/>
           </a-form-item>
           <a-form-item
             label="电话号码"
             :required="false"
           >
-            <a-input placeholder="请输入电话号码" v-model="editor.Expert_Phone"/>
+            <a-input placeholder="请输入电话号码" v-model="editor.expert_Phone"/>
           </a-form-item>
 
           <a-form-item
             label="居住地址"
             :required="false"
           >
-            <a-input placeholder="请输入居住地址" v-model="editor.Expert_Address"/>
+            <a-input placeholder="请输入居住地址" v-model="editor.expert_Address"/>
           </a-form-item>
 
           <a-form-item
             label="个人简介"
           >
-            <a-textarea rows="4" placeholder="请输入你的个人简介" v-model="editor.Expert_Dec"/>
+            <a-textarea rows="4" placeholder="请输入你的个人简介" v-model="editor.expert_Dec"/>
           </a-form-item>
 
           <a-form-item>
@@ -58,13 +58,13 @@
       </a-col>
       <a-col :md="24" :lg="8" :style="{ minHeight: '180px' }">
         <div class="ant-upload-preview">
-          <img :src="'https://localhost:5001'+ editor.editor_avtor"/>
+          <img :src="'https://localhost:5001'+ editor.expert_avtor"/>
         </div><br>
         <div style="position: relative;margin: 0 auto;width: 100%;max-width: 180px;text-align: center">
           <a-upload
             name="file"
             :multiple="true"
-            action="https://localhost:5001/api/Personal/UpdateEditorImg"
+            action="https://localhost:5001/api/ExpertPersonal/UpdateExpertImg"
             :headers="headers"
             @change="setavatar"
           >
@@ -81,7 +81,7 @@
 
 <script>
 // import AvatarModal from './AvatarModal'
-import { UpdateEditorInfo } from '@/api/AuthorPersonalApi'
+import { UpdateExpertInfo } from '@/api/ExpertPersonalApi'
 import { GetExpertInfo } from '@/api/ExpertManuscript'
 import Vue from 'vue'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
@@ -125,7 +125,7 @@ export default {
     sub () {
       console.log(this.editor)
       this.$message.success('信息修改成功')
-      UpdateEditorInfo(this.editor).then().catch()
+      UpdateExpertInfo(this.editor).then().catch()
     }
   }
 }

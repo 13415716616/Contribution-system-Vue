@@ -80,6 +80,9 @@ const constantRouterComponents = {
 
   'MyReviewManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/MyReviewManuscript'),
 
+  'EditorSentMessage': () => import('@/views/EditorPage/MessageInfo/EditorSentMessage'),
+  'EditorShowMessage': () => import('@/views/EditorPage/MessageInfo/EditorShowMessage'),
+
   // 作者界面的路由组件
   'AuthorHomeInfoPage': () => import('@/views/AuthorPage/HomePage/HomeInfoPage'),
   'ContributePage': () => import('@/views/AuthorPage/SubmissionOnline/ContributePage'),
@@ -89,6 +92,8 @@ const constantRouterComponents = {
   'AuthorAccountCenter': () => import('@/views/AuthorPage/account/center/page/index'),
   'AuthorAccountSettings': () => import('@/views/AuthorPage/account/settings/Index'),
   'AuthorBaseSettings': () => import('@/views/AuthorPage/account/settings/BaseSetting'),
+  'SentMessage': () => import('@/views/AuthorPage/MessageInfo/SentMessage'),
+  'ShowMessage': () => import('@/views/AuthorPage/MessageInfo/ShowMessage'),
 
   // 专家界面
   'ExpertReviewManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ExpertReviewManuscript'),
@@ -99,6 +104,8 @@ const constantRouterComponents = {
   'ExpertAccountSettings': () => import('@/views/ExpertPage/account/settings/Index'),
   'ExpertBaseSettings': () => import('@/views/ExpertPage/account/settings/BaseSetting'),
   'ExpertWorkplace': () => import('@/views/ExpertPage/dashboard/ExpertWorkplace'),
+  'ExpertSentMessage': () => import('@/views/ExpertPage/MessageInfo/ExpertSentMessage'),
+  'ExpertShowMessage': () => import('@/views/ExpertPage/MessageInfo/ExpertShowMessage'),
 
   'ReviewSecondManuscript': () => import('@/views/EditorPage/SecondReview/ReviewSecondManuscript'),
   'GetEndManuscript': () => import('@/views/EditorPage/GetEndManuscript/GetEndManuscript'),
@@ -106,13 +113,17 @@ const constantRouterComponents = {
   'EditorAccountCenter': () => import('@/views/EditorPage/account/center/page/index'),
   'EditorAccountSettings': () => import('@/views/EditorPage/account/settings/Index'),
   'EditorBaseSettings': () => import('@/views/EditorPage/account/settings/BaseSetting'),
+  'EditorWorkplace': () => import('@/views/EditorPage/dashboard/EditorWorkplace'),
 
   // 主编界面
   'ChiefEditorWorkplace': () => import('@/views/ChiefEditorPage/dashboard/ChiefEditorWorkplace'),
   'ReviewsChiefManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/ReviewsChiefManuscript'),
   'ChiefEditorAccountCenter': () => import('@/views/ChiefEditorPage/account/center/page/index'),
-  'ChiefEditorAccountSettings': () => import('@/views/ChiefEditorPage/account/settings/Index'),
-  'ChiefEditorBaseSettings': () => import('@/views/ChiefEditorPage/account/settings/BaseSetting')
+  'ChiefEditorAcc ountSettings': () => import('@/views/ChiefEditorPage/account/settings/Index'),
+  'ChiefEditorBaseSettings': () => import('@/views/ChiefEditorPage/account/settings/BaseSetting'),
+  'ManuscriptLayout': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/ManuscriptLayout'),
+  'ChiefEditorSentMessage': () => import('@/views/ChiefEditorPage/MessageInfo/ChiefEditorSentMessage'),
+  'ChiefEditorShowMessage': () => import('@/views/ChiefEditorPage/MessageInfo/ChiefEditorShowMessage')
 }
 
 // 前端未找到页面路由（固定不用改）

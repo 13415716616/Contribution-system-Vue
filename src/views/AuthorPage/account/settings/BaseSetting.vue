@@ -5,18 +5,18 @@
 
         <a-form layout="vertical">
           <a-form-item label="姓名" >
-            <a-input placeholder="请输入你的姓名" v-model="editor.chiefEditor_Name" />
+            <a-input placeholder="请输入你的姓名" v-model="editor.author_Name" />
           </a-form-item>
 
           <a-form-item label="性别">
-            <a-select style="width: 120px" v-model="editor.chiefEditor_Sex">
+            <a-select style="width: 120px" v-model="editor.author_Sex">
               <a-select-option value="男">男</a-select-option>
               <a-select-option value="女">女</a-select-option>
             </a-select>
           </a-form-item>
 
           <a-form-item label="学历">
-            <a-select style="width: 120px" v-model="editor.chiefEditor_Education">
+            <a-select style="width: 120px" v-model="editor.author_Education">
               <a-select-option value="本科">本科</a-select-option>
               <a-select-option value="硕士">硕士</a-select-option>
               <a-select-option value="博士">博士</a-select-option>
@@ -24,19 +24,23 @@
           </a-form-item>
 
           <a-form-item label="电子邮件" :required="false" >
-            <a-input placeholder="exp@admin.com" v-model="editor.chiefEditor_Email"/>
+            <a-input placeholder="exp@admin.com" v-model="editor.author_Email"/>
           </a-form-item>
           <a-form-item
             label="电话号码"
             :required="false"
           >
-            <a-input placeholder="请输入电话号码" v-model="editor.chiefEditor_Phone"/>
+            <a-input placeholder="请输入电话号码" v-model="editor.author_Phone"/>
+          </a-form-item>
+
+          <a-form-item label="个人地址" :required="false" >
+            <a-input placeholder="exp@admin.com" v-model="editor.author_Address"/>
           </a-form-item>
 
           <a-form-item
             label="个人简介"
           >
-            <a-textarea rows="4" placeholder="请输入你的个人简介" v-model="editor.chiefEditor_Dec"/>
+            <a-textarea rows="4" placeholder="请输入你的个人简介" v-model="editor.author_Dec"/>
           </a-form-item>
 
           <a-form-item>
@@ -47,7 +51,7 @@
       </a-col>
       <a-col :md="24" :lg="8" :style="{ minHeight: '180px' }">
         <div class="ant-upload-preview">
-          <img :src="'https://localhost:5001'+ editor.chiefEditor_avtor"/>
+          <img :src="'https://localhost:5001'+ editor.author_Avtor"/>
         </div><br>
         <div style="position: relative;margin: 0 auto;width: 100%;max-width: 180px;text-align: center">
           <a-upload
@@ -70,9 +74,9 @@
 
 <script>
 // import AvatarModal from './AvatarModal'
-import { GetChiefEditorInfo, UpdateChiefEditorInfo } from '@/api/ChiefEditorManuscriptApi'
 import Vue from 'vue'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { GetAuthorInfo, UpdateAuthorInfo } from '@/api/AuthorPersonalApi'
 
 export default {
   // components: {
@@ -103,7 +107,7 @@ export default {
     }
   },
   created () {
-    GetChiefEditorInfo().then(res => { console.log(res); this.editor = res }).catch()
+    GetAuthorInfo().then(res => { console.log(res); this.editor = res }).catch()
     console.log('1121' + this.imageURL)
   },
   methods: {
@@ -113,7 +117,7 @@ export default {
     sub () {
       console.log(this.editor)
       this.$message.success('信息修改成功')
-      UpdateChiefEditorInfo(this.editor).then().catch()
+      UpdateAuthorInfo(this.editor).then().catch()
     }
   }
 }

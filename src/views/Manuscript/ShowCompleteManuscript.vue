@@ -1,19 +1,31 @@
 <template>
   <div>
-    <a-card>
-      <a-table :dataSource="data" :columns="columns" size="middle" :rowKey="row=>row.manuscriptReview_ID">
-        <span slot="action" slot-scope="text, record">
-          <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
-          <a-divider type="vertical" />
-          <a>稿件留言</a>
-        </span>
-      </a-table>
+    <a-card title="通过的稿件">
+      <div class="ant-pro-pages-list-projects-cardList">
+        <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }">
+          <a-list-item slot="renderItem" slot-scope="item">
+            <a-card class="ant-pro-pages-list-projects-card" hoverable>
+              <img slot="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585023224140&di=62d31047359812b04cb159d1db58f85d&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201709%2F09%2F20170909160512_LvdMf.thumb.700_0.jpeg" :alt="item.title" />
+              <a-card-meta :title="item.tiTle">
+                <template slot="description">
+                  <ellipsis :length="50">{{ item.keyWord }}</ellipsis>
+                </template>
+              </a-card-meta>
+              <div class="cardItemContent">
+                <span>{{ item.time | fromNow }}</span>
+              </div>
+            </a-card>
+          </a-list-item>
+        </a-list>
+      </div>
     </a-card>
   </div>
 </template>
 <script>
-import { GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
-
+import { GetAllCompleteInfo } from '@/api/ChiefEditorManuscriptApi'
+import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
+const TagSelectOption = TagSelect.Option
+const AvatarListItem = AvatarList.AvatarItem
 const columns = [
   {
     title: '论文标题',
@@ -38,6 +50,14 @@ const columns = [
 ]
 
 export default {
+  components: {
+    AvatarList,
+    AvatarListItem,
+    Ellipsis,
+    TagSelect,
+    TagSelectOption,
+    StandardFormRow
+  },
   data () {
     return {
       columns,
@@ -45,11 +65,18 @@ export default {
     }
   },
   created () {
-    GetCompleteManuscript().then(res => { this.data = res; console.log(res) }).catch()
+    GetAllCompleteInfo().then(res => { this.data = res; console.log(res) }).catch()
   },
   methods: {
     Show (mid) {
       this.$router.push({ name: 'ShowChiefManuscript', params: { id: mid } })
+    },
+    getList () {
+      this.$http.get('/list/article', { params: { count: 8 } }).then(res => {
+        console.log('res', res)
+        this.data = res.result
+        this.loading = false
+      })
     }
   }
 }
