@@ -5,7 +5,7 @@
         <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }">
           <a-list-item slot="renderItem" slot-scope="item">
             <a-card class="ant-pro-pages-list-projects-card" hoverable>
-              <img slot="cover" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585023224140&di=62d31047359812b04cb159d1db58f85d&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201709%2F09%2F20170909160512_LvdMf.thumb.700_0.jpeg" :alt="item.title" />
+              <img slot="cover" :src="'https://localhost:5001'+item.avtor" :alt="item.title" />
               <a-card-meta :title="item.tiTle">
                 <template slot="description">
                   <ellipsis :length="50">{{ item.keyWord }}</ellipsis>

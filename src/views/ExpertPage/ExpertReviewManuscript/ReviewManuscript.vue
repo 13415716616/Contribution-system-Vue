@@ -151,8 +151,19 @@ export default {
   },
   methods: {
     complete () {
-      console.log(this.review)
-      ReviewManuscript(this.review).then(this.$message.success('稿件审稿完成')).catch()
+      this.$confirm({
+        title: '你确定通过该稿件吗?',
+        content: h => <div style="color:red;">稿件将移交编辑复审</div>,
+        onOk: () => {
+          console.log(this.review)
+          ReviewManuscript(this.review).then(res => { this.$message.success('稿件审稿完成'); this.$router.push({ name: 'ShowExpertComplete' }) }).catch()
+          this.$router.push({ name: 'ManuscriptReview' })
+        },
+        onCancel () {
+          console.log('Cancel')
+        },
+        class: 'test'
+      })
     },
     ChangeSelectedTopic (e) {
       console.log(e.target.value)

@@ -5,7 +5,7 @@
         <span slot="action" slot-scope="text, record">
           <a @click="Show(record.manuscript_ID)">查看稿件</a>
           <a-divider type="vertical" />
-          <a @click="CommentMansucript(record.manuscript_ID)">稿件留言</a>
+          <a @click="CommentMansucript(record.manuscript_ID)">稿件复审</a>
         </span>
       </a-table>
     </a-card>

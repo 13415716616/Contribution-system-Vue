@@ -6,9 +6,6 @@
           <h3>稿件名称：{{ data.manuscript_Name }}</h3>
         </a-col>
         <a-col>
-          <h3>关键词：{{ data.manuscript_Keyword }}</h3>
-        </a-col>
-        <a-col>
           <h3>所属栏目：{{ data.manuscriptColumn_ID }}</h3>
         </a-col>
         <a-col>

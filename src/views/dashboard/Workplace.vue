@@ -13,7 +13,7 @@
           <head-info title="审核稿件" :content="manuscripts.length" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="8">
-          <head-info title="通过稿件" :center="false" />
+          <head-info title="通过稿件" :content="complete.length" :center="false" />
         </a-col>
       </a-row>
     </div>

@@ -13,7 +13,7 @@
             <a slot="title">{{ item.tiTle }}</a>
           </a-list-item-meta>
           <div slot="actions">
-            <a @click="add(item.manuscript_ID)">版面设计</a>
+            <a @click="add(item.manuscript_ID,item.avtor)">版面设计</a>
           </div>
           <div class="list-content">
             <div class="list-content-item">
@@ -37,11 +37,11 @@
     <a-modal :width="840" :visible="visible" title="任务添加" @ok="handleSubmit" @cancel="visible = false">
       <a-form @submit="handleSubmit" :form="form">
         <a-form-item
-          label="版面1图片"
+          label="版面图片"
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
         >
-          <img width="300px" height="300px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585023224140&di=3f9eaf229b7fd9857e5ef9dc1c570617&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farchive%2F97b84dcd5ef9704843186ea8d6dfecb807e97f3d.jpg">
+          <img width="300px" height="300px" :src="'https://localhost:5001'+image">
         </a-form-item>
         <div style="position: relative;margin: 0 auto;width: 100%;max-width: 180px;text-align: center">
           <a-upload
@@ -125,13 +125,15 @@ export default {
     GetAllCompleteInfo().then(res => { this.mdata = res; console.log(res) }).catch()
   },
   methods: {
-    add (mid) {
+    add (mid, info) {
       this.visible = true
       this.headers.ManuscriptID = mid
+      console.log(this.headers.ManuscriptID)
+      this.image = info
     },
     setavatar (mid) {
       console.log(mid)
-      // this.headers.ManuscriptID = mid
+      this.headers.ManuscriptID = mid
     }
   }
 }

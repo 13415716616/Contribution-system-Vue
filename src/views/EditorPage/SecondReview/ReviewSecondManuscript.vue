@@ -35,14 +35,8 @@
       </a-row>
     </a-card>
 
-    <a-card title="编辑意见">
-      <a-row>
-        <a-col :span="24">编辑初审意见：</a-col>
-        <a-col :span="24">编辑复审意见：</a-col>
-      </a-row>
-    </a-card>
     <br>
-    <a-card title="主编复审">
+    <a-card title="编辑复审">
       请输入复审意见：
       <a-textarea :rows="6" style="margin-top: 10px;" v-model="info.Editor_Opinion"></a-textarea>
       <div class="divmain">
@@ -78,7 +72,7 @@ export default {
     showConfirm () {
       this.$confirm({
         title: '你确定通过该稿件吗?',
-        content: h => <div style="color:red;">初审通过将移交专家复审</div>,
+        content: h => <div style="color:red;">复审通过将移交主编复审</div>,
         onOk: () => {
           this.info.Manuscript_ID = this.data.manuscript_ID
           console.log(this.info)

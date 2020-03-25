@@ -7,10 +7,10 @@
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="12">
-          <head-info title="待审核稿件" content="1" :center="false" :bordered="false"/>
+          <head-info title="待审核稿件" :content="manuscripts.length" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="12">
-          <head-info title="已采纳稿件" content="1" :center="false" :bordered="false"/>
+          <head-info title="已采纳稿件" :content="complete.length" :center="false" :bordered="false"/>
         </a-col>
       </a-row>
     </div>
@@ -35,7 +35,7 @@
                       <a>{{ item.manuscript_Title }}</a>
                     </div>
                     <div slot="description" class="card-description">
-                      &nbsp;&nbsp;&nbsp;{{ item.manuscript_Keyword }}
+                      &nbsp;&nbsp;&nbsp;{{ item.manuscript_Status }}
                     </div>
                   </a-card-meta>
                   <div class="project-item">
@@ -80,11 +80,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import { GetChiefEditorManuscript, GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
+import { GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
-import { GetEndManuscript } from '@/api/EditManuscript'
+import { GetEndManuscript, GetAllWaitManuscript } from '@/api/EditManuscript'
 
 export default {
   name: 'Workplace',
@@ -121,7 +121,7 @@ export default {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
     GetEndManuscript().then(res => { this.completedata = res; console.log(res) }).catch()
-    GetChiefEditorManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
+    GetAllWaitManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
     GetCompleteManuscript().then(res => { this.complete = res }).catch()
     console.log(this.userInfo)
   }
