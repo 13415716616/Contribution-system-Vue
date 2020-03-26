@@ -25,7 +25,7 @@
         </a-form>
         <a-divider />
       </div>
-      <a-table :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscript_ID">
+      <a-table :loading="load" :columns="columns" :dataSource="data" size="middle" :rowKey="row=>row.manuscript_ID">
         <span slot="action" slot-scope="text, record">
           <a @click="ShowComment(record.manuscript_ID)">查看进度</a>
         </span>
@@ -71,13 +71,14 @@ const columns = [
 
 export default {
   created () {
-    GetReviewManuscript().then(res => { console.log(res); this.data = res }).catch()
+    GetReviewManuscript().then(res => { console.log(res); this.data = res; this.load = false }).catch()
   },
   data () {
     return {
       columns,
       data: [],
-      queryParam: {}
+      queryParam: {},
+      load: true
     }
   },
   methods: {

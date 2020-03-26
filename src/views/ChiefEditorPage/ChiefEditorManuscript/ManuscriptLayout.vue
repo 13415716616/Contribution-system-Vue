@@ -13,7 +13,7 @@
             <a slot="title">{{ item.tiTle }}</a>
           </a-list-item-meta>
           <div slot="actions">
-            <a @click="add(item.manuscript_ID,item.avtor)">版面设计</a>
+            <a @click="add(item.id,item.avtor)">版面设计</a>
           </div>
           <div class="list-content">
             <div class="list-content-item">
@@ -49,7 +49,7 @@
             :multiple="true"
             action="https://localhost:5001/api/ChiefEditor/LayoutUpload"
             :headers="headers"
-            :beforeUpload="setavatar(111111)"
+            :beforeUpload="setavatar()"
           >
             <a-button> <a-icon type="upload" /> 上传稿件图片 </a-button>
           </a-upload></div><br>
@@ -72,28 +72,6 @@ import Vue from 'vue'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { GetAllCompleteInfo } from '@/api/ChiefEditorManuscriptApi'
 
-const data = []
-data.push({
-  title: 'Alipay',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-  description: '那是一种内在的东西， 他们到达不了，也无法触及的',
-  owner: '付晓晓',
-  startAt: '2018-07-26 22:44',
-  progress: {
-    value: 90
-  }
-})
-data.push({
-  title: 'Angular',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-  description: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
-  owner: '曲丽丽',
-  startAt: '2018-07-26 22:44',
-  progress: {
-    value: 54
-  }
-})
-
 export default {
   name: 'StandardList',
   components: {
@@ -102,7 +80,6 @@ export default {
   },
   data () {
     return {
-      data,
       image: '',
       mdata: [],
       status: 'all',
@@ -131,9 +108,9 @@ export default {
       console.log(this.headers.ManuscriptID)
       this.image = info
     },
-    setavatar (mid) {
-      console.log(mid)
-      this.headers.ManuscriptID = mid
+    setavatar () {
+      console.log(this.image)
+      // this.headers.ManuscriptID = this.image
     }
   }
 }

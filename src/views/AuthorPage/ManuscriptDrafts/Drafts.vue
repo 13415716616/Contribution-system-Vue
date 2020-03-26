@@ -42,7 +42,7 @@
             okText="是"
             cancelText="否"
           >
-            <a @click="CompleteDartfs(record.manuscript_ID)">提交</a>
+            <a>提交</a>
           </a-popconfirm>
         </span>
       </a-table>
@@ -97,7 +97,8 @@ export default {
       data: [],
       columns,
       loading: true,
-      queryParam: {}
+      queryParam: {},
+      description: '查看未投递的稿件'
     }
   },
   methods: {

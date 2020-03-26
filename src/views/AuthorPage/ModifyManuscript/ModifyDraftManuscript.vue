@@ -127,7 +127,7 @@ export default {
     this.editor.create()
   },
   created () {
-    GetManuscript(2).then(
+    GetManuscript(this.$route.params.id).then(
       result => {
         console.log(result)
         this.info = result

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card>
+    <a-card :title="初审稿件">
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48">
@@ -23,7 +23,7 @@
             </a-col>
           </a-row>
         </a-form>
-        <a-table :dataSource="data" :columns="columns" size="middle" :rowKey="row=>row.manuscript_ID">
+        <a-table :loading="load" :dataSource="data" :columns="columns" size="middle" :rowKey="row=>row.manuscript_ID">
           <span slot="action" slot-scope="text, record">
             <a @click="Show(record.manuscript_ID)">查看稿件</a>
             <a-divider type="vertical" />
@@ -77,13 +77,15 @@ const columns = [
 export default {
   data () {
     return {
+      description: '在这里进行稿件的初步审查',
       columns,
+      load: true,
       data: [],
       queryParam: {}
     }
   },
   created () {
-    GetAllWaitManuscript().then(res => { this.data = res; console.log(res) }).catch()
+    GetAllWaitManuscript().then(res => { this.data = res; console.log(res); this.load = false }).catch()
   },
   methods: {
     Show (mid) {

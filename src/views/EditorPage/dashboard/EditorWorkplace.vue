@@ -7,7 +7,7 @@
     <div slot="extra">
       <a-row class="more-info">
         <a-col :span="12">
-          <head-info title="待审核稿件" :content="manuscripts.length" :center="false" :bordered="false"/>
+          <head-info title="待审核稿件" :loading="true" :content="manuscripts.length" :center="false" :bordered="false"/>
         </a-col>
         <a-col :span="12">
           <head-info title="已采纳稿件" :content="complete.length" :center="false" :bordered="false"/>
@@ -42,8 +42,7 @@
                     <a href="/#/">{{ item.time }}</a>
                     <!-- <span class="datetime">9小时前</span> -->
                   </div>
-                </a-card>
-              </a-card-grid>
+                </a-card></a-card-grid>
             </div>
           </a-card>
 
@@ -51,7 +50,7 @@
             <a-list>
               <a-list-item :key="index" v-for="(item, index) in complete">
                 <a-list-item-meta>
-                  <a-avatar slot="avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583210275615&di=ba5f3ab3eb5bea8f9cccc67d35c404fb&imgtype=0&src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201808%2F26%2F20180826155700_bgftl.thumb.400_0.jpg" />
+                  <a-avatar slot="avatar" :src="'https://localhost:5001'+avtor" />
                   <div slot="title">
                     <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
@@ -60,7 +59,7 @@
               </a-list-item>
             </a-list>
           </a-card>
-        </a-col>
+          </a-spiun></a-spiun></a-col>
         <a-col
           style="padding: 0 12px"
           :xl="8"
@@ -122,7 +121,7 @@ export default {
     this.avatar = this.userInfo.avatar
     GetEndManuscript().then(res => { this.completedata = res; console.log(res) }).catch()
     GetAllWaitManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
-    GetCompleteManuscript().then(res => { this.complete = res }).catch()
+    GetCompleteManuscript().then(res => { this.complete = res; console.log(res) }).catch()
     console.log(this.userInfo)
   }
 }
