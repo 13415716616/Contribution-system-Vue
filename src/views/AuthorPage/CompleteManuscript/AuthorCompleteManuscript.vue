@@ -4,12 +4,12 @@
     <a-card
       style="margin-top: 24px"
       :bordered="false"
-      title="标准列表">
+      title="通过稿件">
 
       <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true}">
         <a-list-item :key="index" v-for="(item, index) in mdata">
           <a-list-item-meta :description="item.keyWord">
-            <a-avatar slot="avatar" size="large" shape="square" src="https://localhost:5001/File/Image/timg.jpg"/>
+            <a-avatar slot="avatar" size="large" shape="square" :src="'https://localhost:5001'+item.avtor"/>
             <a slot="title">{{ item.titile }}</a>
           </a-list-item-meta>
           <div slot="actions">
@@ -39,28 +39,6 @@ import Vue from 'vue'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { GetCompleteManuscrit } from '@/api/AuthorManuscriptApi'
 
-const data = []
-data.push({
-  title: 'Alipay',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-  description: '那是一种内在的东西， 他们到达不了，也无法触及的',
-  owner: '付晓晓',
-  startAt: '2018-07-26 22:44',
-  progress: {
-    value: 90
-  }
-})
-data.push({
-  title: 'Angular',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-  description: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
-  owner: '曲丽丽',
-  startAt: '2018-07-26 22:44',
-  progress: {
-    value: 54
-  }
-})
-
 export default {
   name: 'StandardList',
   components: {
@@ -69,7 +47,7 @@ export default {
   },
   data () {
     return {
-      data,
+      data: [],
       image: '',
       mdata: [],
       status: 'all',

@@ -138,11 +138,6 @@ export default {
     GetReviewManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
     GetCompleteManuscrit().then(res => { this.complete = res; console.log(res) }).catch()
     GetAllMessage().then(res => { this.message = res.slice(0, 6); console.log(res) }).catch()
-    // GetManuscriptToDrafts().then(res => {
-    //   this.num.darftManuscript = res.darftManuscript.toString()
-    //   this.num.reviewsManusript = res.reviewsManusript.toString()
-    //   this.num.completeManuscript = res.completeManuscript.toString()
-    // }).catch()
     GetAuthorPersonalInfo().then(res => { this.dec = res.author_Dec }).catch()
   }
 }

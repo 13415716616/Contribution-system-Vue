@@ -6,20 +6,19 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="稿件标题">
-                <a-input v-model="queryParam.id" placeholder=""/>
+                <a-input v-model="serach" placeholder=""/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="稿件状态">
-                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
+                <a-select v-model="state" placeholder="请选择" default-value="">
+                  <a-select-option value="">全部栏目</a-select-option>
+                  <a-select-option v-for="item in select" :key="item.manuscriptColumn_ID" :value="item.manuscriptColumn_Name">{{ item.manuscriptColumn_Name }}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-button >查询</a-button>
+              <a-button @click="search">查询</a-button>
             </a-col>
           </a-row>
         </a-form>
@@ -35,6 +34,7 @@
 </template>
 <script>
 import { GetAllWaitManuscript } from '@/api/EditManuscript'
+import { GetManuscriptColoum } from '@/api/AuthorManuscriptApi'
 
 const columns = [
   {
@@ -54,7 +54,7 @@ const columns = [
   },
   {
     title: '投稿用户',
-    dataIndex: 'author_ID',
+    dataIndex: 'author_Name',
     width: '12%'
   },
   {
@@ -81,22 +81,35 @@ export default {
       columns,
       load: true,
       data: [],
-      queryParam: {}
+      serach: '',
+      queryParam: {},
+      ori: [],
+      select: {},
+      state: ''
     }
   },
   created () {
-    GetAllWaitManuscript().then(res => { this.data = res; console.log(res); this.load = false }).catch()
+    GetAllWaitManuscript().then(res => { this.data = res; console.log(res); this.load = false; this.ori = res }).catch()
+    GetManuscriptColoum().then(result => { console.log(result); this.select = result }).catch()
   },
   methods: {
     Show (mid) {
       this.$router.push({ name: 'ShowEditManuscript', params: { id: mid } })
     },
-    // CommentMansucript (mid) {
-    //   console.log('id:' + mid)
-    //   this.$router.push({ name: 'CommentManuscript', params: { id: mid } })
-    // }
     Review (mid) {
       this.$router.push({ name: 'ReviewFirstManuscript', params: { id: mid } })
+    },
+    search () {
+      var str = this.serach
+      // var ste = this.state
+      console.log(this.ser)
+      this.data = []
+      this.ori.filter(item => {
+        if (item.manuscript_Title.includes(str) && item.manuscriptColumn.includes(this.state)) {
+          this.data.push(item)
+        }
+      })
+      console.log(this.data)
     }
   }
 

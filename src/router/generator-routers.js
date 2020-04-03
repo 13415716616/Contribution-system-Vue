@@ -89,11 +89,12 @@ const constantRouterComponents = {
   'ModifyDraftManuscript': () => import('@/views/AuthorPage/ModifyManuscript/ModifyDraftManuscript'),
   'ReviewFirstManuscript': () => import('@/views/EditorPage/CorrectingManuscripts/ReviewFirstManuscript'),
   'ShowProgress': () => import('@/views/AuthorPage/ManuscriptSubmitted/ShowProgress'),
-  'AuthorAccountCenter': () => import('@/views/AuthorPage/account/center/page/index'),
+  'AuthorAccountCenter': () => import('@/views/AuthorPage/account/center/Index'),
   'AuthorAccountSettings': () => import('@/views/AuthorPage/account/settings/Index'),
   'AuthorBaseSettings': () => import('@/views/AuthorPage/account/settings/BaseSetting'),
   'SentMessage': () => import('@/views/AuthorPage/MessageInfo/SentMessage'),
   'ShowMessage': () => import('@/views/AuthorPage/MessageInfo/ShowMessage'),
+  'ReadManuscript': () => import('@/views/AuthorPage/MessageInfo/ReadManuscript'),
 
   // 专家界面
   'ExpertReviewManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ExpertReviewManuscript'),
@@ -110,7 +111,7 @@ const constantRouterComponents = {
   'ReviewSecondManuscript': () => import('@/views/EditorPage/SecondReview/ReviewSecondManuscript'),
   'GetEndManuscript': () => import('@/views/EditorPage/GetEndManuscript/GetEndManuscript'),
 
-  'EditorAccountCenter': () => import('@/views/EditorPage/account/center/page/index'),
+  'EditorAccountCenter': () => import('@/views/EditorPage/account/center/Index'),
   'EditorAccountSettings': () => import('@/views/EditorPage/account/settings/Index'),
   'EditorBaseSettings': () => import('@/views/EditorPage/account/settings/BaseSetting'),
   'EditorWorkplace': () => import('@/views/EditorPage/dashboard/EditorWorkplace'),

@@ -6,20 +6,11 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="稿件标题">
-                <a-input v-model="queryParam.id" placeholder=""/>
+                <a-input :v-model="ser" placeholder=""/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-form-item label="稿件状态">
-                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-button >查询</a-button>
+              <a-button @click="search">查询</a-button>
             </a-col>
           </a-row>
         </a-form>
@@ -95,6 +86,7 @@ export default {
   data () {
     return {
       data: [],
+      ser: '',
       columns,
       loading: true,
       queryParam: {},
@@ -111,10 +103,18 @@ export default {
     },
     CompleteDartfs (id) {
       CompleteMansuscriptDrafts(id).then(GetManuscriptToDrafts().then(res => {
-        console.log(res)
         this.$message.success('稿件投递成功')
         this.data = this.data.filter(items => items.manuscript_ID !== id)
       }).catch()).catch()
+    },
+    search () {
+      console.log('123123')
+      var str = this.ser
+      return this.data.filter(item => {
+        if (item.manuscript_Title.includes(str)) {
+          return item
+        }
+      })
     }
   }
 }

@@ -5,26 +5,21 @@
         <a-card :bordered="false">
           <div class="account-center-avatarHolder">
             <div class="avatar">
-              <img :src="avatar()">
+              <img :src="'https://localhost:5001'+editor.editor_avtor">
             </div>
-            <div class="username">{{ nickname() }}</div>
-            <div class="bio">{{ data.author_Dec }}</div>
+            <div class="username">{{ editor.editor_Name }}</div>
+            <div class="bio">{{ editor.editor_Dec }}</div>
           </div>
           <div class="account-center-detail">
             <p>
-              <i class="title"></i>{{ data.author_Phone }}
+              <i class="title"></i>电话：{{ editor.editor_Phone }}
             </p>
             <p>
-              <i class="group"></i>{{ data.author_Email }}
-            </p>
-            <p>
-              <i class="address"></i>
-              {{ data.author_Address }}
+              <i class="group"></i>邮箱：{{ editor.editor_Email }}
             </p>
           </div><br>
-          <a-divider/>
 
-          <div class="account-center-tags">
+          <!-- <div class="account-center-tags">
             <div class="tagsTitle">标签</div>
             <div>
               <template v-for="(tag, index) in tags">
@@ -57,7 +52,7 @@
                 <a-icon type="plus"/>New Tag
               </a-tag>
             </div>
-          </div>
+          </div> -->
           <a-divider :dashed="true"/>
         </a-card>
       </a-col>
@@ -81,8 +76,8 @@
 <script>
 import { PageView, RouteView } from '@/layouts'
 import { AppPage, ArticlePage, ProjectPage } from './page'
-import { GetAuthorPersonalInfo, AddAuthorTags } from '@/api/Personal'
-import { GetAuthorManuscriptNum } from '@/api/AuthorPersonalApi'
+import { GetEditorPersonalInfo } from '@/api/EditorPersonalApi'
+import { GetEndManuscript } from '@/api/EditManuscript'
 
 import { mapGetters } from 'vuex'
 
@@ -100,9 +95,10 @@ export default {
 
       tagInputVisible: false,
       tagInputValue: '',
-      data: [],
+      enddata: [],
       teams: [],
       teamSpinning: true,
+      editor: {},
 
       tabListNoTitle: [
         {
@@ -121,8 +117,9 @@ export default {
     this.getTeams()
   },
   created () {
-    GetAuthorPersonalInfo().then(res => { this.data = res; console.log(res); this.tags = JSON.parse(res.author_tags) }).catch()
-    GetAuthorManuscriptNum().then(res => { console.log('Num:' + res) }).catch(console.log('error'))
+    console.log('12312')
+    GetEditorPersonalInfo().then(res => { console.log(res); this.editor = res }).catch()
+    GetEndManuscript().then(res => { this.enddata = res; console.log(res) }).catch()
   },
   methods: {
     ...mapGetters(['nickname', 'avatar']),
@@ -161,11 +158,11 @@ export default {
       if (tags != null) {
         if (inputValue && !tags.includes(inputValue)) {
           tags = [...tags, inputValue]
-          AddAuthorTags(inputValue).then().catch()
+          // AddAuthorTags(inputValue).then().catch()
         }
       } else {
         tags = [...tags, inputValue]
-        AddAuthorTags(inputValue).then().catch()
+        // AddAuthorTags(inputValue).then().catch()
       }
 
       Object.assign(this, {

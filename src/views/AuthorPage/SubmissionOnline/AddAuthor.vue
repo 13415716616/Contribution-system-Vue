@@ -4,6 +4,7 @@
       <div class="button1">
         <a-button @click="showmodal" >添加作者信息</a-button>
       </div>
+      <a-divider />
       <a-table :columns="columns" :dataSource="tabledata">
       </a-table>
       <a-modal :visible="visible" title="添加作者信息" @cancel="handleCancel" width="50%" @ok="submit">

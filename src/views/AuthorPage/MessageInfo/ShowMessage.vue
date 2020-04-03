@@ -1,23 +1,8 @@
 <template>
-  <a-card title="消息列表">
+  <a-card>
     <a-table :columns="columns" :dataSource="data">
-      <a slot="name" slot-scope="text">{{ text }}</a>
-      <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
-      <span slot="tags" slot-scope="tags">
-        <a-tag
-          v-for="tag in tags"
-          :color="tag==='loser' ? 'volcano' : (tag.length > 5 ? 'geekblue' : 'green')"
-          :key="tag"
-        >
-          {{ tag.toUpperCase() }}
-        </a-tag>
-      </span>
       <span slot="action" slot-scope="text, record">
-        <a>Invite 一 {{ record.name }}</a>
-        <a-divider type="vertical" />
-        <a>Delete</a>
-        <a-divider type="vertical" />
-        <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
+        <a @click="ShowMessage(record.message_ID)">查看信息</a>
       </span>
     </a-table>
   </a-card>
@@ -26,20 +11,31 @@
 import { GetAllMessage } from '@/api/AuthorPersonalApi'
 const columns = [
   {
-    title: '发送人',
-    dataIndex: 'message_Sender',
-    width: '20%'
+    title: '',
+    dataIndex: 'message_Type',
+    width: '10%'
   },
   {
-    title: '标题',
+    title: '',
+    dataIndex: 'message_Sender',
+    width: '10%'
+  },
+  {
+    title: '',
     dataIndex: 'message_Title',
     key: 'message_Title',
-    width: '45%'
+    width: '18%'
   },
   {
-    title: '消息时间',
+    title: '',
     dataIndex: 'message_Time',
-    width: '25%'
+    width: '16%'
+  },
+  {
+    title: '操作',
+    key: 'action',
+    scopedSlots: { customRender: 'action' },
+    width: '12%'
   }
 ]
 
@@ -52,6 +48,11 @@ export default {
   },
   created () {
     GetAllMessage().then(res => { console.log(res); this.data = res }).catch()
+  },
+  methods: {
+    ShowMessage (id) {
+      this.$router.push({ name: 'ReadManuscript', params: { id: id } })
+    }
   }
 }
 </script>

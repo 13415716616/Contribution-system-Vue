@@ -4,11 +4,15 @@
       <h1 >{{ data.manuscript_Title }}</h1>
       <h3>{{ data.manuscript_Etitle }}</h3>
       <div class="content">
-        <h3>关键词：{{ data.manuscript_Keyword }}</h3><br>
-        <h3>English Keywords：{{ data.manuscript_EKeyword }}</h3><br>
-        <h3>摘要:{{ data.manuscript_Abstract }}</h3><br>
-        <h3>English Abstract:{{ data.manuscript_EAbstract }}</h3><br>
+        <h4>关键词：{{ data.manuscript_Keyword }}</h4><br>
+        <h4>English Keywords：{{ data.manuscript_EKeyword }}</h4><br>
+        <h4>摘要：{{ data.manuscript_Abstract }}</h4><br>
+        <h4>English Abstract：{{ data.manuscript_EAbstract }}</h4><br>
         <div v-html="this.content" style="size=+3"></div><br>
+        <h4> <b>稿件引用:  </b>
+          <p v-for="i in refence" :key="i"> {{ i }}</p>
+          <br><br>
+        </h4>
       </div>
       <div>
         <a-button class="btn" type="primary" @click="Returnselect">返回选择</a-button>
@@ -26,12 +30,13 @@ export default {
     return {
       data: [],
       content: '',
-      ok: false
+      ok: false,
+      refence: []
     }
   },
   created () {
     console.log('123123213123+++++' + this.$route.params.id)
-    GetManuscript(this.$route.params.id).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content }).catch()
+    GetManuscript(this.$route.params.id).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content; this.match() }).catch()
   },
   methods: {
     Returnselect () {
@@ -41,6 +46,11 @@ export default {
       var mid = this.$route.params.id
       console.log('id:' + mid)
       this.$router.push({ name: 'ReviewFirstManuscript', params: { id: mid } })
+    },
+    match () {
+      var s = this.data.manuscript_Reference
+      console.log(s.split(/\[[0-9]\]/))
+      this.refence = s.split(/\[[1-9]\d?|100\]/)
     }
     // showConfirm () {
     //   this.$confirm({

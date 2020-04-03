@@ -4,7 +4,7 @@
       <div class="divmain">
         <a-card style="margin-top: 24px" :bordered="false" >
           <h1 >{{ data.manuscript_Title }}</h1>
-          <h4>{{ data.manuscript_Etitle }}</h4>
+          <h3>{{ data.manuscript_Etitle }}</h3>
           <div class="content">
             <h3><b>关键词： </b>{{ data.manuscript_Keyword }}<br><br></h3>
             <h3><b>英文关键词： </b>{{ data.manuscript_EKeyword }}<br><br></h3>
@@ -12,7 +12,10 @@
             <h3> <b>英文摘要:  </b>{{ data.manuscript_EAbstract }}<br><br></h3>
             <div v-html="this.content" style="font-size:16px">></div><br>
             <br><br>
-            <h3> <b>稿件引用:  </b>{{ data.manuscript_Reference }}<br><br></h3>
+            <h3> <b>稿件引用:  </b>
+              <p v-for="i in refence" :key="i"> {{ i }}</p>
+              <br><br>
+            </h3>
           </div>
         </a-card>
       </div><br>
@@ -41,12 +44,13 @@ export default {
       data: [],
       content: ' ',
       author: [],
-      spinning: true
+      spinning: true,
+      refence: []
     }
   },
   created () {
     console.log('123123213123+++++' + this.$route.params.id)
-    GetManuscript(this.$store.getters.manuscriptID).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content; this.spinning = false }).catch()
+    GetManuscript(21).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content; this.spinning = false; this.match() }).catch()
     GetManuscriptAuthor(this.$store.getters.manuscriptID).then(res => { console.log(res); this.author = res }).catch()
   },
   methods: {
@@ -72,7 +76,22 @@ export default {
       this.$router.push({ name: 'Drafts' })
     },
     CompleteMansucript () {
-      CompleteManuscript(this.data).then(this.$emit('nextStep')).catch()
+      this.$confirm({
+        title: '你确定通过该稿件吗?',
+        content: h => <div style="color:red;">初审通过将移交专家复审</div>,
+        onOk: () => {
+          CompleteManuscript(this.data).then(this.$emit('nextStep')).catch()
+        },
+        onCancel () {
+          console.log('Cancel')
+        },
+        class: 'test'
+      })
+    },
+    match () {
+      var s = this.data.manuscript_Reference
+      console.log(s.split(/\[[0-9]\]/))
+      this.refence = s.split(/\[[0-9]\]/)
     }
   }
 

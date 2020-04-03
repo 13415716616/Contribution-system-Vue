@@ -69,7 +69,19 @@ export default {
         if (!err) {
           values.Message_Content = this.editor.txt.html()
           // eslint-disable-next-line no-console
-          SentMessage(values).then().catch()
+          this.$confirm({
+            title: '你确定通过该稿件吗?',
+            content: h => <div style="color:red;">稿件将移交编辑复审</div>,
+            onOk: () => {
+              console.log(this.review)
+              SentMessage(values).then().catch()
+              // this.$router.push({ name: 'ManuscriptReview' })
+            },
+            onCancel () {
+              console.log('Cancel')
+            },
+            class: 'test'
+          })
         }
       })
     }

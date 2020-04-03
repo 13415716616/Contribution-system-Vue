@@ -5,7 +5,7 @@
         <a-card :bordered="false">
           <div class="account-center-avatarHolder">
             <div class="avatar">
-              <img :src="avatar()">
+              <img :src="'https://localhost:5001'+data.author_Avtor">
             </div>
             <div class="username">{{ nickname() }}</div>
             <div class="bio">{{ data.author_Dec }}</div>
@@ -24,7 +24,7 @@
           </div><br>
           <a-divider/>
 
-          <div class="account-center-tags">
+          <!-- <div class="account-center-tags">
             <div class="tagsTitle">标签</div>
             <div>
               <template v-for="(tag, index) in tags">
@@ -57,7 +57,7 @@
                 <a-icon type="plus"/>New Tag
               </a-tag>
             </div>
-          </div>
+          </div> -->
           <a-divider :dashed="true"/>
         </a-card>
       </a-col>
@@ -114,7 +114,7 @@ export default {
           tab: '通过稿件'
         }
       ],
-      noTitleKey: 'article'
+      noTitleKey: 'project'
     }
   },
   mounted () {

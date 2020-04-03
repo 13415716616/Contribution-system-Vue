@@ -2,7 +2,7 @@
   <page-view :avatar="'https://localhost:5001'+avatar" :title="false">
     <div slot="headerContent">
       <div class="title">{{ user.name }}<span class="welcome-text">，欢迎回来</span></div>
-      <div>{{ dec }}</div>
+      <div>{{ des.editor_Dec }}</div>
     </div>
     <div slot="extra">
       <a-row class="more-info">
@@ -27,7 +27,7 @@
             :body-style="{ padding: 0 }">
             <a slot="extra">全部项目</a>
             <div>
-              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in manuscripts">
+              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in manuscripts.slice(0, 6)">
                 <a-card :bordered="false" :body-style="{ padding: 0 }">
                   <a-card-meta>
                     <div slot="title" class="card-title" >
@@ -48,9 +48,9 @@
 
           <a-card :loading="loading" title="采用稿件" :bordered="false">
             <a-list>
-              <a-list-item :key="index" v-for="(item, index) in complete">
+              <a-list-item :key="index" v-for="(item, index) in complete.slice(0, 6)">
                 <a-list-item-meta>
-                  <a-avatar slot="avatar" :src="'https://localhost:5001'+avtor" />
+                  <a-avatar slot="avatar" :src="'https://localhost:5001'+item.avtor" />
                   <div slot="title">
                     <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
@@ -84,6 +84,7 @@ import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
 import { GetEndManuscript, GetAllWaitManuscript } from '@/api/EditManuscript'
+import { GetEditorPersonalInfo } from '@/api/EditorPersonalApi'
 
 export default {
   name: 'Workplace',
@@ -101,10 +102,10 @@ export default {
         reviewsManusript: '',
         completeManuscript: ''
       },
-      dec: '',
       loading: false,
       radarLoading: true,
-      completedata: {}
+      completedata: {},
+      des: {}
     }
   },
   computed: {
@@ -122,6 +123,7 @@ export default {
     GetEndManuscript().then(res => { this.completedata = res; console.log(res) }).catch()
     GetAllWaitManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
     GetCompleteManuscript().then(res => { this.complete = res; console.log(res) }).catch()
+    GetEditorPersonalInfo().then(res => { this.des = res; console.log(res) }).catch()
     console.log(this.userInfo)
   }
 }

@@ -6,20 +6,21 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="稿件标题">
-                <a-input v-model="queryParam.id" placeholder=""/>
+                <a-input v-model="ser" placeholder=""/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="稿件状态">
-                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
+                <a-select v-model="state" placeholder="请选择" default-value="0">
+                  <a-select-option value="">全部稿件</a-select-option>
+                  <a-select-option value="等待编辑审查">等待编辑审查</a-select-option>
+                  <a-select-option value="等待专家审查">等待专家审查</a-select-option>
+                  <a-select-option value="等待编辑复查">等待编辑复查</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-button >查询</a-button>
+              <a-button @click="search">查询</a-button>
             </a-col>
           </a-row>
         </a-form>
@@ -71,12 +72,16 @@ const columns = [
 
 export default {
   created () {
-    GetReviewManuscript().then(res => { console.log(res); this.data = res; this.load = false }).catch()
+    GetReviewManuscript().then(res => { this.data = res.sort((a, b) => a.manuscript_ID - b.manuscript_ID).reverse(); this.load = false; this.ori = this.data }).catch()
   },
   data () {
     return {
+      description: '查看正在审核的稿件',
       columns,
       data: [],
+      ori: [],
+      state: '',
+      ser: '',
       queryParam: {},
       load: true
     }
@@ -87,8 +92,19 @@ export default {
     },
     ShowComment (id) {
       this.$router.push({ name: 'ShowProgress', params: { id: id } })
+    },
+    search () {
+      var str = this.ser
+      var ste = this.state
+      console.log(this.ser)
+      this.data = []
+      this.ori.filter(item => {
+        if (item.manuscript_Title.includes(str) && item.manuscript_Status.includes(ste)) {
+          this.data.push(item)
+        }
+      })
+      console.log(this.data)
     }
-
   }
 }
 </script>

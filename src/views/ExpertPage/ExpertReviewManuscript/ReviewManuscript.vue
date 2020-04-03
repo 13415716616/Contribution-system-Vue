@@ -117,7 +117,7 @@
           </a-col>
           <a-col :span="24" style="text-align: center">
             <a-button type="primary" style="margin-right: 30px">返回选择</a-button>
-            <a-button type="primary" style="margin-right: 30px">暂存审核</a-button>
+            <!-- <a-button type="primary" style="margin-right: 30px">暂存审核</a-button> -->
             <a-button type="primary" @click="complete">提交审核</a-button>
           </a-col>
         </a-row>

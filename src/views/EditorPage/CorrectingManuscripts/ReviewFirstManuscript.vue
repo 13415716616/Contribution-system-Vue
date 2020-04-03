@@ -3,22 +3,22 @@
     <a-card title="稿件信息">
       <a-row>
         <a-col>
-          <h3>稿件名称：{{ data.manuscript_Name }}</h3>
+          <h4>稿件名称：{{ data.manuscript_Name }}</h4>
         </a-col>
         <a-col>
-          <h3>所属栏目：{{ data.manuscriptColumn_ID }}</h3>
+          <h4>所属栏目：{{ data.manuscriptColumn_ID }}</h4>
         </a-col>
         <a-col>
-          <h3>投稿用户：{{ data.author_ID }}</h3>
+          <h4>投稿用户：{{ data.author_ID }}</h4>
         </a-col>
         <a-col>
-          <h3>投稿时间：{{ data.time }}</h3>
+          <h4>投稿时间：{{ data.time }}</h4>
         </a-col>
         <a-col>
-          <h3>稿件操作：<a @click="ShowManuscript">在线阅读</a></h3>
+          <h4>稿件操作：<a @click="ShowManuscript">在线阅读</a></h4>
         </a-col>
         <a-col>
-          <h3>稿件附件：<a>下载</a></h3>
+          <h4>稿件附件：<a>下载</a></h4>
         </a-col>
       </a-row>
     </a-card>
