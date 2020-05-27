@@ -59,8 +59,8 @@ const columns = [
     width: '15%'
   },
   {
-    title: '当前状态',
-    dataIndex: 'manuscript_Status',
+    title: '所属栏目',
+    dataIndex: 'manuscriptColumn',
     width: '15%'
   },
   {
@@ -102,7 +102,7 @@ export default {
     search () {
       this.data = []
       this.ori.filter(item => {
-        if (item.manuscript_Title.includes(this.serch)) {
+        if (item.manuscript_Title.includes(this.serch) && item.manuscriptColumn.includes(this.state)) {
           this.data.push(item)
         }
       })

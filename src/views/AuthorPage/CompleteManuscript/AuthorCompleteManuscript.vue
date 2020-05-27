@@ -8,9 +8,9 @@
 
       <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true}">
         <a-list-item :key="index" v-for="(item, index) in mdata">
-          <a-list-item-meta :description="item.keyWord">
+          <a-list-item-meta :description="item.manuscript_Keyword">
             <a-avatar slot="avatar" size="large" shape="square" :src="'https://localhost:5001'+item.avtor"/>
-            <a slot="title">{{ item.titile }}</a>
+            <a slot="title">{{ item.manuscript_Title }}</a>
           </a-list-item-meta>
           <div slot="actions">
             <a @click="add(item.manuscript_ID)">查看稿件</a>
@@ -73,6 +73,7 @@ export default {
     add (mid) {
       this.visible = true
       this.headers.ManuscriptID = mid
+      this.$router.push({ name: 'ShowManscript', params: { id: mid } })
     },
     setavatar (mid) {
       console.log(mid)

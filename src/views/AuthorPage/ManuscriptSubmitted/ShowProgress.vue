@@ -2,12 +2,12 @@
   <a-card :bordered="false" style="margin: -24px -24px 0px;">
     <result type="success" :description="description" :title="info.manuscript_Status">
       <template slot="action">
-        <a-button type="primary">返回列表</a-button>
-        <a-button style="margin-left: 8px">查看项目</a-button>
-        <a-button style="margin-left: 8px">打印</a-button>
+        <a-button type="primary" @click="returntable">返回列表</a-button>
+        <a-button style="margin-left: 8px" @click="Read">查看项目</a-button>
       </template>
       <div>
-        <div style="font-size: 16px; color: rgba(0, 0, 0, 0.85); font-weight: 500; margin-bottom: 20px;">项目名称：{{ info.manuscript_Title }}</div>
+        <div style="font-size: 16px; color: rgba(0, 0, 0, 0.85); font-weight: 500; margin-bottom: 20px;">项目名称：{{ data.manuscript_Title }}</div>
+        <div style="font-size: 16px; color: rgba(0, 0, 0, 0.85); font-weight: 500; margin-bottom: 20px;">当前状态：{{ info.manuscript_State }}</div>
         <a-row style="margin-bottom: 16px">
           <a-col :xs="24" :sm="12" :md="12" :lg="12" :xl="6">
             <span style="color: rgba(0, 0, 0, 0.85)">稿件 ID：</span>
@@ -19,7 +19,7 @@
           </a-col>
           <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="12">
             <span style="color: rgba(0, 0, 0, 0.85)">投稿时间：</span>
-            {{ info.time }}
+            {{ info.manuscript_Time }}
           </a-col>
         </a-row>
         <a-steps :current="tab" :direction="isMobile() && directionType.vertical || directionType.horizontal" progressDot>
@@ -37,11 +37,8 @@
           <a-step title="专家评审">
             <span style="font-size: 14px" slot="title">专家评审</span>
           </a-step>
-          <a-step title="编辑复审">
-            <span style="font-size: 14px" slot="title">编辑复审</span>
-          </a-step>
           <a-step title="主编综审" >
-            <span style="font-size: 14px" slot="title">主编综审</span>
+            <span style="font-size: 14px" slot="title">主编终审</span>
           </a-step>
         </a-steps>
       </div>
@@ -52,7 +49,7 @@
 <script>
 import { Result } from '@/components'
 import { mixinDevice } from '@/utils/mixin.js'
-import { GetManuscript } from '@/api/AuthorManuscriptApi'
+import { GetManuscript, GetManuscriptStateID } from '@/api/AuthorManuscriptApi'
 
 const directionType = {
   horizontal: 'horizontal',
@@ -66,22 +63,29 @@ export default {
   },
   mixins: [mixinDevice],
   created () {
-    GetManuscript(this.$route.params.id).then(res => { console.log(res); this.info = res; this.gettable() }).catch()
+    GetManuscript(this.$route.params.id).then(res => { this.data = res }).catch()
+    GetManuscriptStateID(this.$route.params.id).then(res => { console.log(res); this.info = res; this.gettable() }).catch()
   },
   data () {
     return {
       directionType,
       info: {},
+      data: {},
       tab: 0
     }
   },
   methods: {
     gettable () {
-      if (this.info.manuscript_Status === '等待编辑审查') { this.tab = 0 }
-      if (this.info.manuscript_Status === '等待专家审查') { this.tab = 1 }
-      if (this.info.manuscript_Status === '等待主编审查') { this.tab = 2 }
-    }
-  }
+      if (this.info.manuscript_State === '等待编辑审查') { this.tab = 0 }
+      if (this.info.manuscript_State === '等待专家审查') { this.tab = 1 }
+      if (this.info.manuscript_State === '等待主编审查') { this.tab = 2 }
+    },
+    returntable () {
+      this.$router.push({ name: 'ManuscriptSubmitted' })
+    },
+    Read () {
+      this.$router.push({ name: 'ShowManscript', params: { id: this.$route.params.id } })
+    } }
 }
 </script>
 

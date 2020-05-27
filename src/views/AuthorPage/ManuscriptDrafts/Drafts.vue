@@ -1,16 +1,16 @@
 <template>
   <div id="components-table-demo-size">
-    <a-card title="编辑中稿件">
+    <a-card>
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="稿件标题">
-                <a-input :v-model="ser" placeholder=""/>
+                <a-input v-model="ser" placeholder=""/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-button @click="search">查询</a-button>
+              <a-button type="primary" @click="search"> 查询 </a-button>
             </a-col>
           </a-row>
         </a-form>
@@ -50,22 +50,17 @@ const columns = [
   },
   {
     title: '论文标题',
-    dataIndex: 'manuscript_Title',
-    width: '25%'
+    dataIndex: 'manuscript_Name',
+    width: '30%'
   },
   {
     title: '关键词',
-    dataIndex: 'manuscript_Keyword',
-    width: '18%'
+    dataIndex: 'manuscript_KeyWork',
+    width: '30%'
   },
   {
-    title: '当前状态',
-    dataIndex: 'manuscript_Status',
-    width: '15%'
-  },
-  {
-    title: '编辑时间',
-    dataIndex: 'time',
+    title: '投稿栏目',
+    dataIndex: 'manuscriptColumn_ID',
     width: '15%'
   },
   {
@@ -81,16 +76,17 @@ export default {
       console.log(res)
       this.data = res
       this.loading = false
+      this.ori = res
     }).catch()
   },
   data () {
     return {
       data: [],
+      ori: [],
       ser: '',
       columns,
       loading: true,
-      queryParam: {},
-      description: '查看未投递的稿件'
+      queryParam: {}
     }
   },
   methods: {
@@ -108,11 +104,12 @@ export default {
       }).catch()).catch()
     },
     search () {
-      console.log('123123')
+      console.log(this.ser)
       var str = this.ser
-      return this.data.filter(item => {
-        if (item.manuscript_Title.includes(str)) {
-          return item
+      this.data = []
+      this.ori.filter(item => {
+        if (item.manuscript_Name.includes(str)) {
+          this.data.push(item)
         }
       })
     }

@@ -22,23 +22,23 @@
     <a-card title="专家意见">
       <a-row>
         <a-col :span="8"><h4>审核编号：{{ rev.expertReview_ID }}</h4></a-col>
-        <a-col :span="8"><h4>专家编号:{{ rev.expert_ID }}</h4></a-col>
+        <a-col :span="8"><h4>专家编号：{{ rev.expert_ID }}</h4></a-col>
         <a-col :span="8"></a-col>
-        <a-col :span="8"><h4>选题:{{ rev.selectedTopic }}</h4></a-col>
-        <a-col :span="8"><h4>方法:{{ rev.methon }}</h4></a-col>
-        <a-col :span="8"><h4>内容:{{ rev.content }}</h4></a-col>
-        <a-col :span="8"><h4>数据:{{ rev.data }}</h4></a-col>
-        <a-col :span="8"><h4>其他:{{ rev.other }}</h4></a-col>
-        <a-col :span="8"><h4>学术评价:{{ rev.comment }}</h4></a-col>
-        <a-col :span="8"><h4>处理意见:{{ rev.suggest }}</h4></a-col>
+        <a-col :span="8"><h4>选题：{{ rev.selectedTopic }}</h4></a-col>
+        <a-col :span="8"><h4>方法：{{ rev.methon }}</h4></a-col>
+        <a-col :span="8"><h4>内容：{{ rev.content }}</h4></a-col>
+        <a-col :span="8"><h4>数据：{{ rev.data }}</h4></a-col>
+        <a-col :span="8"><h4>其他：{{ rev.other }}</h4></a-col>
+        <a-col :span="8"><h4>学术评价：{{ rev.comment }}</h4></a-col>
+        <a-col :span="8"><h4>处理意见：{{ rev.suggest }}</h4></a-col>
         <a-col :span="24"><h4>专家意见：{{ rev.opinion }}</h4></a-col>
       </a-row>
-    </a-card>
+    </a-card><br>
 
     <a-card title="编辑意见">
       <a-row>
-        <a-col :span="24">编辑初审意见：</a-col>
-        <a-col :span="24">编辑复审意见：</a-col>
+        <a-col :span="24"><h3>编辑初审意见：{{ editor.editor_Opinion }}</h3></a-col>
+        <a-col :span="24"><h4>审查时间：{{ editor.review_Time }}</h4></a-col>
       </a-row>
     </a-card>
     <br>
@@ -55,7 +55,7 @@
 </template>
 <script>
 import { ReviewFirstManuscript } from '@/api/EditManuscript'
-import { GetExpertReviewInfo, CompleteChiefManuscript } from '@/api/ChiefEditorManuscriptApi'
+import { GetExpertReviewInfo, CompleteChiefManuscript, GetEditorReviewInfo } from '@/api/ChiefEditorManuscriptApi'
 export default {
   data () {
     return {
@@ -67,6 +67,7 @@ export default {
   created () {
     ReviewFirstManuscript(this.$route.params.id).then(res => { console.log(res); this.data = res }).catch()
     GetExpertReviewInfo(this.$route.params.id).then(res => { console.log(res); this.rev = res }).catch()
+    GetEditorReviewInfo(this.$route.params.id).then(res => { this.editor = res; console.log(res) }).catch()
   },
   methods: {
     ShowManuscript () {
@@ -78,11 +79,11 @@ export default {
     showConfirm () {
       this.$confirm({
         title: '你确定通过该稿件吗?',
-        content: h => <div style="color:red;">初审通过将移交专家复审</div>,
         onOk: () => {
           this.info.Manuscript_ID = this.data.manuscript_ID
           console.log(this.info)
           CompleteChiefManuscript(this.info).then(this.$message.success('稿件初审通过')).catch()
+          this.$router.push({ name: 'ManuscriptLayout' })
         },
         onCancel () {
           console.log('Cancel')

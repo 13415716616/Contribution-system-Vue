@@ -3,19 +3,19 @@
     <a-card title="稿件信息">
       <a-row>
         <a-col>
-          <h3>稿件名称：{{ data.manuscript_Name }}</h3>
+          <h4>稿件名称：{{ data.manuscript_Name }}</h4>
         </a-col>
         <a-col>
-          <h3>所属栏目：{{ data.manuscriptColumn_ID }}</h3>
+          <h4>所属栏目：{{ data.manuscriptColumn_ID }}</h4>
         </a-col>
         <a-col>
-          <h3>投稿时间：{{ data.time }}</h3>
+          <h4>投稿时间：{{ data.time }}</h4>
         </a-col>
         <a-col>
-          <h3>稿件操作：<a @click="ShowManuscript">在线阅读</a></h3>
+          <h4>稿件操作：<a @click="ShowManuscript">在线阅读</a></h4>
         </a-col>
         <a-col>
-          <h3>稿件附件：<a>下载</a></h3>
+          <h4>稿件附件：<a>下载</a></h4>
         </a-col>
       </a-row><br>
     </a-card><br>
@@ -50,6 +50,7 @@
 <script>
 import { ReviewFirstManuscript, CompleteSecondEdiotrManuscript } from '@/api/EditManuscript'
 import { GetExpertReviewInfo } from '@/api/ChiefEditorManuscriptApi'
+import { ReturnComplete } from '@/api/ManuscriptReview'
 export default {
   data () {
     return {
@@ -77,6 +78,22 @@ export default {
           this.info.Manuscript_ID = this.data.manuscript_ID
           console.log(this.info)
           CompleteSecondEdiotrManuscript(this.info).then(this.$message.success('稿件复审通过')).catch()
+        },
+        onCancel () {
+          console.log('Cancel')
+        },
+        class: 'test'
+      })
+    },
+    ReturnManuscipr () {
+      this.$confirm({
+        title: '你确定退回该稿件吗?',
+        content: h => <div style="color:red;">稿件将被退回</div>,
+        onOk: () => {
+          this.info.Manuscript_ID = this.data.manuscript_ID
+          console.log(this.info)
+          ReturnComplete(this.info).then(this.$message.success('稿件已退回')).catch()
+          this.$router.push({ name: 'ManuscriptReview' })
         },
         onCancel () {
           console.log('Cancel')

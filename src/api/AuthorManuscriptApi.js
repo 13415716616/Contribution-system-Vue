@@ -48,6 +48,13 @@ export function GetManuscript (parameter) {
   })
 }
 
+export function GetManuscriptStateID (parameter) {
+  return axios({
+    url: 'AuthorManuscript/GetManuscriptStateID?id=' + parameter,
+    method: 'get'
+  })
+}
+
 // 获取所有的草稿箱稿件信息
 export function GetManuscriptToDrafts () {
   return axios({
@@ -67,7 +74,7 @@ export function DeleteMansuscriptDrafts (parameter) {
 // 更新草稿箱的稿件信息
 export function UpdateMansuscriptDrafts (parameter) {
   return axios({
-    url: 'AuthorManuscript/UpdateMansuscriptDrafts',
+    url: 'AuthorManuscript/UpadteManuscript',
     method: 'post',
     data: parameter
   })
@@ -90,6 +97,20 @@ export function GetReviewManuscript (id) {
 export function GetCompleteManuscrit (id) {
   return axios({
     url: 'AuthorManuscript/GetCompleteManuscrit',
+    method: 'get'
+  })
+}
+
+export function GetReturnManuscript () {
+  return axios({
+    url: 'AuthorManuscript/GetReturnManuscript',
+    method: 'get'
+  })
+}
+
+export function GetReviewReturn (id) {
+  return axios({
+    url: 'AuthorManuscript/GetReviewReturn?id=' + id,
     method: 'get'
   })
 }

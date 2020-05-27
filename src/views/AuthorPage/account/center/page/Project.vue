@@ -3,10 +3,10 @@
     <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xxl: 3, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }">
       <a-list-item slot="renderItem" slot-scope="item">
         <a-card class="ant-pro-pages-account-projects-card" hoverable>
-          <img slot="cover" :src="'https://localhost:5001'+item.avtor" style="height: 150px;overflow: hidden" :alt="item.title" />
-          <a-card-meta :title="item.titile">
+          <img slot="cover" :width="300" :src="'https://localhost:5001'+item.avtor" style="height: 150px;overflow: hidden" :alt="item.title" />
+          <a-card-meta :title="item.manuscript_Title">
             <template slot="description">
-              <ellipsis :length="50">{{ item.keyWord }}</ellipsis>
+              <ellipsis :length="50">{{ item.manuscript_Keyword }}</ellipsis>
             </template>
           </a-card-meta>
           <div class="cardItemContent">

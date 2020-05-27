@@ -6,7 +6,7 @@
         <div class="main" v-if="!$route.meta.hiddenHeaderContent">
           <div class="row">
             <img v-if="logo" :src="logo" class="logo"/>
-            <h1 v-if="title" class="title">{{ title }}</h1>
+            <h1 v-if="title" class="title"><strong>{{ title }}</strong></h1>
             <div class="action">
               <slot name="action"></slot>
             </div>
@@ -111,6 +111,7 @@ export default {
         color: rgba(0, 0, 0, 0.85);
         margin-bottom: 16px;
         flex: auto;
+
       }
       .logo {
         width: 28px;

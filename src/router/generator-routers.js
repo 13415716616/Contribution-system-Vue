@@ -95,13 +95,14 @@ const constantRouterComponents = {
   'SentMessage': () => import('@/views/AuthorPage/MessageInfo/SentMessage'),
   'ShowMessage': () => import('@/views/AuthorPage/MessageInfo/ShowMessage'),
   'ReadManuscript': () => import('@/views/AuthorPage/MessageInfo/ReadManuscript'),
+  'ReturnManuscript': () => import('@/views/AuthorPage/CompleteManuscript/ReturnManuscript'),
 
   // 专家界面
   'ExpertReviewManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ExpertReviewManuscript'),
   'ReviewManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ReviewManuscript'),
   'ShowExpertManuscript': () => import('@/views/ExpertPage/ExpertReviewManuscript/ShowExpertManuscript'),
   'ShowExpertComplete': () => import('@/views/ExpertPage/ShowComplete/ShowExpertComplete'),
-  'ExpertAccountCenter': () => import('@/views/ExpertPage/account/center/page/index'),
+  'ExpertAccountCenter': () => import('@/views/ExpertPage/account/center/Index'),
   'ExpertAccountSettings': () => import('@/views/ExpertPage/account/settings/Index'),
   'ExpertBaseSettings': () => import('@/views/ExpertPage/account/settings/BaseSetting'),
   'ExpertWorkplace': () => import('@/views/ExpertPage/dashboard/ExpertWorkplace'),
@@ -110,21 +111,35 @@ const constantRouterComponents = {
 
   'ReviewSecondManuscript': () => import('@/views/EditorPage/SecondReview/ReviewSecondManuscript'),
   'GetEndManuscript': () => import('@/views/EditorPage/GetEndManuscript/GetEndManuscript'),
-
+  'ReadComplete': () => import('@/views/ExpertPage/ShowComplete/ReadComplete'),
   'EditorAccountCenter': () => import('@/views/EditorPage/account/center/Index'),
   'EditorAccountSettings': () => import('@/views/EditorPage/account/settings/Index'),
   'EditorBaseSettings': () => import('@/views/EditorPage/account/settings/BaseSetting'),
   'EditorWorkplace': () => import('@/views/EditorPage/dashboard/EditorWorkplace'),
+  'ReturnAuthorManuscript': () => import('@/views/EditorPage/ReturnManuscript/ReturnManuscript'),
+  'GetCompleteManuscript': () => import('@/views/EditorPage/GetCompleteManuscript/GetCompleteManuscript'),
+  'ReadEditorMessage': () => import('@/views/EditorPage/MessageInfo/ReadEditorMessage'),
+  //  'ReturnManuscript': () => import('@/views/AuthorPage/CompleteManuscript/ReturnManuscript'),
 
   // 主编界面
   'ChiefEditorWorkplace': () => import('@/views/ChiefEditorPage/dashboard/ChiefEditorWorkplace'),
   'ReviewsChiefManuscript': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/ReviewsChiefManuscript'),
-  'ChiefEditorAccountCenter': () => import('@/views/ChiefEditorPage/account/center/page/index'),
-  'ChiefEditorAcc ountSettings': () => import('@/views/ChiefEditorPage/account/settings/Index'),
+  'ChiefEditorAccountCenter': () => import('@/views/ChiefEditorPage/account/center/Index'),
+  'ChiefEditorAccountSettings': () => import('@/views/ChiefEditorPage/account/settings/Index'),
   'ChiefEditorBaseSettings': () => import('@/views/ChiefEditorPage/account/settings/BaseSetting'),
   'ManuscriptLayout': () => import('@/views/ChiefEditorPage/ChiefEditorManuscript/ManuscriptLayout'),
   'ChiefEditorSentMessage': () => import('@/views/ChiefEditorPage/MessageInfo/ChiefEditorSentMessage'),
-  'ChiefEditorShowMessage': () => import('@/views/ChiefEditorPage/MessageInfo/ChiefEditorShowMessage')
+  'ChiefEditorShowMessage': () => import('@/views/ChiefEditorPage/MessageInfo/ChiefEditorShowMessage'),
+
+  // 管理员页面
+  'ManageAuthor': () => import('@/views/AdminPage/User/ManageAuthor'),
+  'ManageEditor': () => import('@/views/AdminPage/User/ManageEditor'),
+  'ManageExpert': () => import('@/views/AdminPage/User/ManageExpert'),
+  'ExpertFiled': () => import('@/views/AdminPage/Other/ExpertFiled'),
+  'ColomAdmin': () => import('@/views/AdminPage/Other/ColomAdmin'),
+  'ManuscriptAdmin': () => import('@/views/AdminPage/ManuscriptAdmin'),
+  'AdminEditManuscript': () => import('@/views/AdminPage/AdminEditManuscript'),
+  'ChiefEditorAdmin': () => import('@/views/AdminPage/User/ChiefEditorAdmin')
 }
 
 // 前端未找到页面路由（固定不用改）

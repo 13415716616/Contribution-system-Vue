@@ -103,7 +103,7 @@ export default {
       tabListNoTitle: [
         {
           key: 'article',
-          tab: '已投稿件'
+          tab: '已审核稿件'
         },
         {
           key: 'project',

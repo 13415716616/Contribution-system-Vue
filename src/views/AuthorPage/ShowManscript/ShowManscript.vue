@@ -1,23 +1,23 @@
 <template>
   <div class="divmain">
     <a-card style="margin-top: 24px" :bordered="false" >
-      <h1 >{{ data.manuscriptReview_Title }}</h1>
-      <h4>{{ data.manuscriptReview_Etitle }}</h4>
+      <h1 >{{ data.manuscript_Title }}</h1>
+      <h4>{{ data.manuscript_Etitle }}</h4>
       <div class="content">
-        <h3><b>关键词： </b>{{ data.manuscriptReview_Keyword }}<br><br></h3>
-        <h3> <b>摘要:  </b>{{ data.manuscriptReview_Abstract }}<br><br></h3>
+        <h3><b>关键词： </b>{{ data.manuscript_Keyword }}<br><br></h3>
+        <h3> <b>摘要:  </b>{{ data.manuscript_Abstract }}<br><br></h3>
         <div v-html="this.content" style="font-size:15px">></div><br>
       </div>
       <a-card type="inner" title="稿件下载" class="content">
         <detail-list size="small">
-          <detail-list-item term="主要稿件下载：">下载</detail-list-item>
-          <detail-list-item term="次要稿件下载：">下载</detail-list-item>
+          <detail-list-item term="主要稿件下载："><a>下载</a></detail-list-item>
+          <detail-list-item term="次要稿件下载："><a>下载</a></detail-list-item>
         </detail-list>
       </a-card><br>
-      <div>
+      <!-- <div>
         <a-button class="btn" type="primary" @click="Returnselect">返回选择</a-button>
         <a-button class="btn" type="primary" @click="CommentMansucript">查看评论</a-button>
-      </div>
+      </div> -->
     </a-card>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
   },
   created () {
     console.log('123123213123+++++' + this.$route.params.id)
-    GetShowManuscriptReviews(this.$route.params.id).then(res => { console.log(res); this.data = res; this.content = res.manuscriptReview_Text }).catch()
+    GetShowManuscriptReviews(this.$route.params.id).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content }).catch()
   },
   methods: {
     GetMainfile (id) {

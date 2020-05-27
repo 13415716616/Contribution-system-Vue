@@ -35,7 +35,7 @@
                       <a>{{ item.manuscript_Title }}</a>
                     </div>
                     <div slot="description" class="card-description">
-                      &nbsp;&nbsp;&nbsp;{{ item.manuscript_Status }}
+                      &nbsp;&nbsp;&nbsp;{{ item.manuscript_Title }}
                     </div>
                   </a-card-meta>
                   <div class="project-item">
@@ -59,7 +59,7 @@
               </a-list-item>
             </a-list>
           </a-card>
-          </a-spiun></a-spiun></a-col>
+        </a-col>
         <a-col
           style="padding: 0 12px"
           :xl="8"
@@ -67,8 +67,11 @@
           :md="24"
           :sm="24"
           :xs="24">
-          <a-card title="留空白" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
+          <a-card title="我的消息" style="margin-bottom: 24px" :bordered="false" :body-style="{ padding: 0 }">
             <div style="min-height: 400px;">
+              <a-list size="large" bordered :dataSource="message">
+                <a-list-item slot="renderItem" slot-scope="item">{{ item.message_Title }}</a-list-item>
+              </a-list>
             </div>
           </a-card>
         </a-col>
@@ -79,12 +82,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import { GetCompleteManuscript } from '@/api/ChiefEditorManuscriptApi'
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
-import { GetEndManuscript, GetAllWaitManuscript } from '@/api/EditManuscript'
+import { GetEndManuscript, GetAllWaitManuscript, GetCompleteManuscrit } from '@/api/EditManuscript'
 import { GetEditorPersonalInfo } from '@/api/EditorPersonalApi'
+import { GetAllMessage } from '@/api/AuthorPersonalApi'
 
 export default {
   name: 'Workplace',
@@ -120,10 +123,11 @@ export default {
   created () {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-    GetEndManuscript().then(res => { this.completedata = res; console.log(res) }).catch()
-    GetAllWaitManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
-    GetCompleteManuscript().then(res => { this.complete = res; console.log(res) }).catch()
+    GetEndManuscript().then(res => { this.completedata = res }).catch()
+    GetAllWaitManuscript().then(res => { this.manuscripts = res }).catch()
+    GetCompleteManuscrit().then(res => { this.complete = res; console.log(res) }).catch()
     GetEditorPersonalInfo().then(res => { this.des = res; console.log(res) }).catch()
+    GetAllMessage().then(res => { this.message = res.slice(0, 6); console.log(res) }).catch()
     console.log(this.userInfo)
   }
 }

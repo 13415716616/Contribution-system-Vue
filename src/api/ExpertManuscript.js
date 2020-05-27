@@ -14,6 +14,13 @@ export function GetReviewManuscriptID (id) {
   })
 }
 
+export function GetManuscriptID (id) {
+  return axios({
+    url: 'ExpertManuscript/GetManuscriptID?id=' + id,
+    method: 'get'
+  })
+}
+
 export function ReviewManuscript (parmer) {
   return axios({
     url: 'ExpertManuscript/ReviewManuscript',

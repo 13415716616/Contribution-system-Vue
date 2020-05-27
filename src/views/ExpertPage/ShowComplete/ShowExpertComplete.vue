@@ -6,27 +6,26 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="稿件标题">
-                <a-input v-model="queryParam.id" placeholder=""/>
+                <a-input v-model="serch" placeholder=""/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-form-item label="稿件状态">
-                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
+              <a-form-item label="稿件栏目">
+                <a-select v-model="state" placeholder="请选择" default-value="">
+                  <a-select-option value="">全部栏目</a-select-option>
+                  <a-select-option v-for="item in select" :key="item.manuscriptColumn_ID" :value="item.manuscriptColumn_Name">{{ item.manuscriptColumn_Name }}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-button >查询</a-button>
+              <a-button @click="search">查询</a-button>
             </a-col>
           </a-row>
         </a-form>
       </div>
       <a-table :dataSource="data" :columns="columns" size="middle" :rowKey="row=>row.manuscriptReview_ID">
         <span slot="action" slot-scope="text, record">
-          <a @click="Show(record.manuscriptReview_ID)">查看稿件</a>
+          <a @click="Show(record.manuscript_ID)">查看稿件</a>
         </span>
       </a-table>
     </a-card>
@@ -34,6 +33,7 @@
 </template>
 <script>
 import { ShowCompleteManuscript } from '@/api/ExpertManuscript'
+import { GetManuscriptColoum } from '@/api/AuthorManuscriptApi'
 
 const columns = [
   {
@@ -44,17 +44,17 @@ const columns = [
   {
     title: '论文标题',
     dataIndex: 'manuscript_Title',
-    width: '25%'
+    width: '23%'
   },
   {
     title: '关键词',
     dataIndex: 'manuscript_Keyword',
-    width: '18%'
+    width: '30%'
   },
   {
-    title: '投稿用户',
-    dataIndex: 'author_ID',
-    width: '15%'
+    title: '所属栏目',
+    dataIndex: 'manuscriptColumn',
+    width: '10%'
   },
   {
     title: '审核时间',
@@ -73,15 +73,29 @@ export default {
     return {
       columns,
       data: [],
-      queryParam: {}
+      queryParam: {},
+      select: {},
+      ori: {},
+      state: '',
+      serch: ''
     }
   },
   created () {
-    ShowCompleteManuscript().then(res => { this.data = res; console.log(res) }).catch()
+    ShowCompleteManuscript().then(res => { this.data = res; console.log(res); this.ori = res }).catch()
+    GetManuscriptColoum().then(result => { console.log(result); this.select = result }).catch()
   },
   methods: {
     Show (mid) {
-      this.$router.push({ name: 'ShowChiefManuscript', params: { id: mid } })
+      this.$router.push({ name: 'ShowExpertManuscript', params: { id: mid } })
+    },
+    search () {
+      this.data = []
+      this.ori.filter(item => {
+        if (item.manuscript_Title.includes(this.serch) && item.manuscriptColumn.includes(this.state)) {
+          this.data.push(item)
+        }
+      })
+      console.log(this.data)
     }
   }
 }

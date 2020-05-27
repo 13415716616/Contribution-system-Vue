@@ -46,7 +46,7 @@ const columns = [
   },
   {
     title: '投稿用户',
-    dataIndex: 'author_ID',
+    dataIndex: 'author_Name',
     width: '15%'
   },
   {

@@ -4,7 +4,7 @@
     rowKey="id"
     :loading="loading"
     itemLayout="vertical"
-    :dataSource="data"
+    :dataSource="data.slice(0, 6)"
   >
     <a-list-item :key="item.manuscript_Title" slot="renderItem" slot-scope="item">
       <!--      <template slot="actions">-->

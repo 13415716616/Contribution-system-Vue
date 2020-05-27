@@ -4,11 +4,11 @@
       <div class="ant-pro-pages-list-projects-cardList">
         <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }">
           <a-list-item slot="renderItem" slot-scope="item">
-            <a-card class="ant-pro-pages-list-projects-card" hoverable>
-              <img slot="cover" :src="'https://localhost:5001'+item.avtor" :alt="item.title" />
-              <a-card-meta :title="item.tiTle">
+            <a-card class="ant-pro-pages-list-projects-card" hoverable style="width:300px">
+              <img slot="cover" :src="'https://localhost:5001'+item.avtor" :height="300" :alt="item.manuscript_Title" />
+              <a-card-meta :title="item.manuscript_Title">
                 <template slot="description">
-                  <ellipsis :length="50">{{ item.keyWord }}</ellipsis>
+                  <ellipsis :length="50">{{ item.manuscript_Keyword }}</ellipsis>
                 </template>
               </a-card-meta>
               <div class="cardItemContent">

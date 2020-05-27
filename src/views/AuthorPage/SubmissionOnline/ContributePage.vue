@@ -36,8 +36,7 @@ export default {
   },
   data () {
     return {
-      currentTab: 4,
-      description: '在这里进行稿件的在线投递'
+      currentTab: 0
     }
   },
   created () {

@@ -50,3 +50,10 @@ export function GetAllCompleteInfo () {
     method: 'get'
   })
 }
+
+export function GetEditorReviewInfo (id) {
+  return axios({
+    url: 'ChiefEditor/GetEditorReviewInfo?id=' + id,
+    method: 'get'
+  })
+}

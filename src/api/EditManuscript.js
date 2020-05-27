@@ -102,3 +102,11 @@ export function ReviewFirstManuscript (id) {
     method: 'get'
   })
 }
+
+// 获取已通过审查的稿件
+export function GetCompleteManuscrit () {
+  return axios({
+    url: 'EditorManscript/GetCompleteManuscrit',
+    method: 'get'
+  })
+}

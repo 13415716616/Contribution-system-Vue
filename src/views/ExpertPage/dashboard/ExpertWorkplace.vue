@@ -51,7 +51,7 @@
             <a-list>
               <a-list-item :key="index" v-for="(item, index) in complete.slice(0, 6)" >
                 <a-list-item-meta>
-                  <a-avatar slot="avatar" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584763258451&di=bb18e851063cfcbdf72da59ba9116830&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201705%2F13%2F20170513103720_34k2y.jpeg" />
+                  <a-avatar slot="avatar" :src="'https://localhost:5001'+item.avtor" />
                   <div slot="title">
                     <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
@@ -68,8 +68,11 @@
           :md="24"
           :sm="24"
           :xs="24">
-          <a-card title="留空白" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
+          <a-card title="我的消息" style="margin-bottom: 24px" :bordered="false" :body-style="{ padding: 0 }">
             <div style="min-height: 400px;">
+              <a-list size="large" bordered :dataSource="message">
+                <a-list-item slot="renderItem" slot-scope="item">{{ item.message_Title }}</a-list-item>
+              </a-list>
             </div>
           </a-card>
         </a-col>
@@ -84,6 +87,7 @@ import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
 import { GetReviewManuscript, ShowCompleteManuscript } from '@/api/ExpertManuscript'
+import { GetAllMessage } from '@/api/AuthorPersonalApi'
 
 export default {
   name: 'Workplace',
@@ -104,7 +108,8 @@ export default {
       dec: '',
       loading: false,
       radarLoading: true,
-      completedata: {}
+      completedata: {},
+      message: {}
     }
   },
   computed: {
@@ -122,6 +127,7 @@ export default {
     this.avatar = this.userInfo.avatar
     ShowCompleteManuscript().then(res => { this.complete = res; this.num.darftManuscript = res.leng; console.log(res) }).catch()
     GetReviewManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
+    GetAllMessage().then(res => { this.message = res.slice(0, 6); console.log(res) }).catch()
   }
 }
 </script>

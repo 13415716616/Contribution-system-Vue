@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-card title="已投稿件">
+    <a-card>
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48">
@@ -15,7 +15,7 @@
                   <a-select-option value="">全部稿件</a-select-option>
                   <a-select-option value="等待编辑审查">等待编辑审查</a-select-option>
                   <a-select-option value="等待专家审查">等待专家审查</a-select-option>
-                  <a-select-option value="等待编辑复查">等待编辑复查</a-select-option>
+                  <a-select-option value="等待主编审查">等待主编审查</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
@@ -76,7 +76,6 @@ export default {
   },
   data () {
     return {
-      description: '查看正在审核的稿件',
       columns,
       data: [],
       ori: [],

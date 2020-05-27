@@ -88,6 +88,22 @@ export function SentMessage (parmer) {
   })
 }
 
+export function SentEditorMessage (parmer) {
+  return axios({
+    url: 'EditorPersonal/SentMessage',
+    method: 'post',
+    data: parmer
+  })
+}
+
+export function SentChiefEditorMessage (parmer) {
+  return axios({
+    url: 'ChiefEditorPersonal/SentMessage',
+    method: 'post',
+    data: parmer
+  })
+}
+
 export function GetAllMessage () {
   return axios({
     url: 'AuthorPersonal/GetAllMessage',

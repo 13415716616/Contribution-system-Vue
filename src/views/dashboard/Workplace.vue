@@ -56,7 +56,7 @@
                 <a-list-item-meta>
                   <a-avatar slot="avatar" :src="'https://localhost:5001'+item.avtor" />
                   <div slot="title">
-                    <a href="#">{{ item.titile }}</a>
+                    <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
                   <div slot="description">{{ item.time }}</div>
                 </a-list-item-meta>

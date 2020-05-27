@@ -6,16 +6,16 @@
           <h3>稿件名称：{{ info.manuscript_Title }}</h3>
         </a-col>
         <a-col>
-          <h3>所属栏目：{{ info.manuscriptColumn_ID }}</h3>
+          <h3>所属栏目：{{ info.manuscriptColumn }}</h3>
         </a-col>
         <a-col>
           <h3>投稿用户：{{ info.author_ID }}</h3>
         </a-col>
         <a-col>
-          <h3>投稿时间：{{ info.time }}</h3>
+          <h3>投稿时间：{{ info.review_Time }}</h3>
         </a-col>
         <a-col>
-          <h3>稿件操作：<a >在线阅读</a></h3>
+          <h3>稿件操作：<a @click="Show">在线阅读</a></h3>
         </a-col>
         <a-col>
           <h3>稿件附件：<a>下载</a></h3>
@@ -164,6 +164,9 @@ export default {
         },
         class: 'test'
       })
+    },
+    Show () {
+      this.$router.push({ name: 'ShowExpertManuscript', params: { id: this.$route.params.id } })
     },
     ChangeSelectedTopic (e) {
       console.log(e.target.value)

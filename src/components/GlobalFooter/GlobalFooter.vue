@@ -15,7 +15,7 @@
       <a href="https://vue.ant.design/">Vue Antd</a>
     </div> -->
     <div class="copyright">
-      <a-icon type="copyright" /> <span>订单管理系统开发版</span>
+      <a-icon type="copyright" /> <span>在线投稿和稿件处理系统</span>
     </div>
   </div>
 </template>

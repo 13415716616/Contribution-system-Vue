@@ -49,8 +49,8 @@ export default {
     }
   },
   created () {
-    console.log('123123213123+++++' + this.$route.params.id)
-    GetManuscript(21).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content; this.spinning = false; this.match() }).catch()
+    console.log('123123213123+++++' + this.$store.getters.manuscriptID)
+    GetManuscript(this.$store.getters.manuscriptID).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content; this.spinning = false; this.match() }).catch()
     GetManuscriptAuthor(this.$store.getters.manuscriptID).then(res => { console.log(res); this.author = res }).catch()
   },
   methods: {
@@ -78,7 +78,7 @@ export default {
     CompleteMansucript () {
       this.$confirm({
         title: '你确定通过该稿件吗?',
-        content: h => <div style="color:red;">初审通过将移交专家复审</div>,
+        content: h => <div style="color:red;">提交后不可更改</div>,
         onOk: () => {
           CompleteManuscript(this.data).then(this.$emit('nextStep')).catch()
         },

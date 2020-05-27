@@ -1,43 +1,46 @@
 <template>
   <a-card :body-style="{padding: '24px 32px'}" :bordered="false">
-    <a-form @submit="handleSubmit" :form="form">
+    <a-card title="发送消息">
+      <a-form @submit="handleSubmit" :form="form">
 
-      <a-form-item label="发送人" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }" >
-        <span>({{ name }}){{ id }}</span>
-      </a-form-item>
-      <a-form-item label="发送人" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }" >
-        <a-input v-decorator="[ 'Message_Recipient', {rules: [{ required: true, message: '请输入收件人' }]} ]" name="name" placeholder="请输入收件人" />
-      </a-form-item>
+        <a-form-item label="发送人" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }" >
+          <span>({{ name }}){{ id }}</span>
+        </a-form-item>
+        <a-divider />
+        <a-form-item label="发送人" :label-col="{ span: 2 }" :wrapper-col="{ span: 15 }" >
+          <a-input v-decorator="[ 'Message_Recipient', {rules: [{ required: true, message: '请输入收件人' }]} ]" name="name" placeholder="请输入收件人" />
+        </a-form-item>
 
-      <a-form-item
-        label="标题"
-        :label-col="{ span: 2 }"
-        :wrapper-col="{ span: 15 }">
-        <a-input
-          placeholder="请输入标题"
-          v-decorator="[
-            'Message_Title',
-            {rules: [{ required: true, message: '请描述你服务的客户' }]}
-          ]" />
-      </a-form-item>
-      <a-form-item label="正文" :label-col="{ span: 1 }">
-        <div id="editor" class="Feditor">
-        </div>
-      </a-form-item>
-      <a-form-item
-        :wrapperCol="{ span: 24 }"
-        style="text-align: center"
-      >
-        <a-button htmlType="submit" type="primary">提交</a-button>
-        <a-button style="margin-left: 8px">保存</a-button>
-      </a-form-item>
-    </a-form>
+        <a-form-item
+          label="标题"
+          :label-col="{ span: 2 }"
+          :wrapper-col="{ span: 15 }">
+          <a-input
+            placeholder="请输入标题"
+            v-decorator="[
+              'Message_Title',
+              {rules: [{ required: true, message: '请输入标题' }]}
+            ]" />
+        </a-form-item>
+        <a-divider />
+        <a-form-item label="正文" :label-col="{ span: 1 }">
+          <div id="editor" class="Feditor">
+          </div>
+        </a-form-item>
+        <a-form-item
+          :wrapperCol="{ span: 24 }"
+          style="text-align: center"
+        >
+          <a-button htmlType="submit" type="primary">提交</a-button>
+          <a-button style="margin-left: 8px">保存</a-button>
+        </a-form-item>
+      </a-form></a-card>
   </a-card>
 </template>
 
 <script>
 import Editor from 'wangeditor'
-import { SentMessage } from '@/api/AuthorPersonalApi'
+import { SentChiefEditorMessage } from '@/api/AuthorPersonalApi'
 
 export default {
   name: 'BaseForm',
@@ -68,7 +71,28 @@ export default {
         if (!err) {
           values.Message_Content = this.editor.txt.html()
           // eslint-disable-next-line no-console
-          SentMessage(values).then().catch()
+          this.$confirm({
+            title: '你确定发送该邮件吗?',
+            onOk: () => {
+              console.log(this.review)
+              SentChiefEditorMessage(values).then(res => {
+                this.$notification.open({
+                  message: '消息提示',
+                  description:
+                  '邮件发送成功.',
+                  onClick: () => {
+                    console.log('确认')
+                  }
+                })
+                location.reload()
+              }).catch()
+              this.$router.push({ name: 'SentMessage' })
+            },
+            onCancel () {
+              console.log('Cancel')
+            },
+            class: 'test'
+          })
         }
       })
     }

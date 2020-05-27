@@ -53,9 +53,9 @@
                 <a-list-item-meta>
                   <a-avatar slot="avatar" :src="'https://localhost:5001'+item.avtor" />
                   <div slot="title">
-                    <a href="#">{{ item.tiTle }}</a>
+                    <a href="#">{{ item.manuscript_Title }}</a>
                   </div>
-                  <div slot="description">{{ item.time }}</div>
+                  <div slot="description">{{ item.manuscript_Keyword }}</div>
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
@@ -68,8 +68,11 @@
           :md="24"
           :sm="24"
           :xs="24">
-          <a-card title="留空白" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
+          <a-card title="我的消息" style="margin-bottom: 24px" :bordered="false" :body-style="{ padding: 0 }">
             <div style="min-height: 400px;">
+              <a-list size="large" bordered :dataSource="message">
+                <a-list-item slot="renderItem" slot-scope="item">{{ item.message_Title }}</a-list-item>
+              </a-list>
             </div>
           </a-card>
         </a-col>
@@ -84,6 +87,7 @@ import { GetChiefEditorManuscript, GetAllCompleteInfo } from '@/api/ChiefEditorM
 import { PageView } from '@/layouts'
 import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
+import { GetAllMessage } from '@/api/AuthorPersonalApi'
 
 export default {
   name: 'Workplace',
@@ -103,7 +107,8 @@ export default {
       },
       dec: '',
       loading: false,
-      radarLoading: true
+      radarLoading: true,
+      message: {}
     }
   },
   computed: {
@@ -120,6 +125,7 @@ export default {
     this.avatar = this.userInfo.avatar
     GetChiefEditorManuscript().then(res => { this.manuscripts = res; console.log(res) }).catch()
     GetAllCompleteInfo().then(res => { this.complete = res; console.log(res) }).catch()
+    GetAllMessage().then(res => { this.message = res.slice(0, 6); console.log(res) }).catch()
   }
 }
 </script>

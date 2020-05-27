@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import { GetReviewManuscriptID } from '@/api/ExpertManuscript'
+import { GetManuscriptID } from '@/api/ExpertManuscript'
 import DetailList from '@/components/tools/DetailList'
 const DetailListItem = DetailList.Item
 
@@ -42,7 +42,7 @@ export default {
   },
   created () {
     console.log('123123213123+++++' + this.$route.params.id)
-    GetReviewManuscriptID(this.$route.params.id).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content; this.match() }).catch()
+    GetManuscriptID(this.$route.params.id).then(res => { console.log(res); this.data = res; this.content = res.manuscript_Content; this.match() }).catch()
   },
   methods: {
     Returnselect () {

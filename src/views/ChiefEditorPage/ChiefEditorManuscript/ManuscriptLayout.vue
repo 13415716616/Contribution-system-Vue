@@ -8,17 +8,17 @@
 
       <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true}">
         <a-list-item :key="index" v-for="(item, index) in mdata">
-          <a-list-item-meta :description="item.keyWord">
+          <a-list-item-meta :description="item.manuscript_Keyword">
             <a-avatar slot="avatar" size="large" shape="square" :src="'https://localhost:5001'+item.avtor"/>
-            <a slot="title">{{ item.tiTle }}</a>
+            <a slot="title">{{ item.manuscript_Title }}</a>
           </a-list-item-meta>
           <div slot="actions">
-            <a @click="add(item.id,item.avtor)">版面设计</a>
+            <a @click="add(item.manuscript_ID,item.avtor)">版面设计</a>
           </div>
           <div class="list-content">
             <div class="list-content-item">
-              <span>Owner</span>
-              <p>{{ item.author_ID }}</p>
+              <span>投稿人</span>
+              <p>{{ item.author_Name }}</p>
             </div>
             <div class="list-content-item">
               <span>开始时间</span>
@@ -111,6 +111,9 @@ export default {
     setavatar () {
       console.log(this.image)
       // this.headers.ManuscriptID = this.image
+    },
+    handleSubmit () {
+      this.visible = false
     }
   }
 }

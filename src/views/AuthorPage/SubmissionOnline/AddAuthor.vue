@@ -34,19 +34,9 @@
               v-decorator="['ManuscriptAuthor_Education', { rules: [{ required: true, message: '请输入学历' }] }]"
             />
           </a-form-item>
-          <a-form-item label="专业方向" :label-col="{ span: 3 }" :wrapper-col="{ span: 8 }">
+          <a-form-item label="作者邮箱" :label-col="{ span: 3 }" :wrapper-col="{ span: 8 }">
             <a-input
-              v-decorator="['ManuscriptAuthor_Major', { rules: [{ required: true, message: '请输入专业方向' }] }]"
-            />
-          </a-form-item>
-          <a-form-item label="职业" :label-col="{ span: 3 }" :wrapper-col="{ span: 8 }">
-            <a-input
-              v-decorator="['ManuscriptAuthor_Occupation', { rules: [{ required: true, message: '请输入职业' }] }]"
-            />
-          </a-form-item>
-          <a-form-item label="工作单位" :label-col="{ span: 3 }" :wrapper-col="{ span: 8 }">
-            <a-input
-              v-decorator="['ManuscriptAuthor_Work', { rules: [{ required: true, message: '请输入工作单位' }] }]"
+              v-decorator="['ManuscriptAuthor_Email', { rules: [{ required: true, message: '请输入专业方向' }] }]"
             />
           </a-form-item>
           <a-form-item label="作者电话" :label-col="{ span: 3 }" :wrapper-col="{ span: 8 }">
@@ -57,12 +47,6 @@
           <a-form-item label="居住地址" :label-col="{ span: 3 }" :wrapper-col="{ span: 18 }">
             <a-input
               v-decorator="['ManuscriptAuthor_Address', { rules: [{ required: true, message: '请输入地址' }] }]"
-            />
-          </a-form-item>
-          <a-form-item label="作者简介" :label-col="{ span: 3 }" :wrapper-col="{ span: 18 }">
-            <a-textarea
-              :rows="5"
-              v-decorator="['ManuscriptAuthor_Dec', { rules: [{ required: true, message: '请输入地址' }] }]"
             />
           </a-form-item>
         </a-form>
@@ -93,12 +77,12 @@ const columns = [
     dataIndex: 'ManuscriptAuthor_Education'
   },
   {
-    title: '专业方向',
-    dataIndex: 'ManuscriptAuthor_Major'
+    title: '作者邮箱',
+    dataIndex: 'ManuscriptAuthor_Email'
   },
   {
-    title: '职业',
-    dataIndex: 'ManuscriptAuthor_Occupation'
+    title: '作者电话',
+    dataIndex: 'ManuscriptAuthor_Phone'
   }
 ]
 
